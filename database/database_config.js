@@ -30,3 +30,13 @@ const Post = dbConnection.define('post', {
 // #######################__Define Associations__##############################
 
 User.hasMany(Post);
+
+// #######################__Sync Database and Export__##############################
+
+dbConnection.sync();
+
+module.exports = {
+  connection: dbConnection,
+  User,
+  Post,
+};
