@@ -5,7 +5,7 @@ const postController = require('./api/posts/eventController');
 module.exports = function (app, express) {
 
   //initiatie express router
-  var router = express.Router();
+  const router = express.Router();
 
   //these are the api endpoints and routes
   router.route('/posts/:phase/')
@@ -25,9 +25,6 @@ module.exports = function (app, express) {
     .get(userController.getAUser)
     .put(userController.updateAUser)
     .delete(userController.deleteAUser);
-
-
-  app.use('/api', router);
 
   //need to add this to handle direct addressing of routes.
   //will serve index.html which has our js linked for routing.
