@@ -26,3 +26,7 @@ const Post = dbConnection.define('post', {
   flag: { type: Sequelize.INTEGER, allowNull: false },
   anon: { type: Sequelize.BOOLEAN, allowNull: false },
 });
+
+// #######################__Define Associations__##############################
+
+User.hasMany(Post);
