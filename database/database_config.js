@@ -8,3 +8,12 @@ const dbConnection = new Sequelize('app_data', '', '', {
   dialect: 'postgres',
   port: 5432,
 });
+
+// ########################__Define Models__###############################
+
+
+const User = dbConnection.define('user', {
+  id: { type: Sequelize.INTEGER, primaryKey: true, unique: true, autoIncrement: true },
+  name: { type: Sequelize.STRING, unique: true, validate: { notEmpty: true } },
+  avatar: { type: Sequelize.STRING },
+});
