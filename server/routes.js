@@ -1,6 +1,6 @@
 const path = require('path');
-const userController = require('./api/users/userController');
-const postController = require('./api/posts/eventController');
+const userController = require('./api/user/userController');
+const postController = require('./api/post/eventController');
 
 module.exports = function (app, express) {
 
