@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import {login} from '../auth';
 import './Login.css';
+// weird orange button, hidden for now
+// <div className="Login">
+//   <a className="Login-loginButton" onClick={() => login()}>Log In with Auth0</a>
+// </div>
+//// //// //// //// ////
 
 class Login extends Component {
   componentWillMount() {
@@ -14,9 +19,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="Login">
-        <a className="Login-loginButton" onClick={() => login()}>Log In with Auth0</a>
-      </div>
+      <div className="Login"></div>
     );
   }
 }
