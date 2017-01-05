@@ -62,7 +62,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
         method: 'post',
         data: {
           'name': that.props.profile.name,
-          'picture': that.props.profile.picture,
+          'avatar': that.props.profile.picture,
           'title': that.state.title,
           'message': that.state.message,
           'anon': that.state.anon,
