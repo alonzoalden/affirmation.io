@@ -3,7 +3,7 @@ const Models = require('../../../database/database_config');
 module.exports = {
   addAPost: (req, res) => {
     Models.Post.build({
-      phase: req.body.phase,
+      phase: req.params.phase,
       title: req.body.title,
       message: req.body.message,
       sentiment: 0,
