@@ -12,6 +12,8 @@ import { grey900, blue100, green100 } from 'material-ui/styles/colors';
 
 import { Step, Stepper, StepButton } from 'material-ui/Stepper';
 import ActionCompareArrows from 'material-ui/svg-icons/action/compare-arrows';
+import ActionDashboard from 'material-ui/svg-icons/action/dashboard';
+import ContentCreate from 'material-ui/svg-icons/content/create';
 import ImageColorLens from 'material-ui/svg-icons/image/color-lens';
 import ImageBrush from 'material-ui/svg-icons/image/brush';
 import ImageLooks from 'material-ui/svg-icons/image/looks';
@@ -62,10 +64,10 @@ class Site extends Component {
       return (
         <div style={padding}>
           <Link to="/createpost">
-            <FlatButton primary label="Add Affirmation" />
+            <FlatButton primary label="Add Affirmation" icon={<ContentCreate />} />
           </Link>
           <Link to="/dashboard">
-            <FlatButton primary label="DASHBOARD" />
+            <FlatButton primary label="DASHBOARD" icon={<ActionDashboard />} />
           </Link>
         </div>
     );
