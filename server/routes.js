@@ -1,6 +1,6 @@
 const path = require('path');
 const userController = require('./api/user/userController');
-const postController = require('./api/post/eventController');
+const postController = require('./api/post/postController');
 
 module.exports = function (app, express) {
 
@@ -22,9 +22,11 @@ module.exports = function (app, express) {
     .get(userController.getAllUsers);
 
   router.route('/users/:id')
-    .get(userController.getAUser)
+    .get(userController.addAUser)
     .put(userController.updateAUser)
     .delete(userController.deleteAUser);
+
+app.use('/api', router);
 
   //need to add this to handle direct addressing of routes.
   //will serve index.html which has our js linked for routing.
