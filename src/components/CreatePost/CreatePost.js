@@ -50,6 +50,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       return;
     } else {
       //api request here
+      that.setState({errors: {}});
       axios({
         method: 'post',
         data: {
@@ -108,7 +109,6 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
 
   renderSubmitButton() {
     return (
-      <Link to="/">
         <RaisedButton
           type="submit"
           label="Submit Affirmation"
@@ -117,7 +117,6 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
           icon={<AddCircleOutline />}
           disabled={this.state.submitting} //Edit this
         />
-      </Link>
     );
   }
 
@@ -151,12 +150,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
                     {this.renderToggle()}
                   </div><br />
                   <div style={center}>
-                    {/*{this.renderSubmitButton} />*/}
-                    <button
-                      type="submit"
-                      disabled={this.state.submitting}>
-                      Submit
-                    </button>
+                    {this.renderSubmitButton()}
                   </div>
                 </div>
               </form>
