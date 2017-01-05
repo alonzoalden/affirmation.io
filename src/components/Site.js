@@ -4,12 +4,11 @@ import { connectProfile, logout, login } from '../auth';
 import logo from '../logo.svg';
 import './Site.css';
 
-// FROM NAV ------- ------- \\
+// <Avatar src={logo} className="Site-logo" alt="logo" style={logoStyle}/> ----> Spinning React Logo - switch to Lotus??
 import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 import FlatButton from 'material-ui/FlatButton';
 import Avatar from 'material-ui/Avatar';
 import { grey900, blue100, green100 } from 'material-ui/styles/colors';
-
 import { Step, Stepper, StepButton } from 'material-ui/Stepper';
 import ActionCompareArrows from 'material-ui/svg-icons/action/compare-arrows';
 import ActionDashboard from 'material-ui/svg-icons/action/dashboard';
@@ -18,7 +17,7 @@ import ImageColorLens from 'material-ui/svg-icons/image/color-lens';
 import ImageBrush from 'material-ui/svg-icons/image/brush';
 import ImageLooks from 'material-ui/svg-icons/image/looks';
 import ImageBlurCircular from 'material-ui/svg-icons/image/blur-circular';
-// FROM NAV ------- ------- \\
+
 class Site extends Component {
   static propTypes = {
     ...connectProfile.PropTypes,
@@ -40,8 +39,7 @@ class Site extends Component {
       <div className="Site">
         <Toolbar style={barStyle}>
           <ToolbarGroup firstChild={true}>
-            <Avatar src={logo} className="Site-logo" alt="logo" style={logoStyle}/>
-            <ToolbarTitle text="Affirmation.io" style={paddedTitleStyle}/>
+            <h2 style={paddedTitleStyle}>Affirmation.io</h2>
           </ToolbarGroup>
           <ToolbarGroup>
             {this.renderLinks()}
@@ -57,12 +55,19 @@ class Site extends Component {
 
   renderLinks() {
     const {profile} = this.props;
-    const padding = {
-      padding: 5
+    const padded = {
+      padded: 5,
+      fontFamily: 'Nunito',
+      color: 'blue100',
+    };
+    const paddedRight = {
+      paddedRight: 5,
+      fontFamily: 'Nunito',
+      color: 'blue100',
     }
     if (profile) {
       return (
-        <div style={padding}>
+        <div>
           <Link to="/createpost">
             <FlatButton primary label="Add Affirmation" icon={<ContentCreate />} />
           </Link>
@@ -99,14 +104,15 @@ class Site extends Component {
   renderUserControls() {
     const {profile} = this.props;
     const paddedLeft = {
-      paddingLeft: 10
+      paddingLeft: 10,
+      backgroundColor: 'grey900'
     };
     const titleStyle = {
       color: blue100
     };
     if (profile) {
       return (
-        <ToolbarGroup lastChild={true}>
+        <ToolbarGroup lastChild={true} style={paddedLeft}>
           <Avatar src={profile.picture}/>
           <Link to="/profile/edit" style={paddedLeft}>
             <FlatButton style={titleStyle}>
