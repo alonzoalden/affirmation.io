@@ -11,6 +11,8 @@ const PROFILE_KEY = 'profile';
 const LOGIN_ROUTE = '/login';
 const ROOT_ROUTE = '/';
 
+const DASHBOARD_ROUTE = '/dashboard';
+
 if (!process.env.REACT_APP_AUTH0_CLIENT_ID || !process.env.REACT_APP_AUTH0_DOMAIN) {
   throw new Error('Please define `REACT_APP_AUTH0_CLIENT_ID` and `REACT_APP_AUTH0_DOMAIN` in your .env file');
 }
@@ -188,7 +190,7 @@ function setNextPath(nextPath) {
 }
 
 function getNextPath() {
-  return localStorage.getItem(NEXT_PATH_KEY) || ROOT_ROUTE;
+  return localStorage.getItem(NEXT_PATH_KEY) || DASHBOARD_ROUTE;
 }
 
 function clearNextPath() {

@@ -1,6 +1,8 @@
 h1 {
   font-family: 'Nunito', 'serif';
   font-size: 46px;
+  text-align: center;
+  font-weight: bold;
 }
 
 h2 {
@@ -10,6 +12,7 @@ h2 {
 h3 {
   font-family: 'Nunito', 'serif';
   font-size: 20px;
+  text-align: center;
 }
 
 .alert {
@@ -20,7 +23,8 @@ h3 {
 
 .alert-info {
   background-color: #867DCC;
-  border-color: #413D63;
+  border-color: #756EB2;
+  /*border-color: #6E68A8;*/
   color: #413D63;
 }
 

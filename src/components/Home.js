@@ -25,10 +25,10 @@ class Home extends Component {
               <h1 style={text}>'Want to learn?'</h1>
               <h3>Lorem ipsum dolor sit amet, mel tacimates mandamus ea, minim dicunt
                 mea ne, ei sit principes elaboraret. Purto principes per et, affert feugait
-                eu mea. Id mel suas unum definitiones, veritus lucilius an sea.
+                eu mea. Id mel suas unum definitiones, veritus lucilius an sea unum.
               </h3>
             </div>
-            <div className="col-xs-3 col-xs-offset-1">
+            <div className="col-xs-3 col-xs-offset-2">
               <img className='tossing' style={icon} src={require('../icons/rocket.png')}/>
             </div>
           </div>
@@ -37,14 +37,14 @@ class Home extends Component {
       <div className="row">
         <div className="col-xs-12">
           <div className="alert alert-success" role="alert">
-            <div className="col-xs-3 col-xs-offset-2">
+            <div className="col-xs-3 col-xs-offset-3">
               <img className='tossing' style={icon} src={require('../icons/pencil.png')}/>
             </div>
-            <div className="col-xs-4 col-xs-offset-1">
+            <div className="col-xs-4">
               <h1 style={text}>'Learning to code?'</h1>
                 <h3>Lorem ipsum dolor sit amet, mel tacimates mandamus ea, minim dicunt
                   mea ne, ei sit principes elaboraret. Purto principes per et, affert feugait
-                  eu mea. Id mel suas unum definitiones, veritus lucilius an sea.
+                  eu mea. Id mel suas unum definitiones, veritus lucilius an sea unum.
                 </h3>
             </div>
           </div>
@@ -57,10 +57,10 @@ class Home extends Component {
               <h1 style={text}>'Job hunting?'</h1>
                 <h3>Lorem ipsum dolor sit amet, mel tacimates mandamus ea, minim dicunt
                   mea ne, ei sit principes elaboraret. Purto principes per et, affert feugait
-                  eu mea. Id mel suas unum definitiones, veritus lucilius an sea.
+                  eu mea. Id mel suas unum definitiones, veritus lucilius an sea unum.
                 </h3>
             </div>
-            <div className="col-xs-3 col-xs-offset-1">
+            <div className="col-xs-3 col-xs-offset-2">
               <img className='tossing' style={icon} src={require('../icons/briefcase.png')}/>
             </div>
           </div>
@@ -69,14 +69,14 @@ class Home extends Component {
       <div className="row">
         <div className="col-xs-12">
           <div className="alert alert-success" role="alert">
-            <div className="col-xs-3 col-xs-offset-2">
+            <div className="col-xs-3 col-xs-offset-3">
               <img className='tossing' style={icon} src={require('../icons/molecule.png')}/>
             </div>
-            <div className="col-xs-4 col-xs-offset-1">
+            <div className="col-xs-4">
               <h1 style={text}>'On the job?'</h1>
                 <h3>Lorem ipsum dolor sit amet, mel tacimates mandamus ea, minim dicunt
                   mea ne, ei sit principes elaboraret. Purto principes per et, affert feugait
-                  eu mea. Id mel suas unum definitiones, veritus lucilius an sea.
+                  eu mea. Id mel suas unum definitiones, veritus lucilius an sea unum.
                 </h3>
             </div>
           </div>
