@@ -7,6 +7,7 @@ import Login from './Login';
 import EditProfile from './EditProfile';
 import CreatePost from './CreatePost/CreatePost';
 import SinglePost from '../containers/SinglePost/SinglePost';
+import Dashboard from '../containers/Dashboard/Dashboard';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
               <Route path="/profile/edit" component={EditProfile} />
               <Route path="/createpost" component={CreatePost} />
               <Route path="/singlepost" component={SinglePost} />
+              <Route path="/Dashboard" component={Dashboard} />
             </Route>
           </Route>
         </Router>
