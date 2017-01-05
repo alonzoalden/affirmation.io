@@ -114,9 +114,9 @@ class PostPreview extends React.Component {
                     onMouseLeave={that.onMouseLeaveHandler}
                   >
                     <CardHeader
-                      title={post.name}
+                      title={post.anon ? 'Anonymous' : post.name}
                       subtitle="Hack Reactor - San Francisco, CA"
-                      avatar="https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg"
+                      avatar={post.anon ? "https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg" : post.avatar}
                     />
                     <CardTitle title={post.title} />
                     <CardText>
