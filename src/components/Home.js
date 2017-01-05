@@ -29,7 +29,7 @@ class Home extends Component {
               </h3>
             </div>
             <div className="col-xs-3 col-xs-offset-1">
-              <img className='tossing' style={icon} src={require('./rocket.png')}/>
+              <img className='tossing' style={icon} src={require('../icons/rocket.png')}/>
             </div>
           </div>
         </div>
@@ -38,7 +38,7 @@ class Home extends Component {
         <div className="col-xs-12">
           <div className="alert alert-success" role="alert">
             <div className="col-xs-3 col-xs-offset-2">
-              <img className='tossing' style={icon} src={require('./pencil.png')}/>
+              <img className='tossing' style={icon} src={require('../icons/pencil.png')}/>
             </div>
             <div className="col-xs-4 col-xs-offset-1">
               <h1 style={text}>'Learning to code?'</h1>
@@ -61,7 +61,7 @@ class Home extends Component {
                 </h3>
             </div>
             <div className="col-xs-3 col-xs-offset-1">
-              <img className='tossing' style={icon} src={require('./briefcase.png')}/>
+              <img className='tossing' style={icon} src={require('../icons/briefcase.png')}/>
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@ class Home extends Component {
         <div className="col-xs-12">
           <div className="alert alert-success" role="alert">
             <div className="col-xs-3 col-xs-offset-2">
-              <img className='tossing' style={icon} src={require('./molecule.png')}/>
+              <img className='tossing' style={icon} src={require('../icons/molecule.png')}/>
             </div>
             <div className="col-xs-4 col-xs-offset-1">
               <h1 style={text}>'On the job?'</h1>
