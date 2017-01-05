@@ -15,6 +15,7 @@ import Dialog from 'material-ui/Dialog';
 // import { Link } from 'react-router';
 import validator from 'validator';
 import axios from 'axios';
+import {connectProfile} from '../../auth';
 
 
 class CreatePost extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -29,6 +30,9 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       submitting: false,
       dialogOpen: false
     };
+  }
+  static propTypes = {
+    ...connectProfile.PropTypes,
   }
 
   static contextTypes = {
@@ -53,12 +57,11 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       that.setState({errors: newErrors});
       return;
     } else {
-      //api request here
       that.setState({errors: {}});
       axios({
         method: 'post',
         data: {
-          // 'phase': that.state.phase,
+          'name': that.props.profile.name,
           'title': that.state.title,
           'message': that.state.message,
           'anon': that.state.anon,
@@ -216,4 +219,4 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     );
   }
 }
-export default CreatePost
+export default connectProfile(CreatePost)
