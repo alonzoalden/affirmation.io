@@ -11,6 +11,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import AddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import Dialog from 'material-ui/Dialog';
 // import { Link } from 'react-router';
 import validator from 'validator';
 import axios from 'axios';
@@ -26,6 +27,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       anon: false,
       errors: {},
       submitting: false,
+      dialogOpen: false
     };
   }
 
@@ -62,7 +64,10 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
           'anon': that.state.anon,
         },
         url: `http://localhost:8000/api/posts/${that.state.phase}`,
-      }).then(() => {that.context.router.push('/')});
+      }).then(() => {
+        that.setState({dialogOpen: true});
+        setTimeout(() => {that.context.router.push('/');}, 2500);
+      });
     }
   }
 
@@ -80,6 +85,10 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
 
   toggleChangeHandler() {
     this.setState({anon: !this.state.anon});
+  }
+
+  dialogCloseHandler() {
+    this.setState({dialogOpen: false});
   }
 
   renderTitleTextField() {
@@ -146,6 +155,20 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     );
   }
 
+  renderSuccessDialog() {
+    return (
+        <Dialog
+          title="Thanks!"
+          modal={false}
+          open={this.state.dialogOpen}
+          onRequestClose={this.dialogCloseHandler.bind(this)}
+          >
+          Thanks for sharing your knowledge with the community!
+        </Dialog>
+
+    );
+  }
+
   render() {
     const paperStyle = {
       height: 600,
@@ -180,6 +203,9 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
                   </div><br />
                   <div style={center}>
                     {this.renderSubmitButton()}
+                  </div><br />
+                  <div style={center}>
+                    {this.renderSuccessDialog()}
                   </div>
                 </div>
               </form>
