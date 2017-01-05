@@ -5,15 +5,29 @@
 */
 
 import React, { Component } from 'react';
+import axios from 'axios';
 import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import Badge from 'material-ui/Badge';
 import SentimentVerySatisfied from 'material-ui/svg-icons/social/sentiment-very-satisfied';
 import SentimentVeryDissatisfied from 'material-ui/svg-icons/social/sentiment-very-dissatisfied';
 
+
+
 class PostPreview extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
+    this.state = {
+      posts: []
+    }
+  }
+
+  componentDidMount() {
+    this.getPreviewPosts();
+  }
+
+  getPreviewPosts() {
+    axios.get('http://localhost:3000/')
   }
 
   isHelpful() {
@@ -76,7 +90,7 @@ class PostPreview extends React.Component { // eslint-disable-line react/prefer-
                   Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
                   Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
                 </CardText>
-                <div style={{ float: "right" }}> {this.isHelpful()} </div>
+                <div style={{ float: "right", marginRight: 20 }}> {this.isHelpful()} </div>
               </Card>
             </div>
           </div>
