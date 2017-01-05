@@ -10,7 +10,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
 
-class Phase extends React.Component {
+class WantToLearn extends React.Component {
   render() {
     const floatLeft = {
       float: 'left',
@@ -28,16 +28,17 @@ class Phase extends React.Component {
     };
     return (
       <div style={floatLeft}>
-        <h2 style={center}>Learn To Code</h2>
+        <h2 style={center}>I want to learn to code</h2>
         <Paper style={paperStyle} zDepth={4}>
           <div style={{ margin: 20 }}>
-            <h3 style={center}>Affirmation Of The Week</h3>
+            <h3 style={{ 'font-style': 'italic' }}>Random Affirmation</h3>
             <div>
               <h4>The Best Advice Ever</h4>
-              <p>Code. Code. Code. Code. Code. Code.
+              <p>
+                Code. Code. Code. Code. Code. Code.
                 Code. Code. Code. Code. Code. Code.
               </p>
-              <Link to="/">
+              <Link to="/WantToLearn">
                 <FlatButton
                   label="Read More"
                   primary={true}
@@ -45,7 +46,7 @@ class Phase extends React.Component {
               </Link>
             </div>
             <div style={center}>
-              <Link to="/">
+              <Link to="/WantToLearn">
                 <RaisedButton
                   label="View All Affirmations"
                   primary={true}
@@ -59,4 +60,4 @@ class Phase extends React.Component {
   }
 }
 
-export default Phase;
+export default WantToLearn;
