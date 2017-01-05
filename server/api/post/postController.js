@@ -1,4 +1,4 @@
-const Models = require('../../../database/database-config');
+const Models = require('../../../database/database_config');
 
 module.exports = {
   addAPost: (req, res) => {
