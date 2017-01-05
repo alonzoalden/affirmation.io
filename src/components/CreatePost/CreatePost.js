@@ -61,8 +61,8 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
           'message': that.state.message,
           'anon': that.state.anon,
         },
-        url: `http://localhost:8000/api/posts/${that.state.phase}`, //This is just a test endpoint for now
-      });
+        url: `http://localhost:8000/api/posts/${that.state.phase}`,
+      }).then(() => {that.context.router.push('/')});
     }
   }
 
@@ -100,7 +100,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       <TextField
         onChange={this.messageChangeHandler.bind(this)}
         value={this.state.message}
-        hintText="ex. This is the best advice you will ever receive!"
+        hintText="Best advice ever"
         floatingLabelText="Please spread your knowledge and experience to our community. :D"
         fullWidth={true}
         multiLine={true}
@@ -115,10 +115,10 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       <div>
         <div>Phase</div>
         <RadioButtonGroup name='phaseSelector' onChange={this.phaseChangeHandler.bind(this)}>
-          <RadioButton value='starting'label='Getting Started'/>
-          <RadioButton value='learning'label='Learning to Code'/>
-          <RadioButton value='looking'label='Looking for a Job'/>
-          <RadioButton value='working'label='Working as a Software Engineer'/>
+          <RadioButton value='WantToLearn'label='Getting Started'/>
+          <RadioButton value='LearningToCode'label='Learning to Code'/>
+          <RadioButton value='JobHunt'label='Looking for a Job'/>
+          <RadioButton value='OnTheJob'label='Working as a Software Engineer'/>
         </RadioButtonGroup>
       </div>
     );
