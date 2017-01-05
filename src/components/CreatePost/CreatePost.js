@@ -14,6 +14,7 @@ import { Link } from 'react-router';
 import validator from 'validator';
 import axios from 'axios';
 
+
 class CreatePost extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
     super();
@@ -45,7 +46,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       isValid = false;
     }
     if (!isValid) {
-      that.setState(errors: newErrors);
+      that.setState({errors: newErrors});
       return;
     } else {
       //api request here
@@ -56,10 +57,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
           'message': that.state.message,
           'anon': that.state.anon,
         },
-        url: `${ROOT_URL}/posts`,
-        headers: {
-          'Authorization': `Bearer ${tokenFromStorage}`
-        }
+        url: `localhost:3000/posts`,
       });
     }
   }
@@ -75,7 +73,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
   renderTitleTextField() {
     return (
       <TextField
-        onChange={this.titleChangeHandler}
+        onChange={this.titleChangeHandler.bind(this)}
         value={this.state.title}
         hintText="This is a example title"
         floatingLabelText="Please input a title for your affirmation"
@@ -88,7 +86,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
   renderMessageTextField(props) {
     return (
       <TextField
-        onChange={this.messageChangeHandler}
+        onChange={this.messageChangeHandler.bind(this)}
         value={this.state.message}
         hintText="ex. This is the best advice you will ever receive!"
         floatingLabelText="Please spread your knowledge and experience to our community. :D"
