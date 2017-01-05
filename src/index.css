@@ -13,3 +13,7 @@ a {
 button {
   cursor: pointer;
 }
+
+.card-title {
+  text-align: center;
+}

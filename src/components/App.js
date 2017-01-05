@@ -6,6 +6,7 @@ import Home from './Home';
 import Login from './Login';
 import EditProfile from './EditProfile';
 import CreatePost from './CreatePost/CreatePost';
+import SinglePost from '../containers/SinglePost/SinglePost';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends Component {
@@ -19,7 +20,8 @@ class App extends Component {
             <Route onEnter={requireAuth}>
               {/* Place all authenticated routes here */}
               <Route path="/profile/edit" component={EditProfile} />
-              <Route path="/createPost" component={CreatePost} />
+              <Route path="/createpost" component={CreatePost} />
+              <Route path="/singlepost" component={SinglePost} />
             </Route>
           </Route>
         </Router>

@@ -54,41 +54,39 @@ class PostView extends React.Component {
     return (
       <div>
         <div style={center}>
-          <div>
-            <div style={{ margin: 20 }}>
-              <Card
-                style={cardStyle}
-              >
-                <CardHeader
-                  title="Sir Testburg"
-                  subtitle="Hack Reactor - San Francisco, CA"
-                  avatar="https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg"
-                />
-                <CardTitle title="Professional button pusher for 15 years - I've made some things" />
-                <CardText>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                  Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-                  Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+          <div style={{ margin: 20 }}>
+            <Card
+              style={cardStyle}
+            >
+              <CardHeader
+                title="Sir Testburg"
+                subtitle="Hack Reactor - San Francisco, CA"
+                avatar="https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg"
+              />
+            <CardTitle titleStyle={{ 'text-align': 'center' }} title="Professional button pusher for 15 years - I've made some things" />
+              <CardText>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+                Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+                Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
 
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                  Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-                  Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+                Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+                Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
 
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                  Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-                  Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-                </CardText>
-                <CardActions>
-                  <FlatButton label="Is Helpful" />
-                  {this.isHelpful()}
-                  <FlatButton label="Is Unhelpful" />
-                  {this.isUnhelpful()}
-                </CardActions>
-              </Card>
-            </div>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+                Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+                Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+              </CardText>
+              <CardActions>
+                <FlatButton label="Is Helpful" />
+                {this.isHelpful()}
+                <FlatButton label="Is Unhelpful" />
+                {this.isUnhelpful()}
+              </CardActions>
+            </Card>
           </div>
         </div>
       </div>

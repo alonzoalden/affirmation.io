@@ -1,5 +1,5 @@
 .Site {
-  text-align: center;
+  /*text-align: center;*/
 }
 
 .Site-logo {
@@ -11,6 +11,7 @@
   background-color: #222;
   padding: 20px;
   color: white;
+  text-align: center;
 }
 
 .Site-profileControls {
