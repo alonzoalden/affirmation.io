@@ -14,6 +14,7 @@ import { Link } from 'react-router';
 import validator from 'validator';
 import axios from 'axios';
 
+
 class CreatePost extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
     super();
@@ -45,7 +46,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       isValid = false;
     }
     if (!isValid) {
-      that.setState(errors: newErrors);
+      that.setState({errors: newErrors});
       return;
     } else {
       //api request here
@@ -56,10 +57,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
           'message': that.state.message,
           'anon': that.state.anon,
         },
-        url: `${ROOT_URL}/posts`,
-        headers: {
-          'Authorization': `Bearer ${tokenFromStorage}`
-        }
+        url: `localhost:3000/posts`,
       });
     }
   }
