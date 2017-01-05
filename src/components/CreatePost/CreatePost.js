@@ -50,6 +50,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       return;
     } else {
       //api request here
+      that.setState({errors: {}});
       axios({
         method: 'post',
         data: {
@@ -57,7 +58,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
           'message': that.state.message,
           'anon': that.state.anon,
         },
-        url: `localhost:3000/posts`,
+        url: `http://localhost:8000/api/posts/3`, //This is just a test endpoint for now
       });
     }
   }
@@ -68,6 +69,10 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
 
   messageChangeHandler(e) {
     this.setState({message: e.target.value});
+  }
+
+  toggleChangeHandler() {
+    this.setState({anon: !this.state.anon});
   }
 
   renderTitleTextField() {
@@ -102,13 +107,13 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     return (
       <Toggle
         label="Anonymous?"
+        onToggle={this.toggleChangeHandler.bind(this)}
       />
     );
   }
 
   renderSubmitButton() {
     return (
-      <Link to="/">
         <RaisedButton
           type="submit"
           label="Submit Affirmation"
@@ -117,7 +122,6 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
           icon={<AddCircleOutline />}
           disabled={this.state.submitting} //Edit this
         />
-      </Link>
     );
   }
 
@@ -151,12 +155,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
                     {this.renderToggle()}
                   </div><br />
                   <div style={center}>
-                    {/*{this.renderSubmitButton} />*/}
-                    <button
-                      type="submit"
-                      disabled={this.state.submitting}>
-                      Submit
-                    </button>
+                    {this.renderSubmitButton()}
                   </div>
                 </div>
               </form>
