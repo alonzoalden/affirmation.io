@@ -10,7 +10,8 @@ import Toggle from 'material-ui/Toggle';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import AddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline';
-import { Link } from 'react-router';
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+// import { Link } from 'react-router';
 import validator from 'validator';
 import axios from 'axios';
 
@@ -19,6 +20,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
   constructor() {
     super();
     this.state = {
+      phase: null,
       title: '',
       message: '',
       anon: false,
@@ -54,11 +56,12 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       axios({
         method: 'post',
         data: {
+          // 'phase': that.state.phase,
           'title': that.state.title,
           'message': that.state.message,
           'anon': that.state.anon,
         },
-        url: `http://localhost:8000/api/posts/3`, //This is just a test endpoint for now
+        url: `http://localhost:8000/api/posts/${that.state.phase}`, //This is just a test endpoint for now
       });
     }
   }
@@ -69,6 +72,11 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
 
   messageChangeHandler(e) {
     this.setState({message: e.target.value});
+  }
+
+  phaseChangeHandler(e) {
+    console.log(e.target.value)
+    this.setState({phase: e.target.value});
   }
 
   toggleChangeHandler() {
@@ -103,7 +111,21 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     );
   }
 
-  renderToggle(props) {
+  renderPhaseSelector() {
+    return (
+      <div>
+        <div>Phase</div>
+        <RadioButtonGroup name='phaseSelector' onChange={this.phaseChangeHandler.bind(this)}>
+          <RadioButton value='starting'label='Getting Started'/>
+          <RadioButton value='learning'label='Learning to Code'/>
+          <RadioButton value='looking'label='Looking for a Job'/>
+          <RadioButton value='working'label='Working as a Software Engineer'/>
+        </RadioButtonGroup>
+      </div>
+    );
+  }
+
+  renderAnonToggle(props) {
     return (
       <Toggle
         label="Anonymous?"
@@ -152,7 +174,10 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
                     {this.renderMessageTextField()}
                   </div><br />
                   <div>
-                    {this.renderToggle()}
+                    {this.renderPhaseSelector()}
+                  </div><br />
+                  <div>
+                    {this.renderAnonToggle()}
                   </div><br />
                   <div style={center}>
                     {this.renderSubmitButton()}
