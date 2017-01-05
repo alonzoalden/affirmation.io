@@ -4,7 +4,7 @@
 *
 */
 
-import React, { Component } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
@@ -29,7 +29,7 @@ class PostPreview extends React.Component {
     return axios.get('http://localhost:8000/api/posts' + phase)
       .then((arr) => {
           this.setState({ posts: arr.data})
-          console.log(this.props)
+          console.log(this.state.posts, this.props, phase)
       })
 
   }
