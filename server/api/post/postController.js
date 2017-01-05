@@ -4,6 +4,8 @@ module.exports = {
   addAPost: (req, res) => {
     Models.Post.build({
       phase: req.params.phase,
+      name: req.body.name,
+      avatar: req.body.avatar,
       title: req.body.title,
       message: req.body.message,
       sentiment: 0,
