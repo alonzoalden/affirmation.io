@@ -11,7 +11,6 @@ import Avatar from 'material-ui/Avatar';
 import { grey900, blue100, green100 } from 'material-ui/styles/colors';
 
 import { Step, Stepper, StepButton } from 'material-ui/Stepper';
-// import ActionFlightTakeoff from 'material-ui/svg-icons/action/flight-takeoff';
 import ActionCompareArrows from 'material-ui/svg-icons/action/compare-arrows';
 import ImageColorLens from 'material-ui/svg-icons/image/color-lens';
 import ImageBrush from 'material-ui/svg-icons/image/brush';
@@ -32,46 +31,54 @@ class Site extends Component {
       color: blue100,
       padding: 10
     };
-    // const titleStyle = {
-    //   color: blue100,
-    // };
     const logoStyle = {
       backgroundColor: grey900
     };
     return (
       <div className="Site">
         <Toolbar style={barStyle}>
+
           <ToolbarGroup firstChild={true}>
             <Avatar src={logo} className="Site-logo" alt="logo" style={logoStyle}/>
             <ToolbarTitle text="Affirmation.io" style={paddedTitleStyle}/>
           </ToolbarGroup>
 
           <ToolbarGroup>
-            <Stepper linear={false} connector={<ActionCompareArrows color={green100} />}>
-              <Step>
-                <StepButton icon={<ImageColorLens color={blue100}/>}></StepButton>
-              </Step>
-              <Step>
-                <StepButton icon={<ImageBrush color={blue100}/>}></StepButton>
-              </Step>
-              <Step>
-                <StepButton icon={<ImageBlurCircular color={blue100}/>}></StepButton>
-              </Step>
-              <Step>
-                <StepButton icon={<ImageLooks color={blue100}/>}></StepButton>
-              </Step>
-            </Stepper>
+            {this.renderStepper()}
           </ToolbarGroup>
 
           <ToolbarGroup>
             {this.renderUserControls()}
           </ToolbarGroup>
+
         </Toolbar>
         <div className="Site-page">
           {this.props.children}
         </div>
       </div>
     );
+  }
+
+  renderStepper() {
+    const {profile} = this.props;
+    if (profile) {
+      return (
+        <Stepper linear={false} connector={<ActionCompareArrows color={green100} />}>
+          <Step>
+            <StepButton icon={<ImageColorLens color={blue100}/>}></StepButton>
+          </Step>
+          <Step>
+            <StepButton icon={<ImageBrush color={blue100}/>}></StepButton>
+          </Step>
+          <Step>
+            <StepButton icon={<ImageBlurCircular color={blue100}/>}></StepButton>
+          </Step>
+          <Step>
+            <StepButton icon={<ImageLooks color={blue100}/>}></StepButton>
+          </Step>
+        </Stepper>
+      );
+    }
   }
 
   renderUserControls() {
