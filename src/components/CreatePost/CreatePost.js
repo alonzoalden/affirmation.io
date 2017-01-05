@@ -191,4 +191,3 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
   }
 }
 export default CreatePost
-

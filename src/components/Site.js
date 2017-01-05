@@ -1,9 +1,23 @@
-import React, {Component, PropTypes} from 'react';
-import {Link} from 'react-router';
-import {connectProfile, logout} from '../auth';
+import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
+import { connectProfile, logout, login } from '../auth';
 import logo from '../logo.svg';
 import './Site.css';
 
+// FROM NAV ------- ------- \\
+import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
+import FlatButton from 'material-ui/FlatButton';
+import Avatar from 'material-ui/Avatar';
+import { grey900, blue100, green100 } from 'material-ui/styles/colors';
+
+import { Step, Stepper, StepButton } from 'material-ui/Stepper';
+// import ActionFlightTakeoff from 'material-ui/svg-icons/action/flight-takeoff';
+import ActionCompareArrows from 'material-ui/svg-icons/action/compare-arrows';
+import ImageColorLens from 'material-ui/svg-icons/image/color-lens';
+import ImageBrush from 'material-ui/svg-icons/image/brush';
+import ImageLooks from 'material-ui/svg-icons/image/looks';
+import ImageBlurCircular from 'material-ui/svg-icons/image/blur-circular';
+// FROM NAV ------- ------- \\
 class Site extends Component {
   static propTypes = {
     ...connectProfile.PropTypes,
@@ -11,13 +25,48 @@ class Site extends Component {
   };
 
   render() {
+    const barStyle = {
+      backgroundColor: grey900
+    };
+    const paddedTitleStyle = {
+      color: blue100,
+      padding: 10
+    };
+    // const titleStyle = {
+    //   color: blue100,
+    // };
+    const logoStyle = {
+      backgroundColor: grey900
+    };
     return (
       <div className="Site">
-        <div className="Site-header">
-          <img src={logo} className="Site-logo" alt="logo" />
-          <h2>Welcome to React + Auth0</h2>
-          {this.renderUserControls()}
-        </div>
+        <Toolbar style={barStyle}>
+          <ToolbarGroup firstChild={true}>
+            <Avatar src={logo} className="Site-logo" alt="logo" style={logoStyle}/>
+            <ToolbarTitle text="Affirmation.io" style={paddedTitleStyle}/>
+          </ToolbarGroup>
+
+          <ToolbarGroup>
+            <Stepper linear={false} connector={<ActionCompareArrows color={green100} />}>
+              <Step>
+                <StepButton icon={<ImageColorLens color={blue100}/>}></StepButton>
+              </Step>
+              <Step>
+                <StepButton icon={<ImageBrush color={blue100}/>}></StepButton>
+              </Step>
+              <Step>
+                <StepButton icon={<ImageBlurCircular color={blue100}/>}></StepButton>
+              </Step>
+              <Step>
+                <StepButton icon={<ImageLooks color={blue100}/>}></StepButton>
+              </Step>
+            </Stepper>
+          </ToolbarGroup>
+
+          <ToolbarGroup>
+            {this.renderUserControls()}
+          </ToolbarGroup>
+        </Toolbar>
         <div className="Site-page">
           {this.props.children}
         </div>
@@ -27,19 +76,31 @@ class Site extends Component {
 
   renderUserControls() {
     const {profile} = this.props;
-
+    const paddedLeft = {
+      paddingLeft: 10
+    };
+    const titleStyle = {
+      color: blue100
+    };
     if (profile) {
       return (
-        <div className="Site-profileControls">
-          <img className="Site-profilePicture" src={profile.picture} alt={profile.nickname} />
-          <Link to="/profile/edit">{profile.nickname}</Link> &middot; <a onClick={() => logout()}>Log Out</a>
-        </div>
+        <ToolbarGroup lastChild={true}>
+          <Avatar src={profile.picture}/>
+          <Link to="/profile/edit" style={paddedLeft}>
+            <FlatButton style={titleStyle}>
+              {profile.nickname}
+            </FlatButton>
+          </Link>
+          <FlatButton label="Logout" secondary={true} onClick={logout}/>
+        </ToolbarGroup>
       );
     } else {
       return (
-        <div className="Site-profileControls">
-          <span>Guest</span> &middot; <Link to="/login">Log In</Link>
-        </div>
+        <ToolbarGroup>
+          <Link to="/login">
+            <FlatButton primary label="Log In" onClick={login}/>
+          </Link>
+        </ToolbarGroup>
       );
     }
   }
