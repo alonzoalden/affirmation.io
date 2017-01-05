@@ -18,7 +18,6 @@ class PostPreview extends React.Component {
     this.state = {
       posts: [],
       hover: false,
-      current: null,
     }
     this.onMouseEnterHandler = this.onMouseEnterHandler.bind(this)
     this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this)
@@ -26,29 +25,27 @@ class PostPreview extends React.Component {
 
   componentDidMount() {
     this.getPreviewPosts();
-    this.setState({ hover: false })
   }
 
-  onMouseEnterHandler(id) {
+  onMouseEnterHandler() {
     this.setState({
       hover: true,
-      current: id,
     })
-
+    console.log(this.state.hover)
   }
 
   onMouseLeaveHandler() {
     this.setState({
       hover: false,
-      current: null,
     })
+    console.log(this.state.hover)
   }
 
   getPreviewPosts() {
     let phase = this.props.location.pathname.toLowerCase()
     return axios.get('http://localhost:8000/api/posts' + phase)
       .then((arr) => {
-          this.setState({ posts: arr.data})
+          this.setState({ posts: arr.data })
       })
 
   }
@@ -82,6 +79,7 @@ class PostPreview extends React.Component {
       overflow: 'auto',
     };
     const center = {
+      backgroundColor: '#28E498',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -94,9 +92,9 @@ class PostPreview extends React.Component {
     };
     const mainStyle = this.state.hover ? hoverCardStyle : cardStyle
 
+
     let that = this
     let phase1 = this.props.location.pathname + '/'
-    console.log(phase1)
     return (
       <div>
         {this.state.posts.map((post, index) => {
@@ -116,7 +114,7 @@ class PostPreview extends React.Component {
                     onMouseLeave={that.onMouseLeaveHandler}
                   >
                     <CardHeader
-                      title="Joe Schmo"
+                      title={post.name}
                       subtitle="Hack Reactor - San Francisco, CA"
                       avatar="https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg"
                     />
