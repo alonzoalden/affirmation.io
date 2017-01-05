@@ -2,7 +2,6 @@ const Models = require('../../../database/database_config');
 
 module.exports = {
   addAPost: (req, res) => {
-    console.log(req.params);
     Models.Post.build({
       phase: req.params.phase,
       title: req.body.title,

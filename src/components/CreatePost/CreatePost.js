@@ -75,7 +75,6 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
   }
 
   phaseChangeHandler(e) {
-    console.log(e.target.value)
     this.setState({phase: e.target.value});
   }
 
