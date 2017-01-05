@@ -18,6 +18,7 @@ class PostPreview extends React.Component {
     this.state = {
       posts: [],
       hover: false,
+      current: null,
     }
     this.onMouseEnterHandler = this.onMouseEnterHandler.bind(this)
     this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this)
@@ -28,12 +29,19 @@ class PostPreview extends React.Component {
     this.setState({ hover: false })
   }
 
-  onMouseEnterHandler() {
-    this.setState({ hover: true })
+  onMouseEnterHandler(id) {
+    this.setState({
+      hover: true,
+      current: id,
+    })
+
   }
 
   onMouseLeaveHandler() {
-    this.setState({ hover: false })
+    this.setState({
+      hover: false,
+      current: null,
+    })
   }
 
   getPreviewPosts() {
@@ -82,11 +90,13 @@ class PostPreview extends React.Component {
       width: 600,
       margin: 10,
       overflow: 'auto',
-      backgroundColor: 'lightgrey',
-    }
+      backgroundColor: 'lightblue',
+    };
     const mainStyle = this.state.hover ? hoverCardStyle : cardStyle
 
-    var that = this
+    let that = this
+    let phase1 = this.props.location.pathname + '/'
+    console.log(phase1)
     return (
       <div>
         {this.state.posts.map((post, index) => {
@@ -112,7 +122,7 @@ class PostPreview extends React.Component {
                     />
                     <CardTitle title={post.title} />
                     <CardText>
-                      <p><i><strong>{italicMessage}</strong></i>{message} <a href=''>Read more</a></p>
+                      <p><i><strong>{italicMessage}</strong></i>{message} <a href={phase1 + post.id}>Read more</a></p>
                     </CardText>
                     <div style={{ float: "right", marginRight: 20 }}> {this.isHelpful(post.sentiment)} {this.isUnhelpful(post.unhelpful)} </div>
                   </Card>
