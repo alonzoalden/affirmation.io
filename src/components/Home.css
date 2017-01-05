@@ -1,3 +1,13 @@
+body {
+  border: 0px;
+}
+
+.container {
+  padding: 0px;
+  border: 0px;
+}
+
+
 h1 {
   font-family: 'Nunito', 'serif';
   font-size: 46px;
@@ -24,19 +34,19 @@ h3 {
 .alert-info {
   background-color: #867DCC;
   border-color: #756EB2;
-  /*border-color: #6E68A8;*/
+  border: none;
   color: #413D63;
 }
 
 .alert-success {
   background-color: #28D2E4;
   border-color: #0F5057;
+  border: none;
   color: #0F5057;
 }
-.container {
-  padding: 0px;
-  border: 0px;
 
+.main {
+  height: 80vh;
 }
 
 .col-xs-3 {
@@ -45,8 +55,4 @@ h3 {
 }
 .row {
   margin-bottom: 0px;
-}
-
-body {
-  border: 0px;
 }
