@@ -4,7 +4,7 @@
 *
 */
 
-import React, { Component } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
@@ -16,20 +16,36 @@ class PostPreview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: []
+      posts: [],
+      hover: false,
     }
+    this.onMouseEnterHandler = this.onMouseEnterHandler.bind(this)
+    this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this)
   }
 
   componentDidMount() {
     this.getPreviewPosts();
   }
 
+  onMouseEnterHandler() {
+    this.setState({
+      hover: true,
+    })
+    console.log(this.state.hover)
+  }
+
+  onMouseLeaveHandler() {
+    this.setState({
+      hover: false,
+    })
+    console.log(this.state.hover)
+  }
+
   getPreviewPosts() {
     let phase = this.props.location.pathname.toLowerCase()
     return axios.get('http://localhost:8000/api/posts' + phase)
       .then((arr) => {
-          this.setState({ posts: arr.data})
-          console.log(this.props)
+          this.setState({ posts: arr.data })
       })
 
   }
@@ -63,32 +79,48 @@ class PostPreview extends React.Component {
       overflow: 'auto',
     };
     const center = {
+      backgroundColor: '#28E498',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
     };
+    const hoverCardStyle = {
+      width: 600,
+      margin: 10,
+      overflow: 'auto',
+      backgroundColor: 'lightblue',
+    };
+    const mainStyle = this.state.hover ? hoverCardStyle : cardStyle
 
+
+    let that = this
+    let phase1 = this.props.location.pathname + '/'
     return (
       <div>
         {this.state.posts.map((post, index) => {
+
           let italicMessage = post.message.slice(0, 50)
-          let message = post.message.slice(50, 200) + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit." + '.....'
+          let message = post.message.slice(50, 200) + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit." + '...'
           return (
             <div style={center}>
               <div>
-                <div style={{ margin: 10 }}>
+                <div
+                  style={{ margin: 10 }}
+                >
                   <Card
                     children={this.isHelpful, this.isUnhelpful}
-                    style={cardStyle}
+                    style={mainStyle}
+                    onMouseEnter={that.onMouseEnterHandler}
+                    onMouseLeave={that.onMouseLeaveHandler}
                   >
                     <CardHeader
-                      title="Joe Schmo"
+                      title={post.name}
                       subtitle="Hack Reactor - San Francisco, CA"
                       avatar="https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg"
                     />
                     <CardTitle title={post.title} />
                     <CardText>
-                      <i><strong>{italicMessage}</strong></i>{message}
+                      <p><i><strong>{italicMessage}</strong></i>{message} <a href={phase1 + post.id}>Read more</a></p>
                     </CardText>
                     <div style={{ float: "right", marginRight: 20 }}> {this.isHelpful(post.sentiment)} {this.isUnhelpful(post.unhelpful)} </div>
                   </Card>
