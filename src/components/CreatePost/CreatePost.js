@@ -58,7 +58,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
           'message': that.state.message,
           'anon': that.state.anon,
         },
-        url: `localhost:3000/posts`,
+        url: `http://localhost:8000/api/posts/3`, //This is just a test endpoint for now
       });
     }
   }
