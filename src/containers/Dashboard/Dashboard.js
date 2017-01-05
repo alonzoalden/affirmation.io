@@ -16,10 +16,10 @@ export class Dashboard extends React.Component {
   render() {
     return (
       <div>
-        <WantToLearn />
-        <LearningToCode />
+        {/*<WantToLearn />*/}
+        {/*<LearningToCode />*/}
         <JobHunt />
-        <OnTheJob />
+        {/*<OnTheJob />*/}
       </div>
     );
   }
