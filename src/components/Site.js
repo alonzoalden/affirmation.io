@@ -37,26 +37,39 @@ class Site extends Component {
     return (
       <div className="Site">
         <Toolbar style={barStyle}>
-
           <ToolbarGroup firstChild={true}>
             <Avatar src={logo} className="Site-logo" alt="logo" style={logoStyle}/>
             <ToolbarTitle text="Affirmation.io" style={paddedTitleStyle}/>
           </ToolbarGroup>
-
           <ToolbarGroup>
-            {this.renderStepper()}
-          </ToolbarGroup>
-
-          <ToolbarGroup>
+            {this.renderLinks()}
             {this.renderUserControls()}
           </ToolbarGroup>
-
         </Toolbar>
         <div className="Site-page">
           {this.props.children}
         </div>
       </div>
     );
+  }
+
+  renderLinks() {
+    const {profile} = this.props;
+    const padding = {
+      padding: 5
+    }
+    if (profile) {
+      return (
+        <div style={padding}>
+          <Link to="/createpost">
+            <FlatButton primary label="Add Affirmation" />
+          </Link>
+          <Link to="/dashboard">
+            <FlatButton primary label="DASHBOARD" />
+          </Link>
+        </div>
+    );
+    }
   }
 
   renderStepper() {
