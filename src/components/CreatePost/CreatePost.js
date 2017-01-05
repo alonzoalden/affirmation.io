@@ -71,6 +71,10 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     this.setState({message: e.target.value});
   }
 
+  toggleChangeHandler() {
+    this.setState({anon: !this.state.anon});
+  }
+
   renderTitleTextField() {
     return (
       <TextField
@@ -103,6 +107,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     return (
       <Toggle
         label="Anonymous?"
+        onToggle={this.toggleChangeHandler.bind(this)}
       />
     );
   }
