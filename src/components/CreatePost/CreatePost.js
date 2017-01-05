@@ -70,7 +70,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
         url: `http://localhost:8000/api/posts/${that.state.phase}`,
       }).then(() => {
         that.setState({dialogOpen: true});
-        setTimeout(() => {that.context.router.push('/');}, 2500);
+        setTimeout(() => {that.context.router.push(`/${that.state.phase}`);}, 2500);
       });
     }
   }
