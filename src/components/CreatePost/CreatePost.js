@@ -128,10 +128,10 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       <div>
         <div>Phase</div>
         <RadioButtonGroup name='phaseSelector' onChange={this.phaseChangeHandler.bind(this)}>
-          <RadioButton value='WantToLearn'label='Getting Started'/>
-          <RadioButton value='LearningToCode'label='Learning to Code'/>
-          <RadioButton value='JobHunt'label='Looking for a Job'/>
-          <RadioButton value='OnTheJob'label='Working as a Software Engineer'/>
+          <RadioButton value='wanttolearn'label='Want to Learn'/>
+          <RadioButton value='learningtocode'label='Learning to Code'/>
+          <RadioButton value='jobhunt'label='Looking for a Job'/>
+          <RadioButton value='onthejob'label='Working as a Software Engineer'/>
         </RadioButtonGroup>
       </div>
     );
