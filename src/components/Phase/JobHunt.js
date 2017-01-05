@@ -15,46 +15,36 @@ class JobHunt extends React.Component {
     const floatLeft = {
       float: 'left',
     };
-    const paperStyle = {
-      height: 400,
-      width: 300,
-      margin: 20,
-      overflow: 'auto',
+    const flexbox = {
+      'display': '-webkit-flex',
+      'display': '-ms-flexbox',
+      'display': 'flex',
+      'overflow': 'hidden'
     };
+    const col = {
+      'flex': 1
+    }
     const center = {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
     };
     return (
-      <div style={floatLeft}>
-        <h2 style={center}>I am on the job hunt</h2>
-        <Paper style={paperStyle} zDepth={4}>
-          <div style={{ margin: 20 }}>
-            <h3 style={{ 'font-style': 'italic' }}>Random Affirmation</h3>
-            <div>
-              <h4>The Best Advice Ever</h4>
-              <p>
-                Code. Code. Code. Code. Code. Code.
-                Code. Code. Code. Code. Code. Code.
-              </p>
-              <Link to="/JobHunt">
-                <FlatButton
-                  label="Read More"
-                  primary={true}
-                />
-              </Link>
-            </div>
-            <div style={center}>
-              <Link to="/JobHunt">
-                <RaisedButton
-                  label="View All Affirmations"
-                  primary={true}
-                />
-              </Link>
-            </div>
+      <div>
+        <div className={flexbox}>
+          <div className="col-xs-12 col-md-6 col" style={{ 'background-color': 'cyan', 'height': '50vh' }}>
+            Hello World!
           </div>
-        </ Paper>
+          <div className="col-xs-12 col-md-6 col" style={{ 'background-color': 'grey', 'height': '50vh' }}>
+            Hello World!
+          </div>
+          <div className="col-xs-12 col-md-6 col" style={{ 'background-color': 'pink', 'height': '50vh' }}>
+            Hello World!
+          </div>
+          <div className="col-xs-12 col-md-6 col" style={{ 'background-color': 'yellow', 'height': '50vh' }}>
+            Hello World!
+          </div>
+        </div>
       </div>
     );
   }
