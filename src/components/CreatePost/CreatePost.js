@@ -75,7 +75,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
   renderTitleTextField() {
     return (
       <TextField
-        onChange={this.titleChangeHandler}
+        onChange={this.titleChangeHandler.bind(this)}
         value={this.state.title}
         hintText="This is a example title"
         floatingLabelText="Please input a title for your affirmation"
@@ -88,7 +88,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
   renderMessageTextField(props) {
     return (
       <TextField
-        onChange={this.messageChangeHandler}
+        onChange={this.messageChangeHandler.bind(this)}
         value={this.state.message}
         hintText="ex. This is the best advice you will ever receive!"
         floatingLabelText="Please spread your knowledge and experience to our community. :D"
