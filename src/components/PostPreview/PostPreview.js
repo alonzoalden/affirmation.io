@@ -16,12 +16,24 @@ class PostPreview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: []
+      posts: [],
+      hover: false,
     }
+    this.onMouseEnterHandler = this.onMouseEnterHandler.bind(this)
+    this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this)
   }
 
   componentDidMount() {
     this.getPreviewPosts();
+    this.setState({ hover: false })
+  }
+
+  onMouseEnterHandler() {
+    this.setState({ hover: true })
+  }
+
+  onMouseLeaveHandler() {
+    this.setState({ hover: false })
   }
 
   getPreviewPosts() {
@@ -29,7 +41,6 @@ class PostPreview extends React.Component {
     return axios.get('http://localhost:8000/api/posts' + phase)
       .then((arr) => {
           this.setState({ posts: arr.data})
-          console.log(this.state.posts, this.props, phase)
       })
 
   }
@@ -67,19 +78,32 @@ class PostPreview extends React.Component {
       alignItems: 'center',
       justifyContent: 'center',
     };
+    const hoverCardStyle = {
+      width: 600,
+      margin: 10,
+      overflow: 'auto',
+      backgroundColor: 'lightgrey',
+    }
+    const mainStyle = this.state.hover ? hoverCardStyle : cardStyle
 
+    var that = this
     return (
       <div>
         {this.state.posts.map((post, index) => {
+
           let italicMessage = post.message.slice(0, 50)
-          let message = post.message.slice(50, 200) + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit." + '.....'
+          let message = post.message.slice(50, 200) + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit." + '...'
           return (
             <div style={center}>
               <div>
-                <div style={{ margin: 10 }}>
+                <div
+                  style={{ margin: 10 }}
+                >
                   <Card
                     children={this.isHelpful, this.isUnhelpful}
-                    style={cardStyle}
+                    style={mainStyle}
+                    onMouseEnter={that.onMouseEnterHandler}
+                    onMouseLeave={that.onMouseLeaveHandler}
                   >
                     <CardHeader
                       title="Joe Schmo"
@@ -88,7 +112,7 @@ class PostPreview extends React.Component {
                     />
                     <CardTitle title={post.title} />
                     <CardText>
-                      <i><strong>{italicMessage}</strong></i>{message}
+                      <p><i><strong>{italicMessage}</strong></i>{message} <a href=''>Read more</a></p>
                     </CardText>
                     <div style={{ float: "right", marginRight: 20 }}> {this.isHelpful(post.sentiment)} {this.isUnhelpful(post.unhelpful)} </div>
                   </Card>
