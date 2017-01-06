@@ -12,6 +12,7 @@ h2 {
   color: 'blue100';
   font-size: 20px;
   text-align: center;
+  vertical-align: middle;
 }
 
 .Site-logo {

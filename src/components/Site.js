@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connectProfile, logout, login } from '../auth';
-import logo from '../logo.svg';
 import './Site.css';
 
+// import logo from '../logo.svg';
 // <Avatar src={logo} className="Site-logo" alt="logo" style={logoStyle}/> ----> Spinning React Logo - switch to Lotus??
-import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import FlatButton from 'material-ui/FlatButton';
 import Avatar from 'material-ui/Avatar';
 import { grey900, blue100, green100 } from 'material-ui/styles/colors';
@@ -29,12 +29,13 @@ class Site extends Component {
       backgroundColor: grey900
     };
     const paddedTitleStyle = {
-      color: blue100,
-      padding: 10
+      color: 'white',
+      paddingLeft: 10,
+      paddingBottom: 8
     };
-    const logoStyle = {
-      backgroundColor: grey900
-    };
+    // const logoStyle = {
+    //   backgroundColor: grey900
+    // };
     return (
       <div className="Site">
         <Toolbar style={barStyle}>
@@ -55,24 +56,28 @@ class Site extends Component {
 
   renderLinks() {
     const {profile} = this.props;
-    const padded = {
-      padded: 5,
+    // const padded = {
+    //   padded: 5,
+    //   fontFamily: 'Nunito',
+    //   color: 'blue100',
+    // };
+    // const paddedRight = {
+    //   paddedRight: 5,
+    //   fontFamily: 'Nunito',
+    //   color: 'blue100',
+    // };
+    const nunito = {
       fontFamily: 'Nunito',
-      color: 'blue100',
+      color: '#28D2E4'
     };
-    const paddedRight = {
-      paddedRight: 5,
-      fontFamily: 'Nunito',
-      color: 'blue100',
-    }
     if (profile) {
       return (
         <div>
           <Link to="/createpost">
-            <FlatButton primary label="Add Affirmation" icon={<ContentCreate />} />
+            <FlatButton primary label="Add Affirmation" style={nunito} icon={<ContentCreate />} />
           </Link>
           <Link to="/dashboard">
-            <FlatButton primary label="DASHBOARD" icon={<ActionDashboard />} />
+            <FlatButton primary label="DASHBOARD" style={nunito} icon={<ActionDashboard />} />
           </Link>
         </div>
     );
@@ -108,7 +113,12 @@ class Site extends Component {
       backgroundColor: 'grey900'
     };
     const titleStyle = {
-      color: blue100
+      color: '#FFDB77',
+      fontFamily: 'Nunito'
+    };
+    const nunito = {
+      fontFamily: 'Nunito',
+      color: '#867DCC'
     };
     if (profile) {
       return (
@@ -119,7 +129,7 @@ class Site extends Component {
               {profile.nickname}
             </FlatButton>
           </Link>
-          <FlatButton label="Logout" secondary={true} onClick={logout}/>
+          <FlatButton label="Logout" secondary={true} style={nunito} onClick={logout}/>
         </ToolbarGroup>
       );
     } else {
