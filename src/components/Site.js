@@ -11,6 +11,7 @@ import { grey900, blue100, green100 } from 'material-ui/styles/colors';
 import { Step, Stepper, StepButton } from 'material-ui/Stepper';
 import ActionCompareArrows from 'material-ui/svg-icons/action/compare-arrows';
 import ActionDashboard from 'material-ui/svg-icons/action/dashboard';
+import ActionSettings from 'material-ui/svg-icons/action/settings';
 import ContentCreate from 'material-ui/svg-icons/content/create';
 import ImageColorLens from 'material-ui/svg-icons/image/color-lens';
 import ImageBrush from 'material-ui/svg-icons/image/brush';
@@ -84,9 +85,7 @@ class Site extends Component {
         <ToolbarGroup lastChild={true} style={paddedLeft}>
           <Avatar src={profile.picture}/>
           <Link to="/profile/edit" style={paddedLeft}>
-            <FlatButton style={titleStyle}>
-              {profile.nickname}
-            </FlatButton>
+            <FlatButton label={profile.nickname} style={titleStyle} icon={<ActionSettings />} />
           </Link>
           <FlatButton label="Logout" style={nunito} onClick={logout}/>
         </ToolbarGroup>
