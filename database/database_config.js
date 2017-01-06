@@ -30,6 +30,7 @@ const Post = dbConnection.define('post', {
   unhelpful: { type: Sequelize.INTEGER, allowNull: false },
   flag: { type: Sequelize.INTEGER, allowNull: false },
   anon: { type: Sequelize.BOOLEAN, allowNull: false },
+  edited: { type: Sequelize.BOOLEAN, allowNull: false },
 });
 
 // #######################__Define Associations__##############################
