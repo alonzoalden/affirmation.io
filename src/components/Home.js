@@ -26,7 +26,8 @@ class Home extends Component {
       paddingTop: 10
     };
     const auth = {
-      paddingTop: 130
+      paddingTop: 125,
+      paddingLeft: 15
     };
     return (
       <div>
@@ -42,7 +43,7 @@ class Home extends Component {
                   skills you need to succeed.
                 </h3><img className='tossing' style={mainIcon} src={require('../icons/rocket.png')}/>
               </div>
-              <div style={auth} className="col-xs-3 col-xs-offset-2">
+              <div style={auth} className="col-xs-3 col-xs-offset-1">
                 <div id="hiw-login-container"></div>
               </div>
             </div>
