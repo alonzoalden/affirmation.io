@@ -5,7 +5,9 @@ module.exports = {
     Models.User.build({
       name: req.body.name,
       avatar: req.body.avatar,
-      favorites: JSON.stringify({});
+      favorites: JSON.stringify({}),
+      helpful: JSON.stringify({}),
+      unhelpful: JSON.stringify({}),
     }).save()
     .then((newUser) => {
       res.status(201).json(newUser);
