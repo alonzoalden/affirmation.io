@@ -31,14 +31,12 @@ class PostPreview extends React.Component {
     this.setState({
       hover: true,
     })
-    console.log(this.state.hover)
   }
 
   onMouseLeaveHandler() {
     this.setState({
       hover: false,
     })
-    console.log(this.state.hover)
   }
 
   getPreviewPosts() {
@@ -88,7 +86,7 @@ class PostPreview extends React.Component {
       width: 600,
       margin: 10,
       overflow: 'auto',
-      backgroundColor: 'lightblue',
+      backgroundColor: 'hotpink',
     };
     const mainStyle = this.state.hover ? hoverCardStyle : cardStyle
 
@@ -96,6 +94,7 @@ class PostPreview extends React.Component {
     let that = this
     let phase1 = this.props.location.pathname + '/'
     return (
+<<<<<<< HEAD
       <div>
         {this.state.posts.map((post, index) => {
 
@@ -129,6 +128,32 @@ class PostPreview extends React.Component {
             </div>
           )})
         }
+=======
+      <div style={center}>
+        <div>
+          <div
+            style={{ margin: 10 }}
+          >
+            <Card
+              children={this.isHelpful, this.isUnhelpful}
+              style={mainStyle}
+              onMouseEnter={that.onMouseEnterHandler}
+              onMouseLeave={that.onMouseLeaveHandler}
+            >
+              <CardHeader
+                title={this.props.post.anon ? 'Anonymous' : this.props.post.name}
+                subtitle="Hack Reactor - San Francisco, CA"
+                avatar={this.props.post.anon ? "https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg" : this.props.post.avatar}
+              />
+              <CardTitle title={this.props.post.title} />
+              <CardText>
+                <p><i><strong>{italicMessage} </strong></i>{message} <a href={currentPath + this.props.post.id}>Read more</a></p>
+              </CardText>
+              <div style={{ float: "right", marginRight: 20 }}> {this.isHelpful(this.props.post.sentiment)} {this.isUnhelpful(this.props.post.unhelpful)} </div>
+            </Card>
+          </div>
+        </div>
+>>>>>>> highlights card on mouse over. also sorts cards by highest sentiment count first
       </div>
     )
   }

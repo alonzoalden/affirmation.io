@@ -8,7 +8,7 @@ module.exports = {
       avatar: req.body.avatar,
       title: req.body.title,
       message: req.body.message,
-      sentiment: 0,
+      sentiment: req.body.sentiment,
       helpful: 0,
       unhelpful: 0,
       flag: 0,

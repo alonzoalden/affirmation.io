@@ -18,7 +18,10 @@ class PhaseView extends React.Component {
     super(props);
     this.state = {
       posts: [],
+<<<<<<< HEAD
       hover: false,
+=======
+>>>>>>> highlights card on mouse over. also sorts cards by highest sentiment count first
     }
     this.onMouseEnterHandler = this.onMouseEnterHandler.bind(this)
     this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this)
@@ -46,6 +49,9 @@ class PhaseView extends React.Component {
     let phase = this.props.location.pathname.toLowerCase()
     return axios.get('http://localhost:8000/api/posts' + phase)
       .then((arr) => {
+          arr.data.sort((a,b) => {
+            return (a.sentiment < b.sentiment) ? 1 : -1
+          })
           this.setState({ posts: arr.data })
       })
 
@@ -74,6 +80,7 @@ class PhaseView extends React.Component {
   }
 
   render() {
+<<<<<<< HEAD
     const cardStyle = {
       width: 600,
       margin: 10,
@@ -96,6 +103,9 @@ class PhaseView extends React.Component {
 
     let that = this
     let phase1 = this.props.location.pathname + '/'
+=======
+
+>>>>>>> highlights card on mouse over. also sorts cards by highest sentiment count first
     return (
       <div>
         {that.state.posts.map((post, index) => {
