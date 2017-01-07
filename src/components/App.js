@@ -10,7 +10,7 @@ import SinglePost from '../containers/SinglePost/SinglePost';
 import Dashboard from '../containers/Dashboard/Dashboard';
 import PostPreview from './PostPreview/PostPreview';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
+import PhaseView from '../containers/PhaseView/PhaseView';
 
 class App extends Component {
   render() {
@@ -29,12 +29,14 @@ class App extends Component {
               <Route path="/CreatePost" component={CreatePost} />
               <Route path="/SinglePost" component={SinglePost} />
               <Route path="/WantToLearn" component={PostPreview} />
+              <Route path="/WantToLearn" component={PhaseView} />
               <Route path="/WantToLearn/:id" component={SinglePost} />
               <Route path="/LearningToCode" component={PostPreview} />
               <Route path="/LearningToCode/:id" component={SinglePost} />
               <Route path="/JobHunt" component={PostPreview} />
               <Route path="/JobHunt/:id" component={SinglePost} />
               <Route path="/OnTheJob" component={PostPreview} />
+              <Route path="/OnTheJob" component={PhaseView} />
               <Route path="/OnTheJob/:id" component={SinglePost} />
             </Route>
           </Route>
