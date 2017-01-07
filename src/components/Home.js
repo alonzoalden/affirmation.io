@@ -29,6 +29,10 @@ class Home extends Component {
       paddingTop: 125,
       paddingLeft: 15
     };
+    const github = {
+      color: '#867DCC',
+      textDecoration: 'none'
+    };
     return (
       <div>
         <div className="row">
@@ -109,6 +113,30 @@ class Home extends Component {
                   mea ne, ei sit principes elaboraret. Purto principes per et, affert feugait
                   eu mea. Id mel suas unum definitiones, veritus lucilius an sea unum.
                 </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-xs-12">
+          <div className="alert alert-info footer" role="alert">
+            <div className="col-xs-3 col-xs-offset-3">
+              <br/>
+              <br/>
+              <h5>Alonzo Alden</h5>
+              <h5>David Flowers</h5>
+              <h5>Diogenis Panagiotis</h5>
+              <h5>Luke Golden</h5>
+              <h5>Raj Desai</h5>
+            </div>
+            <div className="col-xs-3 col-xs-offset-1">
+              <br/>
+              <br/>
+              <h5><a style={github} href='https://github.com/DavFlo-16'>github.com/DavFlo-16</a></h5>
+              <h5><a style={github} href='https://github.com/alonzoalden'>github.com/alonzoalden</a></h5>
+              <h5><a style={github} href='https://github.com/DiogenisPanagiotis'>github.com/DiogenisPanagiotis</a></h5>
+              <h5><a style={github} href='https://github.com/DhammaLuke'>github.com/DhammaLuke</a></h5>
+              <h5><a style={github} href='https://github.com/RADesai'>github.com/RADesai</a></h5>
             </div>
           </div>
         </div>
