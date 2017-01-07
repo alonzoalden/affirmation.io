@@ -13,11 +13,13 @@ module.exports = {
       unhelpful: 0,
       flag: 0,
       anon: req.body.anon,
+      edited: false,
     }).save()
     .then(() => {
       res.status(201).send('Your post has been submitted!');
     })
     .catch((error) => {
+      console.log(error);
       res.status(404).send(error);
     });
   },
