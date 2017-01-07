@@ -16,6 +16,7 @@ const User = dbConnection.define('user', {
   id: { type: Sequelize.INTEGER, primaryKey: true, unique: true, autoIncrement: true },
   name: { type: Sequelize.STRING, unique: true, validate: { notEmpty: true } },
   avatar: { type: Sequelize.STRING },
+  favorites: { type: Sequelize.JSON },
 });
 
 const Post = dbConnection.define('post', {
@@ -30,6 +31,7 @@ const Post = dbConnection.define('post', {
   unhelpful: { type: Sequelize.INTEGER, allowNull: false },
   flag: { type: Sequelize.INTEGER, allowNull: false },
   anon: { type: Sequelize.BOOLEAN, allowNull: false },
+  edited: { type: Sequelize.BOOLEAN, allowNull: false },
 });
 
 // #######################__Define Associations__##############################
