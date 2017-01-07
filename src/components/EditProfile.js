@@ -4,9 +4,11 @@ import './EditProfile.css';
 import Avatar from 'material-ui/Avatar';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
 // FROM DINO
-import InlineEdit from 'react-edit-inline';
-import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import Paper from 'material-ui/Paper';
+import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
+import InlineEdit from 'react-edit-inline';
+import FlatButton from 'material-ui/FlatButton';
+import Refresh from 'material-ui/svg-icons/navigation/refresh';
 //
 // const gitHubAtts = [ // 10-16: GitHub, 17-100: Google, 100-120: LinkedIn
 //   'name',
@@ -81,21 +83,36 @@ class EditProfile extends Component {
     console.log('----');
     console.log(this.state);
   }
-  renderProfileInfo() {
+  renderProfile() {
     const profile = this.props.profile;
     const user_metadata = profile.user_metadata || {};
     const innerPaperStyle = {
+      fontFamily: 'Nunito',
       width: 550,
       margin: 35,
       overflow: 'auto'
     };
+    const strong = {
+      fontSize: 18,
+      color: '#867DCC'
+    };
+    const button = {
+      display: 'flex',
+      justifyContent: 'center',
+      horizontalAlign: 'center'
+    };
+    const buttonText = {
+      fontSize: 18,
+      color: '#867DCC'
+    };
     return (
       <div style={innerPaperStyle}>
-        <p><strong>Nickname:</strong> <InlineEdit text={profile.nickname} /></p>
-        <p><strong>Email:</strong> <InlineEdit text={profile.email} /></p>
-        <p><strong>Created At:</strong> <InlineEdit text={profile.created_at} /></p>
-        <p><strong>Updated At:</strong> <InlineEdit text={profile.updated_at} /></p>
-        <p><strong>Location:</strong> <InlineEdit text={user_metadata.location || 'unknown'} /></p>
+        <p><span style={strong}>Nickname:</span> <InlineEdit text={profile.nickname} /></p>
+        <p><span style={strong}>Email:</span> <InlineEdit text={profile.email} /></p>
+        <p><span style={strong}>Location:</span> <InlineEdit text={user_metadata.location || 'unknown'} /></p>
+        <div style={button}>
+          <FlatButton style={buttonText} label="Update Profile" icon={<Refresh />}/>
+        </div>
       </div>
     );
   }
@@ -106,7 +123,8 @@ class EditProfile extends Component {
     this.setState({saving: true}, async () => {
       const error = await this.props.onUpdateProfile({
         user_metadata: {
-          location: this.locationInput.value
+          location: this.locationInput.value,
+          TEST: [{'post1' : true}, {'post3' : true}]
         }
       });
       this.setState({error, saved: !error, saving: false});
@@ -143,22 +161,24 @@ class EditProfile extends Component {
     }
     const titleStyle = {
       fontFamily: 'Nunito',
-      color: '#FFDB77'
+      color: '#FFDB77',
+      paddingLeft: 10
     };
     return (
       <div className={flexbox}>
         <div className="col-md-6 LightPurple">
           <div style={centerPaper}>
-            <Paper style={paperStyle} zDepth={1}>
+            <Paper style={paperStyle} zDepth={2}>
               <Toolbar style={barStyle}>
-                <ToolbarGroup>
+                <ToolbarGroup firstChild={true} style={{paddingLeft: 10}}>
                   <Avatar src={profile.picture} />
-                </ToolbarGroup>
-                <ToolbarGroup lastChild={false}>
                   <ToolbarTitle style={titleStyle} text={profile.name} />
                 </ToolbarGroup>
+                <ToolbarGroup>
+                  <ActionSettings tooltip="Edit Your Profile Here"/>
+                </ToolbarGroup>
               </Toolbar>
-              {this.renderProfileInfo()}
+              {this.renderProfile()}
             </Paper>
           </div>
         </div>
