@@ -5,7 +5,6 @@
 */
 
 import React from 'react';
-import axios from 'axios';
 import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import Badge from 'material-ui/Badge';
@@ -16,7 +15,6 @@ class PostPreview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: [],
       hover: false,
     }
     this.onMouseEnterHandler = this.onMouseEnterHandler.bind(this)
@@ -24,30 +22,18 @@ class PostPreview extends React.Component {
   }
 
   componentDidMount() {
-    this.getPreviewPosts();
   }
 
   onMouseEnterHandler() {
     this.setState({
       hover: true,
     })
-    console.log(this.state.hover)
   }
 
   onMouseLeaveHandler() {
     this.setState({
       hover: false,
     })
-    console.log(this.state.hover)
-  }
-
-  getPreviewPosts() {
-    let phase = this.props.location.pathname.toLowerCase()
-    return axios.get('http://localhost:8000/api/posts' + phase)
-      .then((arr) => {
-          this.setState({ posts: arr.data })
-      })
-
   }
 
   isHelpful(num) {
@@ -88,47 +74,41 @@ class PostPreview extends React.Component {
       width: 600,
       margin: 10,
       overflow: 'auto',
-      backgroundColor: 'lightblue',
+      backgroundColor: 'lightgrey',
     };
     const mainStyle = this.state.hover ? hoverCardStyle : cardStyle
 
+    let italicMessage = this.props.post.message.slice(0, 20)
+    let message = this.props.post.message.slice(20, 200) + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 
     let that = this
-    let phase1 = this.props.location.pathname + '/'
-    return (
-      <div>
-        {this.state.posts.map((post, index) => {
+    let currentPath = this.props.location.pathname + '/'
 
-          let italicMessage = post.message.slice(0, 50)
-          let message = post.message.slice(50, 200) + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit." + '...'
-          return (
-            <div style={center}>
-              <div>
-                <div
-                  style={{ margin: 10 }}
-                >
-                  <Card
-                    children={this.isHelpful, this.isUnhelpful}
-                    style={mainStyle}
-                    onMouseEnter={that.onMouseEnterHandler}
-                    onMouseLeave={that.onMouseLeaveHandler}
-                  >
-                    <CardHeader
-                      title={post.anon ? 'Anonymous' : post.name}
-                      subtitle="Hack Reactor - San Francisco, CA"
-                      avatar={post.anon ? "https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg" : post.avatar}
-                    />
-                    <CardTitle title={post.title} />
-                    <CardText>
-                      <p><i><strong>{italicMessage}</strong></i>{message} <a href={phase1 + post.id}>Read more</a></p>
-                    </CardText>
-                    <div style={{ float: "right", marginRight: 20 }}> {this.isHelpful(post.sentiment)} {this.isUnhelpful(post.unhelpful)} </div>
-                  </Card>
-                </div>
-              </div>
-            </div>
-          )})
-        }
+    return (
+      <div style={center}>
+        <div>
+          <div
+            style={{ margin: 10 }}
+          >
+            <Card
+              children={this.isHelpful, this.isUnhelpful}
+              style={mainStyle}
+              onMouseEnter={that.onMouseEnterHandler}
+              onMouseLeave={that.onMouseLeaveHandler}
+            >
+              <CardHeader
+                title={this.props.post.anon ? 'Anonymous' : this.props.post.name}
+                subtitle="Hack Reactor - San Francisco, CA"
+                avatar={this.props.post.anon ? "https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg" : this.props.post.avatar}
+              />
+              <CardTitle title={this.props.post.title} />
+              <CardText>
+                <p><i><strong>{italicMessage}</strong></i>{message} ..... <a href={currentPath + this.props.post.id}>Read more</a></p>
+              </CardText>
+              <div style={{ float: "right", marginRight: 20 }}> {this.isHelpful(this.props.post.sentiment)} {this.isUnhelpful(this.props.post.unhelpful)} </div>
+            </Card>
+          </div>
+        </div>
       </div>
     )
   }
