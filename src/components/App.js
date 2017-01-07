@@ -28,14 +28,12 @@ class App extends Component {
               <Route path="/Dashboard" component={Dashboard} />
               <Route path="/CreatePost" component={CreatePost} />
               <Route path="/SinglePost" component={SinglePost} />
-              <Route path="/WantToLearn" component={PostPreview} />
               <Route path="/WantToLearn" component={PhaseView} />
               <Route path="/WantToLearn/:id" component={SinglePost} />
               <Route path="/LearningToCode" component={PhaseView} />
               <Route path="/LearningToCode/:id" component={SinglePost} />
               <Route path="/JobHunt" component={PhaseView} />
               <Route path="/JobHunt/:id" component={SinglePost} />
-              <Route path="/OnTheJob" component={PostPreview} />
               <Route path="/OnTheJob" component={PhaseView} />
               <Route path="/OnTheJob/:id" component={SinglePost} />
             </Route>
