@@ -3,7 +3,6 @@
 * PostView
 *
 */
-
 import React from 'react';
 import axios from 'axios';
 import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
@@ -35,7 +34,7 @@ class PostView extends React.Component {
   }
 
   isHelpful() {
-    
+
   }
   isUnhelpful() {
 
@@ -59,7 +58,7 @@ class PostView extends React.Component {
               style={cardStyle}
             >
               <CardHeader
-                title={this.state.post.name}
+                title={this.state.post.anon ? 'Anonymous' : this.state.post.name}
                 subtitle="Hack Reactor - San Francisco, CA"
                 avatar={this.state.post.avatar}
               />
