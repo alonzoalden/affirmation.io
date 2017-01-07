@@ -35,7 +35,7 @@ class PostView extends React.Component {
   }
 
   isHelpful() {
-    
+
   }
   isUnhelpful() {
 
@@ -59,7 +59,7 @@ class PostView extends React.Component {
               style={cardStyle}
             >
               <CardHeader
-                title={this.state.post.name}
+                title={this.state.post.anon ? 'Anonymous' : this.state.post.name}
                 subtitle="Hack Reactor - San Francisco, CA"
                 avatar={this.state.post.avatar}
               />
