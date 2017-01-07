@@ -17,15 +17,29 @@ if (!process.env.REACT_APP_AUTH0_CLIENT_ID || !process.env.REACT_APP_AUTH0_DOMAI
   throw new Error('Please define `REACT_APP_AUTH0_CLIENT_ID` and `REACT_APP_AUTH0_DOMAIN` in your .env file');
 }
 
-const lock = new Auth0Lock(
-  process.env.REACT_APP_AUTH0_CLIENT_ID,
-  process.env.REACT_APP_AUTH0_DOMAIN, {
-    auth: {
-      redirectUrl: `${window.location.origin}${LOGIN_ROUTE}`,
-      responseType: 'token'
-    }
+// const lock = new Auth0Lock(
+//   process.env.REACT_APP_AUTH0_CLIENT_ID,
+//   process.env.REACT_APP_AUTH0_DOMAIN, {
+//     auth: {
+//       redirectUrl: `${window.location.origin}${LOGIN_ROUTE}`,
+//       responseType: 'token'
+//     }
+//   }
+// );
+
+var options = {
+  container: 'hiw-login-container',
+  socialButtonStyle: 'small',
+  // allowedConnections: ['Username-Password-Authentication', 'github', 'linkedin', 'google'],
+  theme: {
+    primaryColor: '#28D2E4'
   }
-);
+};
+var lock = new Auth0Lock('Dpl5kikwiCjHc3SkUtMVMw4rT2H6v5rZ', 'hrr20-lotus.auth0.com', options);
+
+export function newLock(){
+  lock.show();
+};
 
 const events = new EventEmitter();
 

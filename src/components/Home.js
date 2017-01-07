@@ -1,15 +1,18 @@
 import React, {Component} from 'react';
-import { connectProfile } from '../auth';
+import { connectProfile, newLock } from '../auth';
+import Auth0Lock from 'auth0-lock';
 import './Home.css';
 import './Animate.css';
 class Home extends Component {
   static propTypes = {
     ...connectProfile.PropTypes
   };
-
+  componentDidMount(){
+    newLock();
+  };
   render() {
     const text = {
-      marginTop: 140
+      marginTop: 110
     };
     const icon = {
       height: 120,
@@ -19,7 +22,10 @@ class Home extends Component {
     const mainIcon = {
       height: 120,
       width: 120,
-      marginTop: 200
+      marginLeft: 135
+    };
+    const auth = {
+      paddingTop: 20
     };
     return (
       <div>
@@ -33,10 +39,10 @@ class Home extends Component {
                   Obtain advice from profound experienced professionalsin the field
                   who have been in your shoes, to help you gain the confidence and
                   skills you need to succeed.
-                </h3>
+                </h3><img className='tossing' style={mainIcon} src={require('../icons/rocket.png')}/>
               </div>
-              <div className="col-xs-3 col-xs-offset-2">
-                <img className='tossing' style={mainIcon} src={require('../icons/rocket.png')}/>
+              <div style={auth} className="col-xs-3 col-xs-offset-2">
+                <div id="hiw-login-container"></div>
               </div>
             </div>
           </div>
