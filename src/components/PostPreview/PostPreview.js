@@ -5,7 +5,6 @@
 */
 
 import React from 'react';
-import axios from 'axios';
 import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import Badge from 'material-ui/Badge';
@@ -86,15 +85,16 @@ class PostPreview extends React.Component {
       width: 600,
       margin: 10,
       overflow: 'auto',
-      backgroundColor: 'hotpink',
+      backgroundColor: 'lightgrey',
     };
     const mainStyle = this.state.hover ? hoverCardStyle : cardStyle
 
+    let italicMessage = this.props.post.message.slice(0, 20)
+    let message = this.props.post.message.slice(20, 200) + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 
     let that = this
     let phase1 = this.props.location.pathname + '/'
     return (
-<<<<<<< HEAD
       <div>
         {this.state.posts.map((post, index) => {
 
@@ -128,7 +128,6 @@ class PostPreview extends React.Component {
             </div>
           )})
         }
-=======
       <div style={center}>
         <div>
           <div
@@ -147,13 +146,12 @@ class PostPreview extends React.Component {
               />
               <CardTitle title={this.props.post.title} />
               <CardText>
-                <p><i><strong>{italicMessage} </strong></i>{message} <a href={currentPath + this.props.post.id}>Read more</a></p>
+                <p><i><strong>{italicMessage} </strong></i>{message} ..... <a href={currentPath + this.props.post.id}>Read more</a></p>
               </CardText>
               <div style={{ float: "right", marginRight: 20 }}> {this.isHelpful(this.props.post.sentiment)} {this.isUnhelpful(this.props.post.unhelpful)} </div>
             </Card>
           </div>
         </div>
->>>>>>> highlights card on mouse over. also sorts cards by highest sentiment count first
       </div>
     )
   }

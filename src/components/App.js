@@ -31,9 +31,9 @@ class App extends Component {
               <Route path="/WantToLearn" component={PostPreview} />
               <Route path="/WantToLearn" component={PhaseView} />
               <Route path="/WantToLearn/:id" component={SinglePost} />
-              <Route path="/LearningToCode" component={PostPreview} />
+              <Route path="/LearningToCode" component={PhaseView} />
               <Route path="/LearningToCode/:id" component={SinglePost} />
-              <Route path="/JobHunt" component={PostPreview} />
+              <Route path="/JobHunt" component={PhaseView} />
               <Route path="/JobHunt/:id" component={SinglePost} />
               <Route path="/OnTheJob" component={PostPreview} />
               <Route path="/OnTheJob" component={PhaseView} />
