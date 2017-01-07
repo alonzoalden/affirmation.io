@@ -5,6 +5,7 @@ module.exports = {
     Models.User.build({
       name: req.body.name,
       avatar: req.body.avatar,
+      favorites: JSON.stringify({});
     }).save()
     .then((newUser) => {
       res.status(201).json(newUser);
