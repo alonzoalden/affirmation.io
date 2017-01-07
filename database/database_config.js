@@ -17,6 +17,8 @@ const User = dbConnection.define('user', {
   name: { type: Sequelize.STRING, unique: true, validate: { notEmpty: true } },
   avatar: { type: Sequelize.STRING },
   favorites: { type: Sequelize.JSON },
+  helpful: { type: Sequelize.JSON },
+  unhelpful: {type: Sequelize.JSON },
 });
 
 const Post = dbConnection.define('post', {
