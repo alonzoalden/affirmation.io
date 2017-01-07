@@ -5,7 +5,7 @@
 */
 
 import React from 'react';
-// import Paper from 'material-ui/Paper';
+import axios from 'axios';
 import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import Badge from 'material-ui/Badge';
@@ -16,29 +16,29 @@ class PostView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      post: {}
     }
   }
 
+  componentDidMount() {
+    this.getCurrentPost();
+  }
+
+  getCurrentPost() {
+    let path = window.location.pathname.toLowerCase();
+    console.log(path);
+    return axios.get('http://localhost:8000/api/posts' + path)
+      .then((post) => {
+        console.log(post);
+        this.setState({ post: post.data })
+      });
+  }
+
   isHelpful() {
-    return (
-      <Badge
-        badgeContent={5}
-        primary={true}
-      >
-        <SentimentVerySatisfied />
-      </Badge>
-    );
+    
   }
   isUnhelpful() {
-    return (
-      <Badge
-        badgeContent={5}
-        primary={true}
-      >
-        <SentimentVeryDissatisfied />
-      </Badge>
-    );
+
   }
   render() {
     const cardStyle = {
@@ -59,32 +59,29 @@ class PostView extends React.Component {
               style={cardStyle}
             >
               <CardHeader
-                title="Sir Testburg"
+                title={this.state.post.name}
                 subtitle="Hack Reactor - San Francisco, CA"
-                avatar="https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg"
+                avatar={this.state.post.avatar}
               />
-            <CardTitle titleStyle={{ 'text-align': 'center' }} title="Professional button pusher for 15 years - I've made some things" />
+            <CardTitle titleStyle={{ 'text-align': 'center' }} title={this.state.post.title} />
               <CardText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-                Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-                Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-                Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+                {this.state.post.message}
               </CardText>
               <CardActions>
                 <FlatButton label="Is Helpful" />
-                {this.isHelpful()}
+                  <Badge
+                    badgeContent={this.state.post.helpful}
+                    primary={true}
+                  >
+                    <SentimentVerySatisfied />
+                  </Badge>
                 <FlatButton label="Is Unhelpful" />
-                {this.isUnhelpful()}
+                  <Badge
+                    badgeContent={this.state.post.unhelpful}
+                    primary={true}
+                  >
+                    <SentimentVeryDissatisfied />
+                  </Badge>
               </CardActions>
             </Card>
           </div>
