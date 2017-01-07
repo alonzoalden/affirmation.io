@@ -29,8 +29,8 @@ if (!process.env.REACT_APP_AUTH0_CLIENT_ID || !process.env.REACT_APP_AUTH0_DOMAI
 
 var options = {
   container: 'hiw-login-container',
-  socialButtonStyle: 'small',
-  // allowedConnections: ['Username-Password-Authentication', 'github', 'linkedin', 'google'],
+  // socialButtonStyle: 'small',
+  allowedConnections: ['linkedin', 'github', 'google-oauth2'],
   theme: {
     primaryColor: '#28D2E4'
   }

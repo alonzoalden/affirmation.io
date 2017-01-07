@@ -22,10 +22,11 @@ class Home extends Component {
     const mainIcon = {
       height: 120,
       width: 120,
-      marginLeft: 135
+      marginLeft: 135,
+      paddingTop: 10
     };
     const auth = {
-      paddingTop: 20
+      paddingTop: 130
     };
     return (
       <div>
