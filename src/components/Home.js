@@ -1,15 +1,18 @@
 import React, {Component} from 'react';
-import { connectProfile } from '../auth';
+import { connectProfile, newLock } from '../auth';
+import Auth0Lock from 'auth0-lock';
 import './Home.css';
 import './Animate.css';
 class Home extends Component {
   static propTypes = {
     ...connectProfile.PropTypes
   };
-
+  componentDidMount(){
+    newLock();
+  };
   render() {
     const text = {
-      marginTop: 140
+      marginTop: 110
     };
     const icon = {
       height: 120,
@@ -19,7 +22,16 @@ class Home extends Component {
     const mainIcon = {
       height: 120,
       width: 120,
-      marginTop: 200
+      marginLeft: 135,
+      paddingTop: 10
+    };
+    const auth = {
+      paddingTop: 125,
+      paddingLeft: 15
+    };
+    const github = {
+      color: '#867DCC',
+      textDecoration: 'none'
     };
     return (
       <div>
@@ -33,10 +45,10 @@ class Home extends Component {
                   Obtain advice from profound experienced professionalsin the field
                   who have been in your shoes, to help you gain the confidence and
                   skills you need to succeed.
-                </h3>
+                </h3><img className='tossing' style={mainIcon} src={require('../icons/rocket.png')}/>
               </div>
-              <div className="col-xs-3 col-xs-offset-2">
-                <img className='tossing' style={mainIcon} src={require('../icons/rocket.png')}/>
+              <div style={auth} className="col-xs-3 col-xs-offset-1">
+                <div id="hiw-login-container"></div>
               </div>
             </div>
           </div>
@@ -101,6 +113,30 @@ class Home extends Component {
                   mea ne, ei sit principes elaboraret. Purto principes per et, affert feugait
                   eu mea. Id mel suas unum definitiones, veritus lucilius an sea unum.
                 </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-xs-12">
+          <div className="alert alert-info footer" role="alert">
+            <div className="col-xs-3 col-xs-offset-3">
+              <br/>
+              <br/>
+              <h5>Alonzo Alden</h5>
+              <h5>David Flowers</h5>
+              <h5>Diogenis Panagiotis</h5>
+              <h5>Luke Golden</h5>
+              <h5>Raj Desai</h5>
+            </div>
+            <div className="col-xs-3 col-xs-offset-1">
+              <br/>
+              <br/>
+              <h5><a style={github} href='https://github.com/DavFlo-16'>github.com/DavFlo-16</a></h5>
+              <h5><a style={github} href='https://github.com/alonzoalden'>github.com/alonzoalden</a></h5>
+              <h5><a style={github} href='https://github.com/DiogenisPanagiotis'>github.com/DiogenisPanagiotis</a></h5>
+              <h5><a style={github} href='https://github.com/DhammaLuke'>github.com/DhammaLuke</a></h5>
+              <h5><a style={github} href='https://github.com/RADesai'>github.com/RADesai</a></h5>
             </div>
           </div>
         </div>

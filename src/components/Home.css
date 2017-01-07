@@ -45,8 +45,18 @@ h3 {
   color: #0F5057;
 }
 
+.footer {
+  background-color: #413D63;
+  color: #867DCC;
+  height: 35vh;
+}
+
+h5 {
+  font-family: 'Nunito';
+}
+
 .main {
-  height: 80vh;
+  height: 85vh;
 }
 
 .col-xs-3 {
