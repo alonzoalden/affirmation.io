@@ -46,6 +46,7 @@ class EditProfile extends Component {
       this.setState({
         account: 'GitHub'
       });
+      console.log(this.props.profile);
     }
   }
   isGoogle() {
@@ -54,6 +55,7 @@ class EditProfile extends Component {
       this.setState({
         account: 'Google'
       });
+      console.log(this.props.profile);
     }
   }
   islinkedIn() {
@@ -62,6 +64,7 @@ class EditProfile extends Component {
       this.setState({
         account: 'linkedIn'
       });
+      console.log(this.props.profile);
     }
   }
 
@@ -75,8 +78,6 @@ class EditProfile extends Component {
     this.accountChecker();
     console.log('----');
     console.log(this.state);
-    this.setState({account : 'manual'});
-    console.log(this.state);
   }
 
   onSubmit = (event) => {
@@ -88,7 +89,6 @@ class EditProfile extends Component {
           location: this.locationInput.value
         }
       });
-
       this.setState({error, saved: !error, saving: false});
     });
   }
@@ -99,7 +99,7 @@ class EditProfile extends Component {
 
   render() {
     const {profile} = this.props;
-    const {saving, saved} = this.state;
+    const {saving, saved, error, account} = this.state;
     const user_metadata = profile.user_metadata || {};
     const flexbox = {
       'display': '-webkit-flex',
