@@ -3,7 +3,6 @@
 * PostView
 *
 */
-
 import React from 'react';
 import axios from 'axios';
 import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
