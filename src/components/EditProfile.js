@@ -10,27 +10,65 @@ import InlineEdit from 'react-edit-inline';
 import FlatButton from 'material-ui/FlatButton';
 import Refresh from 'material-ui/svg-icons/navigation/refresh';
 //
-// const gitHubAtts = [ // 10-16: GitHub, 17-100: Google, 100-120: LinkedIn
-//   'name',
-//   'email',
-//   'picture',
-//   'nickname',
-//   'url',
-//   'hmtl_url',
-//   'location',
-// ];
+let mainAcc = '';
+let secondaryAccs = [
+  'github',
+  'google-oauth2',
+  'linkedin'
+];
+const gitHubAtts = [
+  'email',
+  'name',
+  'nickname',
+  'html_url',
+  'location',
+  'public_repos',
+  'followers',
+  'following',
+  'updated_at'
+  /**
+  EXTRA INFO --------- ---------  --------- --------->
+  'public_gists',
+  'picture',
+  'gravatar_id',
+  'type',
+  'site_admin',
+  'user_metadata',
+  'emails',
+  'clientID',
+  'user_id',
+  'identities',
+  'created_at',
+  'email_verified',
+  'sub',
+  API LINKS ----- ----- ----->
+  'followers_url',
+  'following_url',
+  'gists_url',
+  'starred_url',
+  'subscriptions_url',
+  'organizations_url',
+  'repos_url',
+  'events_url',
+  'received_events_url'
+  <----- ----- ----- API LINKS
+  <--------- --------- --------- --------- EXTRA INFO
+  **/
+];
+
+const googleAtts = [ // user_metadata.location -- NYC
+  'gender'
+  // 'email',
+  // 'name',
+  // 'picture',
+];
 //
-// const googleAtts = [ // user_metadata.location -- NYC
-//   'email',
-//   'name',
-//   'picture',
-//   'gender',
-//   'nickname',
-// ];
-//
-// const linkedInAtts = [
-//
-// ];
+const linkedInAtts = [
+  'headline',
+  'industry',
+  'summary'
+  // location.name
+];
 
 class EditProfile extends Component {
   static propTypes = {
@@ -40,49 +78,61 @@ class EditProfile extends Component {
   state = {
     error: null,
     saved: false,
-    saving: false,
-    account: ''
+    saving: false
   }
 
-  isGitHub() {
-    if (this.props.profile.html_url !== undefined) {
-      console.log('Using GitHub');
-      this.setState({
-        account: 'GitHub'
-      });
-      console.log(this.props.profile);
+  findMain(profile) {
+    if (profile.html_url !== undefined) {
+      mainAcc = 'github';
+      secondaryAccs = [
+        'google-oauth2',
+        'linkedin'
+      ];
+    } else if (profile.gender !== undefined) {
+      mainAcc = 'google-oauth2';
+      secondaryAccs = [
+        'github',
+        'linkedin'
+      ];
+    } else if (profile.summary !== undefined) {
+      mainAcc = 'linkedin';
+      secondaryAccs = [
+        'github',
+        'google-oauth2'
+      ];
     }
-  }
-  isGoogle() {
-    if (this.props.profile.gender !== undefined) {
-      console.log('Using Google');
-      this.setState({
-        account: 'Google'
-      });
-      console.log(this.props.profile);
-    }
-  }
-  islinkedIn() {
-    if (this.props.profile.summary !== undefined) {
-      console.log('Using linkedIn');
-      this.setState({
-        account: 'linkedIn'
-      });
-      console.log(this.props.profile);
-    }
+    console.log('Main Account:', mainAcc);
   }
 
-  accountChecker() {
-    this.isGitHub();
-    this.isGoogle();
-    this.islinkedIn();
+  addDataFrom(origAcc, acc2, acc3) {
+    let arr = [];
+
+
+    for (let i = 0; i < acc2.length; i++) {
+      arr.push(acc2[i]);
+    }
+    for (let i = 0; i < acc3.length; i++) {
+      arr.push(acc3[i]);
+    }
+    return arr;
   }
 
-  componentDidMount() {
-    this.accountChecker();
-    console.log('----');
-    console.log(this.state);
+  provideDetails() {
+    const profile = this.props.profile;
+    this.findMain(profile);
+    console.log('----- profile -----');
+    console.log(profile);
+    let details = [];
+    if (mainAcc === 'github') {
+      details = this.addDataFrom(gitHubAtts, 'linkedin', 'google-oauth2');
+    } else if (mainAcc === 'linkedin') {
+      details = this.addDataFrom(linkedInAtts, 'github', 'google-oauth2');
+    } else if (mainAcc === 'google-oauth2') {
+      details = this.addDataFrom(googleAtts, 'github', 'linkedin');
+    }
+    return gitHubAtts;
   }
+
   renderProfile() {
     const profile = this.props.profile;
     const user_metadata = profile.user_metadata || {};
@@ -110,6 +160,14 @@ class EditProfile extends Component {
         <p><span style={strong}>Nickname:</span> <InlineEdit text={profile.nickname} /></p>
         <p><span style={strong}>Email:</span> <InlineEdit text={profile.email} /></p>
         <p><span style={strong}>Location:</span> <InlineEdit text={user_metadata.location || 'unknown'} /></p>
+        <div style={button}>
+          <FlatButton style={buttonText} label="Standard Profile" />
+        </div>
+        {this.provideDetails().map((detail) => {
+          return (
+              <p><span style={strong}>{detail}:</span> <InlineEdit text={profile[detail]} /></p>
+          );
+        })}
         <div style={button}>
           <FlatButton style={buttonText} label="Update Profile" icon={<Refresh />}/>
         </div>
@@ -175,7 +233,7 @@ class EditProfile extends Component {
                   <ToolbarTitle style={titleStyle} text={profile.name} />
                 </ToolbarGroup>
                 <ToolbarGroup>
-                  <ActionSettings tooltip="Edit Your Profile Here"/>
+                  <ActionSettings />
                 </ToolbarGroup>
               </Toolbar>
               {this.renderProfile()}
