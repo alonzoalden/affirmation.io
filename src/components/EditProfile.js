@@ -3,6 +3,9 @@ import {connectProfile} from '../auth';
 import './EditProfile.css';
 import Avatar from 'material-ui/Avatar';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
+import Divider from 'material-ui/Divider';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import IconButton from 'material-ui/IconButton';
 // FROM DINO
 import Paper from 'material-ui/Paper';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
@@ -17,11 +20,11 @@ let secondaryAccs = [
   'linkedin'
 ];
 const gitHubAtts = [
-  'email',
-  'name',
-  'nickname',
-  'html_url',
-  'location',
+  // 'email',
+  // 'name',
+  // 'nickname',
+  // 'html_url',
+  // 'location',
   'public_repos',
   'followers',
   'following',
@@ -41,7 +44,7 @@ const gitHubAtts = [
   'created_at',
   'email_verified',
   'sub',
-  API LINKS ----- ----- ----->
+  API LINKS ----- ----- -----> CAN REQUEST INFO FROM THE FOLLOWING API ENDPOINTS:
   'followers_url',
   'following_url',
   'gists_url',
@@ -117,7 +120,7 @@ class EditProfile extends Component {
     return arr;
   }
 
-  provideDetails() {
+  provideDetails() { // Returns info from main account
     const profile = this.props.profile;
     this.findMain(profile);
     console.log('----- profile -----');
@@ -138,8 +141,7 @@ class EditProfile extends Component {
     const user_metadata = profile.user_metadata || {};
     const innerPaperStyle = {
       fontFamily: 'Nunito',
-      width: 550,
-      margin: 35,
+      margin: 25,
       overflow: 'auto'
     };
     const strong = {
@@ -148,8 +150,7 @@ class EditProfile extends Component {
     };
     const button = {
       display: 'flex',
-      justifyContent: 'center',
-      horizontalAlign: 'center'
+      justifyContent: 'center'
     };
     const buttonText = {
       fontSize: 18,
@@ -157,15 +158,12 @@ class EditProfile extends Component {
     };
     return (
       <div style={innerPaperStyle}>
-        <p><span style={strong}>Nickname:</span> <InlineEdit text={profile.nickname} /></p>
         <p><span style={strong}>Email:</span> <InlineEdit text={profile.email} /></p>
         <p><span style={strong}>Location:</span> <InlineEdit text={user_metadata.location || 'unknown'} /></p>
-        <div style={button}>
-          <FlatButton style={buttonText} label="Standard Profile" />
-        </div>
+        <p><span style={strong}>GitHub:</span> <a style={{textDecoration: 'none', color: 'black'}} href={profile.html_url}>{profile.nickname}</a></p>
         {this.provideDetails().map((detail) => {
           return (
-              <p><span style={strong}>{detail}:</span> <InlineEdit text={profile[detail]} /></p>
+            <p><span style={strong}>{detail}:</span> <InlineEdit text={profile[detail]} /></p>
           );
         })}
         <div style={button}>
@@ -181,8 +179,7 @@ class EditProfile extends Component {
     this.setState({saving: true}, async () => {
       const error = await this.props.onUpdateProfile({
         user_metadata: {
-          location: this.locationInput.value,
-          TEST: [{'post1' : true}, {'post3' : true}]
+          location: this.locationInput.value
         }
       });
       this.setState({error, saved: !error, saving: false});
@@ -197,10 +194,10 @@ class EditProfile extends Component {
     const {profile} = this.props;
     const {saving, saved} = this.state;
     const flexbox = {
-      'display': '-webkit-flex',
-      'display': '-ms-flexbox',
-      'display': 'flex',
-      'overflow': 'hidden'
+      display: '-webkit-flex',
+      display: '-ms-flexbox',
+      display: 'flex',
+      overflow: 'hidden'
     };
     const centerPaper = {
       display: 'flex',
@@ -208,9 +205,14 @@ class EditProfile extends Component {
       justifyContent: 'center'
     };
     const paperStyle = {
-      height: 600,
       width: 600,
       margin: 35,
+      overflow: 'auto',
+      backgroundColor: '#FFDB77'
+    };
+    const cardStyle = {
+      width: 350,
+      margin: 20,
       overflow: 'auto',
       backgroundColor: '#FFDB77'
     };
@@ -222,26 +224,38 @@ class EditProfile extends Component {
       color: '#FFDB77',
       paddingLeft: 10
     };
+    const buttonStyle = {
+      fontFamily: 'Nunito',
+      backgroundColor: '#FFDB77',
+      color: '#867DCC'
+    };
     return (
       <div className={flexbox}>
+
+        <div className="col-md-6 LightPurple">
+          <Card style={cardStyle} zDepth={1}>
+            <CardMedia overlay={<CardTitle subtitle={profile.identities[1].profileData.headline} />}>
+              <img src={profile.picture} size={200} />
+            </CardMedia>
+            <CardTitle title={profile.name} subtitle="Bio" />
+            <CardText style={{fontFamily: "Nunito"}}>{profile.identities[1].profileData.summary}</CardText>
+          </Card>
+        </div>
+
         <div className="col-md-6 LightPurple">
           <div style={centerPaper}>
             <Paper style={paperStyle} zDepth={2}>
               <Toolbar style={barStyle}>
-                <ToolbarGroup firstChild={true} style={{paddingLeft: 10}}>
-                  <Avatar src={profile.picture} />
-                  <ToolbarTitle style={titleStyle} text={profile.name} />
-                </ToolbarGroup>
                 <ToolbarGroup>
-                  <ActionSettings />
+                  <FlatButton style={buttonStyle} label="GitHub Repos" />
+                  <FlatButton style={buttonStyle} label="Contact Me" />
+                  <FlatButton style={buttonStyle} labelPosition="before" label="Privacy" icon={<ActionSettings />}/>
                 </ToolbarGroup>
               </Toolbar>
               {this.renderProfile()}
             </Paper>
           </div>
-        </div>
 
-        <div className="col-xs-12 col-md-6 LightPurple" style={{ 'height': '50vh' }}>
           <div className="EditProfile-heading">Edit Profile</div>
           <form className="EditProfile-form" onSubmit={this.onSubmit} onChange={this.onClearSaved}>
             <fieldset className="EditProfile-fieldset" disabled={saving}>
@@ -264,6 +278,7 @@ class EditProfile extends Component {
             </fieldset>
           </form>
         </div>
+
       </div>
     );
   }
