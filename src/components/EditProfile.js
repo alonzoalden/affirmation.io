@@ -247,8 +247,8 @@ class EditProfile extends Component {
             <Paper style={paperStyle} zDepth={2}>
               <Toolbar style={barStyle}>
                 <ToolbarGroup>
+                  <FlatButton style={buttonStyle} label="Affirmation Log" />
                   <FlatButton style={buttonStyle} label="GitHub Repos" />
-                  <FlatButton style={buttonStyle} label="Contact Me" />
                   <FlatButton style={buttonStyle} labelPosition="before" label="Privacy" icon={<ActionSettings />}/>
                 </ToolbarGroup>
               </Toolbar>

@@ -8,7 +8,7 @@ module.exports = function (app, express) {
   const router = express.Router();
 
   //these are the api endpoints and routes
-  router.route('/posts/:phase/')
+  router.route('/posts/:phase')
     .post(postController.addAPost)
     .get(postController.getAllPosts);
 
@@ -17,7 +17,19 @@ module.exports = function (app, express) {
     .put(postController.updateAPost)
     .delete(postController.deleteAPost);
 
-  router.route('/users/')
+  router.route('/posts/:phase/:id/vote/:vote')
+    .post(postController.setHelpfulness)
+    .put(postController.updateHelpfulness);
+
+  router.route('/posts/:phase/:id/favorite/:favorite')
+    .post(postController.favoriteAPost)
+    .put(postController.updateFavoriteAPost);
+
+  router.route('/posts/:phase/:id/flag/:flag')
+    .post(postController.flagAPost)
+    .put(postController.updateFlagAPost);
+
+  router.route('/users')
     .post(userController.addAUser)
     .get(userController.getAllUsers);
 

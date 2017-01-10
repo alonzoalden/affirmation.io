@@ -3,11 +3,12 @@ const Models = require('../../../database/database_config');
 module.exports = {
   addAUser: (req, res) => {
     Models.User.build({
+      email: req.body.email,
       name: req.body.name,
       avatar: req.body.avatar,
-      favorites: JSON.stringify({}),
-      helpful: JSON.stringify({}),
-      unhelpful: JSON.stringify({}),
+      job: req.body.job || 'Affirmation',
+      location: req.body.location || 'Cyberspace',
+      about: req.body.about || ':/',
     }).save()
     .then((newUser) => {
       res.status(201).json(newUser);
