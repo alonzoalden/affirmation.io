@@ -45,7 +45,8 @@ class PhaseView extends React.Component {
             <div>
               <PostPreview
                 post={post}
-                location={this.props.location}
+                location={post.user.location}
+
               />
             </div>
           )
