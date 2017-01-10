@@ -132,8 +132,8 @@ class Home extends Component {
             <div className="col-xs-3 col-xs-offset-1">
               <br/>
               <br/>
-              <h5><a style={github} href='https://github.com/DavFlo-16'>github.com/DavFlo-16</a></h5>
               <h5><a style={github} href='https://github.com/alonzoalden'>github.com/alonzoalden</a></h5>
+              <h5><a style={github} href='https://github.com/DavFlo-16'>github.com/DavFlo-16</a></h5>
               <h5><a style={github} href='https://github.com/DiogenisPanagiotis'>github.com/DiogenisPanagiotis</a></h5>
               <h5><a style={github} href='https://github.com/DhammaLuke'>github.com/DhammaLuke</a></h5>
               <h5><a style={github} href='https://github.com/RADesai'>github.com/RADesai</a></h5>
