@@ -13,32 +13,50 @@ const dbConnection = new Sequelize('app_data', '', '', {
 
 
 const User = dbConnection.define('user', {
-  id: { type: Sequelize.INTEGER, primaryKey: true, unique: true, autoIncrement: true },
-  name: { type: Sequelize.STRING, unique: true, validate: { notEmpty: true } },
+  email: { type: Sequelize.STRING, primaryKey: true, unique: true },
+  name: { type: Sequelize.STRING, validate: { notEmpty: true } },
   avatar: { type: Sequelize.STRING },
-  favorites: { type: Sequelize.JSON },
-  helpful: { type: Sequelize.JSON },
-  unhelpful: {type: Sequelize.JSON },
+  job: { type: Sequelize.STRING },
+  location: { type: Sequelize.STRING },
+  about: { type: Sequelize.TEXT },
 });
 
 const Post = dbConnection.define('post', {
   id: { type: Sequelize.INTEGER, primaryKey: true, unique: true, autoIncrement: true },
   phase: { type: Sequelize.STRING(15), validate: { notEmpty: true } },
-  name: { type: Sequelize.STRING(40), validate: { notEmpty: true } },
-  avatar: { type: Sequelize.STRING(500), validate: {notEmpty: true } },
   title: { type: Sequelize.STRING(70), validate: { notEmpty: true } },
   message: { type: Sequelize.TEXT, validate: { notEmpty: true } },
   sentiment: { type: Sequelize.INTEGER, allowNull: false },
   helpful: { type: Sequelize.INTEGER, allowNull: false },
   unhelpful: { type: Sequelize.INTEGER, allowNull: false },
   flag: { type: Sequelize.INTEGER, allowNull: false },
+  favorites: { type: Sequelize.INTEGER, allowNull: false },
   anon: { type: Sequelize.BOOLEAN, allowNull: false },
   edited: { type: Sequelize.BOOLEAN, allowNull: false },
 });
 
+const Sentiment = dbConnection.define('sentiment', {
+  id: { type: Sequelize.INTEGER, primaryKey: true, unique: true, autoIncrement: true },
+  helpfulness: { type: Sequelize.BOOLEAN, allowNull: true, validate: { notEmpty: true } },
+});
+const Favorites = dbConnection.define('favorites', {
+  id: { type: Sequelize.INTEGER, primaryKey: true, unique: true, autoIncrement: true },
+  favorite: { type: Sequelize.BOOLEAN, allowNull: true, validate: { notEmpty: true } },
+});
+const Flags = dbConnection.define('flags', {
+  id: { type: Sequelize.INTEGER, primaryKey: true, unique: true, autoIncrement: true },
+  flag: { type: Sequelize.BOOLEAN, allowNull: true, validate: { notEmpty: true } },
+});
+
 // #######################__Define Associations__##############################
 
-User.hasMany(Post);
+Post.belongsTo(User);
+Sentiment.belongsTo(User);
+Sentiment.belongsTo(Post);
+Favorites.belongsTo(User);
+Favorites.belongsTo(Post);
+Flags.belongsTo(User);
+Flags.belongsTo(Post);
 
 // #######################__Sync Database and Export__##############################
 
@@ -48,4 +66,7 @@ module.exports = {
   connection: dbConnection,
   User,
   Post,
+  Sentiment,
+  Favorites,
+  Flags
 };
