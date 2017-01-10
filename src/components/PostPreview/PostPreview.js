@@ -82,8 +82,8 @@ class PostPreview extends React.Component {
     let message = this.props.post.message.slice(20, 200) + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 
     let that = this
-    let currentPath = this.props.location.pathname + '/'
-
+    let currentPath = '/' + this.props.post.phase + '/'
+    console.log('currentPath : ' + currentPath)
     return (
       <div style={center}>
         <div>
@@ -97,15 +97,15 @@ class PostPreview extends React.Component {
               onMouseLeave={that.onMouseLeaveHandler}
             >
               <CardHeader
-                title={this.props.post.anon ? 'Anonymous' : this.props.post.name}
-                subtitle="Hack Reactor - San Francisco, CA"
-                avatar={this.props.post.anon ? "https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg" : this.props.post.avatar}
+                title={this.props.post.anon ? 'Anonymous' : this.props.post.user.name}
+                subtitle={this.props.post.user.job + ' - ' + this.props.post.user.location}
+                avatar={this.props.post.anon ? "https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg" : this.props.post.user.avatar}
               />
               <CardTitle title={this.props.post.title} />
               <CardText>
                 <p><i><strong>{italicMessage}</strong></i>{message} ..... <a href={currentPath + this.props.post.id}>Read more</a></p>
               </CardText>
-              <div style={{ float: "right", marginRight: 20 }}> {this.isHelpful(this.props.post.sentiment)} {this.isUnhelpful(this.props.post.unhelpful)} </div>
+              <div style={{ float: "right", marginRight: 20 }}> {this.isHelpful(this.props.post.helpful)} {this.isUnhelpful(this.props.post.unhelpful)} </div>
             </Card>
           </div>
         </div>
