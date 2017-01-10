@@ -90,15 +90,7 @@ class Site extends Component {
           <FlatButton label="Logout" style={nunito} onClick={logout}/>
         </ToolbarGroup>
       );
-    } else {
-      return (
-        <ToolbarGroup>
-          <Link to="/login">
-            <FlatButton style={nunito} label="Log In" onClick={login}/>
-          </Link>
-        </ToolbarGroup>
-      );
-    }
+    } 
   }
 
   render() {
