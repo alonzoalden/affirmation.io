@@ -29,13 +29,14 @@ if (!process.env.REACT_APP_AUTH0_CLIENT_ID || !process.env.REACT_APP_AUTH0_DOMAI
 
 var options = {
   container: 'hiw-login-container',
+
   // socialButtonStyle: 'small',
   allowedConnections: ['linkedin', 'github', 'google-oauth2'],
   theme: {
     primaryColor: '#28D2E4'
   }
 };
-var lock = new Auth0Lock('Dpl5kikwiCjHc3SkUtMVMw4rT2H6v5rZ', 'hrr20-lotus.auth0.com', options);
+var lock = new Auth0Lock('Dpl5kikwiCjHc3SkUtMVMw4rT2H6v5rZ', 'hrr20-lotus.auth0.com', options, );
 
 export function newLock(){
   lock.show();
@@ -57,24 +58,30 @@ lock.on('authenticated', authResult => {
 export function login(options) {
   lock.show(options);
 
-  return {
-    hide() {
-      lock.hide();
-    }
-  }
+  // return {
+  //   hide() {
+  //     lock.hide();
+  //   }
+  // }
 }
 
 export function logout() {
   clearNextPath();
   clearIdToken();
   clearProfile();
-  browserHistory.push(LOGIN_ROUTE);
+  browserHistory.push(ROOT_ROUTE);
+  // setTimeout(()=>{
+  console.log(lock);
+  // lock.show(options);
+  // }, 100);
+   // originally login route
+  window.location.reload(); // add
 }
 
 export function requireAuth(nextState, replace) {
   if (!isLoggedIn()) {
     setNextPath(nextState.location.pathname);
-    replace({pathname: LOGIN_ROUTE});
+    replace({pathname: ROOT_ROUTE}); //originally login route
   }
 }
 
