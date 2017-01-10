@@ -58,9 +58,9 @@ class PostView extends React.Component {
               style={cardStyle}
             >
               <CardHeader
-                title={this.state.post.anon ? 'Anonymous' : this.state.post.name}
+                title={this.state.post.anon ? 'Anonymous' : this.state.post.user.name}
                 subtitle="Hack Reactor - San Francisco, CA"
-                avatar={this.state.post.avatar}
+                avatar={this.state.post.user.avatar}
               />
             <CardTitle titleStyle={{ 'text-align': 'center' }} title={this.state.post.title} />
               <CardText>
