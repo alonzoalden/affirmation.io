@@ -12,7 +12,7 @@ module.exports = function (app, express) {
     .post(postController.addAPost)
     .get(postController.getAllPosts);
 
-  router.route('/posts/:phase/:id')
+  router.route('/posts/:phase/:id/:email')
     .get(postController.getAPost)
     .put(postController.updateAPost)
     .delete(postController.deleteAPost);
@@ -21,11 +21,11 @@ module.exports = function (app, express) {
     .post(postController.setHelpfulness)
     .put(postController.updateHelpfulness);
 
-  router.route('/posts/:phase/:id/favorite/:favorite')
+  router.route('/posts/:phase/:id/favorite')
     .post(postController.favoriteAPost)
     .put(postController.updateFavoriteAPost);
 
-  router.route('/posts/:phase/:id/flag/:flag')
+  router.route('/posts/:phase/:id/flag/')
     .post(postController.flagAPost)
     .put(postController.updateFlagAPost);
 

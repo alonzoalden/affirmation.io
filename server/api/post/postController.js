@@ -24,6 +24,8 @@ module.exports = {
     });
   },
   getAPost: (req, res) => {
+    // console.log('req.params: ', req.params)
+    let returnPost = {};
     Models.Post.findAll({
       include: [Models.User],
       where: {
@@ -31,14 +33,59 @@ module.exports = {
       },
     })
     .then((post) => {
-      res.status(200).json(post);
+      returnPost['post'] = post;
+    })
+    .then(() => {
+      Models.Sentiment.findAll({
+        where: {
+          postId: req.params.id,
+          userEmail: req.params.email
+        },
+      })
+      .then((sentiment) => {
+        returnPost['sentiment'] = sentiment;
+      })
+      .catch((error) => {
+        console.log('sentiment error: ', error);
+      })
+    })
+    .then(() => {
+      Models.Favorites.findAll({
+        where: {
+          postId: req.params.id,
+          userEmail: req.params.email
+        },
+      })
+      .then((favorites) => {
+        returnPost['favorites'] = favorites;
+      })
+      .catch((error) => {
+        console.log('favorites error: ', error)
+      })
+    })
+    .then(() => {
+      Models.Flags.findAll({
+        where: {
+          postId: req.params.id,
+          userEmail: req.params.email
+        },
+      })
+      .then((flags) => {
+        returnPost['flags'] = flags;
+      })
+      .then(() => {
+        res.status(200).json(returnPost);
+      })
+      .catch((error) => {
+        console.log('flags error: ', error)
+      })
     })
     .catch((error) => {
       res.send(error);
     });
   },
   getAllPosts: (req, res) => {
-    console.log('req.params:', req.params);
+    // console.log('req.params:', req.params);
     Models.Post.findAll({
       include: [Models.User],
       where: {
@@ -46,11 +93,11 @@ module.exports = {
       },
     })
     .then((posts) => {
-      console.log('posts:', posts);
+      // console.log('posts:', posts);
       res.status(200).json(posts);
     })
     .catch((error) => {
-      console.log('Error:', error);
+      // console.log('Error:', error);
       res.send(error);
     });
   },
@@ -86,12 +133,13 @@ module.exports = {
     if (req.params.vote === 'helpful') { // Vote must be accounted for, send in user email
       Models.Sentiment.build({
         helpfulness: true,
-        userEmail: req.body.userEmail,
+        userEmail: req.body.email,
         postId: req.params.id,
       }).save()
       .then(() => {
-        Models.Post.update({ // req.body.Helpful should be sent in as current count + 1
-          helpful: req.body.helpful
+        Models.Post.update({ // req.body.Helpful should be sent in as current count + 1, sentiment should be incremented
+          helpful: req.body.helpful,
+          sentiment: req.body.sentiment
         }, {
           where: { id: req.params.id }
         })
@@ -110,8 +158,9 @@ module.exports = {
         postId: req.params.id,
       }).save()
       .then(() => {
-        Models.Post.update({
-          unhelpful: req.body.unhelpful + 1
+        Models.Post.update({ // req.body.unhelpful should be sent in as current count + 1, req.body.sentiment should be decremented
+          unhelpful: req.body.unhelpful,
+          sentiment: req.body.sentiment
         }, {
           where: { id: req.params.id }
         })
@@ -153,8 +202,8 @@ module.exports = {
       postId: req.params.id,
     }).save()
     .then(() => {
-      Models.Post.update({
-        flag: req.body.flag + 1
+      Models.Post.update({ // send in req.body.flags as count = count + 1
+        flag: req.body.flag
       }, {
         where: { id: req.params.id }
       })

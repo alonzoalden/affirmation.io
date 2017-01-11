@@ -15,25 +15,21 @@ class PostView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      post: {}
+
     }
   }
 
-  componentDidMount() {
-    this.getCurrentPost();
-  }
-
-  getCurrentPost() {
-    let path = window.location.pathname.toLowerCase();
-    console.log(path);
-    return axios.get('http://localhost:8000/api/posts' + path)
-      .then((post) => {
-        console.log(post);
-        this.setState({ post: post.data })
-      });
-  }
-
   isHelpful() {
+    let touched;
+    // if helpful has been pressed
+    if( touched ) {
+      // set helpful to false
+      touched = false;
+      return axios.put()
+      // decrement by 1
+    }
+    // else, set helpful to true
+      // increment by 1
 
   }
   isUnhelpful() {
@@ -58,25 +54,25 @@ class PostView extends React.Component {
               style={cardStyle}
             >
               <CardHeader
-                title={this.state.post.anon ? 'Anonymous' : this.state.post.user.name}
-                subtitle="Hack Reactor - San Francisco, CA"
-                avatar={this.state.post.user.avatar}
+                title={this.props.post.anon ? 'Anonymous' : this.props.post.user.name}
+                subtitle={this.props.post.user.job + ' - ' + this.props.post.user.location}
+                avatar={this.props.post.user.avatar}
               />
-            <CardTitle titleStyle={{ 'text-align': 'center' }} title={this.state.post.title} />
+            <CardTitle titleStyle={{ 'text-align': 'center' }} title={this.props.post.title} />
               <CardText>
-                {this.state.post.message}
+                {this.props.post.message}
               </CardText>
               <CardActions>
                 <FlatButton label="Is Helpful" />
                   <Badge
-                    badgeContent={this.state.post.helpful}
+                    badgeContent={this.props.post.helpful}
                     primary={true}
                   >
                     <SentimentVerySatisfied />
                   </Badge>
                 <FlatButton label="Is Unhelpful" />
                   <Badge
-                    badgeContent={this.state.post.unhelpful}
+                    badgeContent={this.props.post.unhelpful}
                     primary={true}
                   >
                     <SentimentVeryDissatisfied />
