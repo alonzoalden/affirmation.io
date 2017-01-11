@@ -14,7 +14,8 @@ export class SinglePost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      post: []
+      post: {}
+
     }
   }
 
@@ -31,10 +32,10 @@ export class SinglePost extends React.Component {
     return axios.get('http://localhost:8000/api/posts' + path + '/' + this.props.profile.email)
       .then((result) => {
         console.log(result);
-        this.setState({ post: result.data.post })
+        this.setState({ post: result.data })
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
       })
   }
 
@@ -42,15 +43,14 @@ export class SinglePost extends React.Component {
   render() {
     return (
       <div>
-        {this.state.post.map((post, index) => {
-          return (
-            <div>
-              <PostView
-                post={post}
-              />
-            </div>
-          );
-        })};
+        <div>
+          <PostView
+            post={this.state.post.post}
+            favorites={this.state.post.favorites}
+            flags={this.state.post.flags}
+            sentiment={this.state.post.sentiment}
+          />
+        </div>
       </div>
     )
   }

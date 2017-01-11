@@ -20,21 +20,73 @@ class PostView extends React.Component {
   }
 
   isHelpful() {
-    let touched;
-    // if helpful has been pressed
-    if( touched ) {
-      // set helpful to false
-      touched = false;
-      return axios.put()
-      // decrement by 1
+    //unclicking helpful
+    if (this.props.sentiment.length === 1) {
+      if (this.props.sentiment[0].helpfulness) {  //<--- addresses the true property
+        return axios.put('http://localhost:8000/api/posts' + this.props.post.phase + '/vote/null', {
+          email: this.props.post.user.email,
+          helpful: this.props.post.helpful - 1,
+          unhelpful: this.props.post.unhelpful,
+          sentiment: this.props.post.sentiment - 1,
+        })
+
+      } else { //<--- addresses the false property
+       //change their last vote from false to true
+        return axios.put('http://localhost:8000/api/posts' + this.props.post.phase + '/vote/helpful', {
+          email: this.props.post.user.email,
+          helpful: this.props.post.helpful + 1,
+          unhelpful: this.props.post.unhelpful - 1,
+          sentiment: this.props.post.sentiment + 2,
+          helpfulness: true,
+        })
+      }
+    } else { //<---- clicking helpful the first time
+      return axios.post('http://localhost:8000/api/posts' + this.props.post.phase + '/vote/helpful', {
+        email: this.props.post.user.email,
+        sentiment: this.props.post.sentiment + 1,
+        helpful: this.props.post.helpful + 1,
+      })
     }
-    // else, set helpful to true
-      // increment by 1
-
   }
+
   isUnhelpful() {
+    //unclicking helpful
+    if (this.props.sentiment.length === 1) {
+      if (this.props.sentiment[0].helpfulness) {  //<--- addresses the true property
+        return axios.put('http://localhost:8000/api/posts' + this.props.post.phase + '/vote/null', {
+          email: this.props.post.user.email,
+          helpful: this.props.post.helpful,
+          unhelpful: this.props.post.unhelpful - 1,
+          sentiment: this.props.post.sentiment + 1,
+        })
+
+      } else { //<--- addresses the false property
+       //change their last vote from false to true
+        return axios.put('http://localhost:8000/api/posts' + this.props.post.phase + '/vote/unhelpful', {
+          email: this.props.post.user.email,
+          helpful: this.props.post.helpful - 1,
+          unhelpful: this.props.post.unhelpful + 1,
+          sentiment: this.props.post.sentiment - 2,
+          helpfulness: false,
+        })
+      }
+    } else { //<---- clicking unhelpful the first time
+      return axios.post('http://localhost:8000/api/posts' + this.props.post.phase + '/vote/unhelpful', {
+        email: this.props.post.user.email,
+        sentiment: this.props.post.sentiment - 1,
+        unhelpful: this.props.post.unhelpful + 1,
+      })
+    }
+  }
+
+  favorite() {
 
   }
+
+  flag() {
+
+  }
+
   render() {
     const cardStyle = {
       width: 600,
