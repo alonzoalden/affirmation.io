@@ -217,35 +217,66 @@ module.exports = {
     });
   },
   updateHelpfulness: (req, res) => { // helpfullness property will be the new value for helpful/unhelpful
-    Models.Sentiment.update({
-      helpfulness: req.body.helpfulness
-    }, {
-      where: { id: req.body.id }, // EMAIL ??
-    })
-    .then(() => {
-      Models.Post.update({ // send addTo properties with requests according to what should be incremented && how
-        helpful: req.body.helpful + req.body.addToHelpful,
-        unhelpful: req.body.unhelpful + req.body.addToUnhelpful
-      }, {
-        where: { id: req.params.id }
+    if(req.params.vote === 'null') {
+      Models.Sentiment.destroy({
+        where: {
+          postId: req.params.id,
+          userEmail: req.body.email
+        },
       })
       .then(() => {
-        res.status(204).end();
+        Models.Post.update({ // send addTo properties with requests according to what should be incremented && how
+          helpful: req.body.helpful,
+          unhelpful: req.body.unhelpful,
+          sentiment: req.body.sentiment
+        }, {
+          where: { id: req.params.id }
+        })
+        .then(() => {
+          res.status(204).end();
+        })
       })
-    })
-    .catch((error) => {
-      res.send(error);
-    });
+      .catch((error) => {
+        res.send(error);
+      });
+    } else {
+      Models.Sentiment.update({
+        helpfulness: req.body.helpfulness
+      }, {
+        where: {
+          postId: req.params.id,
+          userEmail: req.body.email
+        },
+      })
+      .then(() => {
+        Models.Post.update({ // send addTo properties with requests according to what should be incremented && how
+          helpful: req.body.helpful,
+          unhelpful: req.body.unhelpful,
+          sentiment: req.body.sentiment
+        }, {
+          where: { id: req.params.id }
+        })
+        .then(() => {
+          res.status(204).end();
+        })
+      })
+      .catch((error) => {
+        res.send(error);
+      });
+    }
   },
   updateFavoriteAPost: (req, res) => { // favorite property comes in as the NEW value
     Models.Favorites.update({
       favorite: req.body.favorite
     }, {
-      where: { id: req.body.id }, // EMAIL ??
+      where: {
+        postId: req.params.id,
+        userEmail: req.body.email
+      },
     })
     .then(() => {
       Models.Post.update({
-        favorites: req.body.favorites + (req.body.favorite ? 1 : -1),
+        favorites: req.body.favorites
       }, {
         where: { id: req.params.id }
       })
@@ -261,11 +292,14 @@ module.exports = {
     Models.Flags.update({
       flag: req.body.flag
     }, {
-      where: { id: req.body.id }, // EMAIL ??
+      where: {
+        postId: req.params.id,
+        userEmail: req.body.email
+      },
     })
     .then(() => {
       Models.Post.update({
-        flag: req.body.flags + (req.body.flag ? 1 : -1),
+        flag: req.body.flags
       }, {
         where: { id: req.params.id }
       })
