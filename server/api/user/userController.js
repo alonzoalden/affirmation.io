@@ -18,11 +18,66 @@ module.exports = {
     });
   },
   getAUser: (req, res) => {
+    let returnUser = {};
+    console.log('getting a user ...');
     Models.User.findById(req.params.email)
     .then((user) => {
-      res.status(200).json(user);
+      // res.status(200).json(user);
+      returnUser['user'] = user;
+    })
+    .then(() => {
+      console.log('getting posts ...');
+      Models.Post.findAll({
+        where: { userEmail: req.params.email }
+      })
+      .then((posts) => {
+        returnUser['posts'] = posts;
+      })
+      .catch((error) => {
+        console.log('user posts error:', error);
+      })
+    })
+    .then(() => {
+      console.log('getting votes ...');
+      Models.Sentiment.findAll({
+        where: { userEmail: req.params.email }
+      })
+      .then((votes) => {
+        returnUser['sentiments'] = votes;
+      })
+      .catch((error) => {
+        console.log('user sentiments error:', error);
+      })
+    })
+    .then(() => {
+      console.log('getting favs ...');
+      Models.Favorites.findAll({
+        where: { userEmail: req.params.email }
+      })
+      .then((favs) => {
+        returnUser['favorites'] = favs;
+      })
+      .catch((error) => {
+        console.log('user favorites error:', error);
+      })
+    })
+    .then(() => {
+      console.log('getting flags ...');
+      Models.Flags.findAll({
+        where: { userEmail: req.params.email }
+      })
+      .then((flags) => {
+        returnUser['flags'] = flags;
+      })
+      .then(() => {
+        res.status(200).json(returnUser);
+      })
+      .catch((error) => {
+        console.log('user flags error:', error);
+      })
     })
     .catch((error) => {
+      console.log(error);
       res.send(error);
     });
   },

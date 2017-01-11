@@ -247,8 +247,8 @@ class EditProfile extends Component {
     };
     const buttonStyle = {
       fontFamily: 'Nunito',
-      backgroundColor: '#FFDB77',
-      color: '#867DCC'
+      backgroundColor: '#867DCC',
+      color: '#FFDB77'
     };
     return (
       <div className={flexbox}>
@@ -267,6 +267,9 @@ class EditProfile extends Component {
           <div style={centerPaper}>
             <Paper style={paperStyle} zDepth={2}>
               <Toolbar style={barStyle}>
+                <ToolbarGroup>
+                  <ToolbarTitle style={titleStyle} text="User Profile" />
+                </ToolbarGroup>
                 <ToolbarGroup lastChild={true}>
                   <FlatButton style={buttonStyle} label="Update Profile" icon={<Refresh />}/>
                 </ToolbarGroup>
