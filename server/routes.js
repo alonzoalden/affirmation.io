@@ -33,8 +33,8 @@ module.exports = function (app, express) {
     .post(userController.addAUser)
     .get(userController.getAllUsers);
 
-  router.route('/users/:id')
-    .get(userController.addAUser)
+  router.route('/users/:email')
+    .get(userController.getAUser)
     .put(userController.updateAUser)
     .delete(userController.deleteAUser);
 

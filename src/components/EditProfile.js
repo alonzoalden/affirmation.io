@@ -3,9 +3,14 @@ import {connectProfile} from '../auth';
 import './EditProfile.css';
 import Avatar from 'material-ui/Avatar';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
+import ActionFavorite from 'material-ui/svg-icons/action/favorite';
+import ImageFilterVintage from 'material-ui/svg-icons/image/filter-vintage';
+import PlacesSpa from 'material-ui/svg-icons/places/spa';
 import Divider from 'material-ui/Divider';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
+import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
+import axios from 'axios';
 // FROM DINO
 import Paper from 'material-ui/Paper';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
@@ -74,6 +79,13 @@ const linkedInAtts = [
 ];
 
 class EditProfile extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {}
+    }
+  }
+
   static propTypes = {
     ...connectProfile.PropTypes
   };
@@ -82,6 +94,21 @@ class EditProfile extends Component {
     error: null,
     saved: false,
     saving: false
+  }
+
+  getUser() {
+    axios.get('http://localhost:8000/api/users/' + this.props.profile.email)
+    .then((user) => {
+      this.setState({ post: user.data })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
+  componentWillMount() {
+    this.getUser();
+    console.log('state:', this.state);
   }
 
   findMain(profile) {
@@ -104,7 +131,6 @@ class EditProfile extends Component {
         'google-oauth2'
       ];
     }
-    console.log('Main Account:', mainAcc);
   }
 
   addDataFrom(origAcc, acc2, acc3) {
@@ -123,8 +149,6 @@ class EditProfile extends Component {
   provideDetails() { // Returns info from main account
     const profile = this.props.profile;
     this.findMain(profile);
-    console.log('----- profile -----');
-    console.log(profile);
     let details = [];
     if (mainAcc === 'github') {
       details = this.addDataFrom(gitHubAtts, 'linkedin', 'google-oauth2');
@@ -166,9 +190,6 @@ class EditProfile extends Component {
             <p><span style={strong}>{detail}:</span> <InlineEdit text={profile[detail]} /></p>
           );
         })}
-        <div style={button}>
-          <FlatButton style={buttonText} label="Update Profile" icon={<Refresh />}/>
-        </div>
       </div>
     );
   }
@@ -205,7 +226,7 @@ class EditProfile extends Component {
       justifyContent: 'center'
     };
     const paperStyle = {
-      width: 600,
+      width: 800,
       margin: 35,
       overflow: 'auto',
       backgroundColor: '#FFDB77'
@@ -232,7 +253,7 @@ class EditProfile extends Component {
     return (
       <div className={flexbox}>
 
-        <div className="col-md-6 LightPurple">
+        <div className="col-md-4 LightPurple">
           <Card style={cardStyle} zDepth={1}>
             <CardMedia overlay={<CardTitle subtitle={profile.identities[1].profileData.headline} />}>
               <img src={profile.picture} size={200} />
@@ -242,20 +263,21 @@ class EditProfile extends Component {
           </Card>
         </div>
 
-        <div className="col-md-6 LightPurple">
+        <div className="col-md-8 LightPurple">
           <div style={centerPaper}>
             <Paper style={paperStyle} zDepth={2}>
               <Toolbar style={barStyle}>
-                <ToolbarGroup>
-                  <FlatButton style={buttonStyle} label="Affirmation Log" />
-                  <FlatButton style={buttonStyle} label="GitHub Repos" />
-                  <FlatButton style={buttonStyle} labelPosition="before" label="Privacy" icon={<ActionSettings />}/>
+                <ToolbarGroup lastChild={true}>
+                  <FlatButton style={buttonStyle} label="Update Profile" icon={<Refresh />}/>
                 </ToolbarGroup>
               </Toolbar>
               {this.renderProfile()}
+              <BottomNavigation style={barStyle}>
+                <BottomNavigationItem style={titleStyle} label="Affirmations" icon={<ImageFilterVintage />} />
+                <BottomNavigationItem style={titleStyle} label="Favorites" icon={<ActionFavorite />} />
+              </BottomNavigation>
             </Paper>
           </div>
-
           <div className="EditProfile-heading">Edit Profile</div>
           <form className="EditProfile-form" onSubmit={this.onSubmit} onChange={this.onClearSaved}>
             <fieldset className="EditProfile-fieldset" disabled={saving}>

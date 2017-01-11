@@ -17,6 +17,15 @@ module.exports = {
       res.send(error);
     });
   },
+  getAUser: (req, res) => {
+    Models.User.findById(req.params.email)
+    .then((user) => {
+      res.status(200).json(user);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+  },
   getAllUsers: (req, res) => {
     Models.User.findAll({})
     .then((users) => {
@@ -31,7 +40,7 @@ module.exports = {
       name: req.body.name,
       avatar: req.body.avatar,
     }, {
-      where: { id: req.body.id },
+      where: { id: req.params.id },
     })
     .then(() => {
       res.status(204).end();
@@ -42,7 +51,7 @@ module.exports = {
   },
   deleteAUser: (req, res) => {
     Models.User.destroy({
-      where: { id: req.body.id },
+      where: { id: req.params.id },
     })
     .then(() => {
       res.status(204).end();
