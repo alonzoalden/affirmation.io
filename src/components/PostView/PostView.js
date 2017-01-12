@@ -20,120 +20,126 @@ class PostView extends React.Component {
   }
 
   componentDidMount(){
-    this.setState({ 
-        helpful: this.props.post.helpful,
-        unhelpful: this.props.post.unhelpful,
-        flag: this.props.post.flag,
-        favorites: this.props.post.favorites,
-        userVote: this.props.sentiment,
-        userFlag: this.props.flag,
-        userFavorites: this.props.favorites
-     }); 
-    console.log('Sentiment', this.props.sentiment);
+    this.setState({
+      helpful: this.props.post.helpful,
+      unhelpful: this.props.post.unhelpful,
+      flag: this.props.post.flag,
+      favorites: this.props.post.favorites,
+      sentiment: this.props.post.sentiment,
+      userVote: this.props.sentiment,
+      userFlag: this.props.flag,
+      userFavorites: this.props.favorites
+    });
+    console.log('PROPS:', this.props);
   }
 
-  isHelpful() {
-    //unclicking helpful
+  isHelpful() { //unclicking helpful
+    console.log('State before +Click:', this.state);
     if (this.state.userVote.length === 1) {
-      
+
       if (this.state.userVote[0].helpfulness) {  //<--- addresses the true property
         return axios.put('http://localhost:8000/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/vote/null', {
           email: this.props.post.user.email,
-          helpful: this.props.post.helpful - 1,
-          unhelpful: this.props.post.unhelpful,
-          sentiment: this.props.post.sentiment - 1,
+          helpful: this.state.helpful - 1,
+          unhelpful: this.state.unhelpful,
+          sentiment: this.state.sentiment - 1,
         })
         .then(()=>{
           console.log('Clicked helpful 2nd time');
-          this.setState({ 
-              helpful: this.state.helpful - 1,
-              userVote: []
-          }); 
+          this.setState({
+            helpful: this.state.helpful - 1,
+            sentiment: this.state.sentiment - 1,
+            userVote: []
+          });
         })
 
       } else { //<--- addresses the false property
        //change their last vote from false to true
         return axios.put('http://localhost:8000/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/vote/helpful', {
           email: this.props.post.user.email,
-          helpful: this.props.post.helpful + 1,
-          unhelpful: this.props.post.unhelpful - 1,
-          sentiment: this.props.post.sentiment + 2,
+          helpful: this.state.helpful + 1,
+          unhelpful: this.state.unhelpful - 1,
+          sentiment: this.state.sentiment + 2,
           helpfulness: true,
         })
         .then(() => {
           console.log('clicked helpful from unhelpful');
-          this.setState({ 
-              helpful: this.state.helpful + 1,
-              unhelpful: this.state.unhelpful - 1,
-              userVote: [{helpfulness: true}]
-          }); 
+          this.setState({
+            helpful: this.state.helpful + 1,
+            unhelpful: this.state.unhelpful - 1,
+            sentiment: this.state.sentiment + 2,
+            userVote: [{helpfulness: true}]
+          });
         })
       }
     } else { //<---- clicking helpful the first time
       return axios.post('http://localhost:8000/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/vote/helpful', {
         email: this.props.post.user.email,
-        sentiment: this.props.post.sentiment + 1,
-        helpful: this.props.post.helpful + 1,
+        sentiment: this.state.sentiment + 1,
+        helpful: this.state.helpful + 1,
       })
-        .then(()=>{
-          console.log('first helpful');
-          this.setState({ 
-              helpful: this.state.helpful + 1,
-              userVote: [{ helpfulness: true}]
-          }); 
-          console.log('STATE', this.state);
-        })
+      .then(()=>{
+        console.log('first helpful');
+        this.setState({
+          sentiment: this.state.sentiment + 1,
+          helpful: this.state.helpful + 1,
+          userVote: [{ helpfulness: true}]
+        });
+      })
     }
   }
 
-  isUnhelpful() {
-    //unclicking helpful
+  isUnhelpful() { //unclicking unhelpful
+    console.log('State before -Click:', this.state);
     if (this.state.userVote.length === 1) {
       if (!this.state.userVote[0].helpfulness) {  //<--- addresses the true property
         return axios.put('http://localhost:8000/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/vote/null', {
           email: this.props.post.user.email,
-          helpful: this.props.post.helpful,
-          unhelpful: this.props.post.unhelpful - 1,
-          sentiment: this.props.post.sentiment + 1,
+          helpful: this.state.helpful,
+          unhelpful: this.state.unhelpful - 1,
+          sentiment: this.state.sentiment + 1,
         })
-         .then(()=>{
+        .then(()=>{
           console.log('clicked unhelpful 2nd time');
-          this.setState({ 
+          this.setState({
             unhelpful: this.state.unhelpful - 1,
+            sentiment: this.state.sentiment + 1,
             userVote: []
-          }); 
+          });
         })
       } else { //<--- addresses the false property
-       //change their last vote from false to true
+       //change their last vote from true to false
         return axios.put('http://localhost:8000/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/vote/unhelpful', {
           email: this.props.post.user.email,
-          helpful: this.props.post.helpful - 1,
-          unhelpful: this.props.post.unhelpful + 1,
-          sentiment: this.props.post.sentiment - 2,
+          helpful: this.state.helpful - 1,
+          unhelpful: this.state.unhelpful + 1,
+          sentiment: this.state.sentiment - 2,
           helpfulness: false,
         })
-         .then(()=>{
+        .then(()=>{
           console.log('clicked unhelpful from helpful');
-          this.setState({ 
+          this.setState({
             helpful: this.state.helpful - 1,
             unhelpful: this.state.unhelpful + 1,
+            sentiment: this.state.sentiment - 2,
             userVote: [{ helpfulness: false }]
-          }); 
+          });
         })
       }
     } else { //<---- clicking unhelpful the first time
       return axios.post('http://localhost:8000/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/vote/unhelpful', {
         email: this.props.post.user.email,
-        sentiment: this.props.post.sentiment - 1,
-        unhelpful: this.props.post.unhelpful + 1,
+        sentiment: this.state.sentiment - 1,
+        unhelpful: this.state.unhelpful + 1,
       })
       .then(()=>{
         console.log('first unhelpful');
-        this.setState({ 
+        this.setState({
+          sentiment: this.state.sentiment - 1,
           unhelpful: this.state.unhelpful + 1,
           userVote: [{ helpfulness: false}]
         });
-      }) 
+      })
     }
   }
 

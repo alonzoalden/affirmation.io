@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {connectProfile} from '../auth';
 import './EditProfile.css';
-import Avatar from 'material-ui/Avatar';
-import ActionSettings from 'material-ui/svg-icons/action/settings';
+// import Avatar from 'material-ui/Avatar';
+// import ActionSettings from 'material-ui/svg-icons/action/settings';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import ImageFilterVintage from 'material-ui/svg-icons/image/filter-vintage';
-import PlacesSpa from 'material-ui/svg-icons/places/spa';
-import Divider from 'material-ui/Divider';
+// import PlacesSpa from 'material-ui/svg-icons/places/spa';
+// import Divider from 'material-ui/Divider';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import IconButton from 'material-ui/IconButton';
+// import IconButton from 'material-ui/IconButton';
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import axios from 'axios';
 // FROM DINO
@@ -172,14 +172,14 @@ class EditProfile extends Component {
       fontSize: 18,
       color: '#867DCC'
     };
-    const button = {
-      display: 'flex',
-      justifyContent: 'center'
-    };
-    const buttonText = {
-      fontSize: 18,
-      color: '#867DCC'
-    };
+    // const button = {
+    //   display: 'flex',
+    //   justifyContent: 'center'
+    // };
+    // const buttonText = {
+    //   fontSize: 18,
+    //   color: '#867DCC'
+    // };
     return (
       <div style={innerPaperStyle}>
         <p><span style={strong}>Email:</span> <InlineEdit text={profile.email} /></p>

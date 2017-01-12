@@ -39,20 +39,19 @@ export class SinglePost extends React.Component {
 
 
   render() {
-    if(this.state.post === undefined) {
-      return (<div>Loading...</div>)
+    console.log('state in SinglePost render:', this.state);
+    if(this.state.post === undefined || this.state.post.sentiment === undefined) {
+      return (<div>Loading Affirmation!...</div>)
     }
 
     return (
       <div>
-        <div>
-          <PostView
-            post={this.state.post.post[0]}
-            favorites={this.state.post.favorites}
-            flags={this.state.post.flags}
-            sentiment={this.state.post.sentiment}
-          />
-        </div>
+        <PostView
+          post={this.state.post.post[0]}
+          favorites={this.state.post.favorites}
+          flags={this.state.post.flags}
+          sentiment={this.state.post.sentiment}
+        />
       </div>
     )
 
