@@ -11,6 +11,7 @@ import Dashboard from '../containers/Dashboard/Dashboard';
 import PostPreview from './PostPreview/PostPreview';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PhaseView from '../containers/PhaseView/PhaseView';
+import './App.css';
 
 class App extends Component {
   render() {
