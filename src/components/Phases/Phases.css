@@ -10,6 +10,81 @@
 .Orange {
   background-color: #E49828;
 }
+.Red {
+  background-color: #CC867D;
+}
 .WhiteFont {
   color: white;
+}
+.pastRed {
+  background-color: #F38181;
+}
+.pastYellow {
+  background-color: #BA81F3;
+}
+.pastGreen {
+  background-color: #81F381; /* #baf381 */
+}
+.pastBlue {
+  background-color: #81BAF3;  /* #95E1D3 */
+}
+.otherRed {
+  background-color: #DF7581;
+}
+.otherYellow {
+  background-color: #F3C496;
+}
+.otherGreen {
+  background-color: #B7DEAD;
+}
+.otherBlue {
+  background-color: #6AC3CC;
+}
+.newRed {
+  background-color: #F27C7C; /* #DE528C Pink */
+}
+.newYellow {
+  background-color: #FCF09F;
+}
+.newGreen {
+  background-color: #8DE0A6;
+}
+.newBlue {
+  background-color: #4EB3DE;
+}
+.boopRed {
+  background-color: #FF8C94;
+}
+.boopYellow {
+  background-color: #afa8e6;
+}
+.boopGreen {
+  background-color: #C0E6A8;
+}
+.boopBlue {
+  background-color: #A8E6CE;
+}
+.lightBlue {
+  background-color: #3FC1C9;
+}
+.lightBlue2 {
+  background-color: #FCE38A;
+}
+.lightBlue3 {
+  background-color: #FC5185;
+}
+.lightBlue4 {
+  background-color: #3FC98C;
+}
+.beep {
+  background-color: #f0f9fa;
+}
+.beep2 {
+  background-color: #c6e9eb;
+}
+.beep3 {
+  background-color: #9bd9dc;
+}
+.beep4 {
+  background-color: #71C9CE;
 }
