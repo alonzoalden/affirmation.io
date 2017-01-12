@@ -61,11 +61,10 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       axios({
         method: 'post',
         data: {
-          'name': that.props.profile.name,
-          'avatar': that.props.profile.picture,
           'title': that.state.title,
           'message': that.state.message,
           'anon': that.state.anon,
+          'userEmail': that.props.profile.email
         },
         url: `http://localhost:8000/api/posts/${that.state.phase}`,
       }).then(() => {
