@@ -8,6 +8,7 @@ import React from 'react';
 import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import Badge from 'material-ui/Badge';
+import Divider from 'material-ui/Divider';
 import SentimentVerySatisfied from 'material-ui/svg-icons/social/sentiment-very-satisfied';
 import SentimentVeryDissatisfied from 'material-ui/svg-icons/social/sentiment-very-dissatisfied';
 
@@ -65,7 +66,6 @@ class PostPreview extends React.Component {
       overflow: 'auto',
     };
     const center = {
-      backgroundColor: '#28E498',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -79,7 +79,7 @@ class PostPreview extends React.Component {
     const mainStyle = this.state.hover ? hoverCardStyle : cardStyle
 
     let italicMessage = this.props.post.message.slice(0, 20)
-    let message = this.props.post.message.slice(20, 200) + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    let message = this.props.post.message.slice(20, 200);
 
     let that = this
     let currentPath = '/' + this.props.post.phase + '/'
@@ -101,6 +101,7 @@ class PostPreview extends React.Component {
                 subtitle={this.props.post.user.job + ' - ' + this.props.post.user.location}
                 avatar={this.props.post.anon ? "https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg" : this.props.post.user.avatar}
               />
+              <Divider />
               <CardTitle title={this.props.post.title} />
               <CardText>
                 <p><i><strong>{italicMessage}</strong></i>{message} ..... <a href={currentPath + this.props.post.id}>Read more</a></p>

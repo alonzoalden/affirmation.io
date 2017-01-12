@@ -37,7 +37,6 @@ export class SinglePost extends React.Component {
       })
   }
 
-
   render() {
     console.log('state in SinglePost render:', this.state);
     if(this.state.post === undefined || this.state.post.sentiment === undefined) {
@@ -54,8 +53,6 @@ export class SinglePost extends React.Component {
         />
       </div>
     )
-
-
   }
 }
 

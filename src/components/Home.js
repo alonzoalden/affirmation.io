@@ -10,9 +10,15 @@ class Home extends Component {
   componentDidMount(){
     newLock();
   };
+  // <h3>Whether you are exploring, learning, job hunting, or looking to
+  //   expand your seasoned career, you will inevitably face the unknown.
+  //   Obtain advice from profound experienced professionalsin the field
+  //   who have been in your shoes, to help you gain the confidence and
+  //   skills you need to succeed.
+  // </h3>
   render() {
     const text = {
-      marginTop: 110
+      marginTop: 130
     };
     const icon = {
       height: 120,
@@ -39,13 +45,7 @@ class Home extends Component {
           <div className="col-xs-12">
             <div className="alert alert-info main" role="alert">
               <div className="col-xs-4 col-xs-offset-2">
-                <h1 style={text}>Affirmation.io</h1>
-                <h3>Whether you are exploring, learning, job hunting, or looking to
-                  expand your seasoned career, you will inevitably face the unknown.
-                  Obtain advice from profound experienced professionalsin the field
-                  who have been in your shoes, to help you gain the confidence and
-                  skills you need to succeed.
-                </h3><img className='tossing' style={mainIcon} src={require('../icons/rocket.png')}/>
+                <h1 style={text}>Candid Advice from Experienced Software Engineers</h1>
               </div>
               <div style={auth} className="col-xs-3 col-xs-offset-1">
                 <div id="hiw-login-container"></div>
@@ -58,13 +58,12 @@ class Home extends Component {
           <div className="alert alert-success" role="alert">
             <div className="col-xs-4 col-xs-offset-2">
               <h1 style={text}>'Want to learn?'</h1>
-              <h3>Lorem ipsum dolor sit amet, mel tacimates mandamus ea, minim dicunt
-                mea ne, ei sit principes elaboraret. Purto principes per et, affert feugait
-                eu mea. Id mel suas unum definitiones, veritus lucilius an sea unum.
+              <h3>
+                Are you thinking about learning to write code? Does the field of software engineering excite you? We know that it may be challenging to find out where to begin and what path to take. Let the advice from experienced software engineers guide you on the beginning of your journey!
               </h3>
             </div>
             <div className="col-xs-3 col-xs-offset-2">
-              <img className='tossing' style={icon} src={require('../icons/molecule.png')}/>
+              <img className='tossing' style={icon} src={require('../icons/rocket.png')}/>
             </div>
           </div>
         </div>
@@ -77,9 +76,8 @@ class Home extends Component {
             </div>
             <div className="col-xs-4">
               <h1 style={text}>'Learning to code?'</h1>
-                <h3>Lorem ipsum dolor sit amet, mel tacimates mandamus ea, minim dicunt
-                  mea ne, ei sit principes elaboraret. Purto principes per et, affert feugait
-                  eu mea. Id mel suas unum definitiones, veritus lucilius an sea unum.
+                <h3>
+                  Have you taken the plunge to learn to write code? Stuck trying to figure out what resources you should use? There are many detours and rabbit holes one can fall into while learning to code. Let the advice from experienced software engineers help you make the best use of your time and energy!
                 </h3>
             </div>
           </div>
@@ -90,9 +88,8 @@ class Home extends Component {
           <div className="alert alert-success" role="alert">
             <div className="col-xs-4 col-xs-offset-2">
               <h1 style={text}>'Job hunting?'</h1>
-                <h3>Lorem ipsum dolor sit amet, mel tacimates mandamus ea, minim dicunt
-                  mea ne, ei sit principes elaboraret. Purto principes per et, affert feugait
-                  eu mea. Id mel suas unum definitiones, veritus lucilius an sea unum.
+                <h3>
+                  Are you looking for your dream job? Have you prepared for the personal and technical challenges that await you in the job hunting process? Let the advice from experienced software engineers help you crush every interview that will come your way!
                 </h3>
             </div>
             <div className="col-xs-3 col-xs-offset-2">
@@ -109,9 +106,8 @@ class Home extends Component {
             </div>
             <div className="col-xs-4">
               <h1 style={text}>'On the job?'</h1>
-                <h3>Lorem ipsum dolor sit amet, mel tacimates mandamus ea, minim dicunt
-                  mea ne, ei sit principes elaboraret. Purto principes per et, affert feugait
-                  eu mea. Id mel suas unum definitiones, veritus lucilius an sea unum.
+                <h3>
+                  You've made it! But the journey has just begun. Are you curious as to how to effectively navigate the workspace? Would you like to know how to get the most out of this opportunity? Let the advice from experienced software engineers guide you in not only making your employer happy, but also to make sure that your learning never stops!
                 </h3>
             </div>
           </div>
