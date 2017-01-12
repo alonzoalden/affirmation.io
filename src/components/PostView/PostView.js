@@ -176,7 +176,7 @@ class PostView extends React.Component {
                 subtitle={this.props.post.user.job + ' - ' + this.props.post.user.location}
                 avatar={this.props.post.user.avatar}
               />
-            <Divider />
+              <Divider />
             <CardTitle titleStyle={{ 'text-align': 'center' }} title={this.props.post.title} />
               <CardText>
                 {this.props.post.message}
