@@ -10,6 +10,9 @@ import FlatButton from 'material-ui/FlatButton';
 import Badge from 'material-ui/Badge';
 import SentimentVerySatisfied from 'material-ui/svg-icons/social/sentiment-very-satisfied';
 import SentimentVeryDissatisfied from 'material-ui/svg-icons/social/sentiment-very-dissatisfied';
+import ReportProblem from 'material-ui/svg-icons/action/report-problem';
+import Favorite from 'material-ui/svg-icons/action/favorite';
+import IconButton from 'material-ui/IconButton';
 
 class PostView extends React.Component {
   constructor(props) {
@@ -162,7 +165,6 @@ class PostView extends React.Component {
       alignItems: 'center',
       justifyContent: 'center',
     };
-
     return (
       <div>
         <div style={center}>
@@ -180,14 +182,14 @@ class PostView extends React.Component {
                 {this.props.post.message}
               </CardText>
               <CardActions>
-                <FlatButton label="Is Helpful" onClick={this.isHelpful.bind(this)}/>
+                <FlatButton label="Helpful" onClick={this.isHelpful.bind(this)}/>
                   <Badge
                     badgeContent={this.state.helpful}
                     primary={true}
                   >
                     <SentimentVerySatisfied />
                   </Badge>
-                <FlatButton label="Is Unhelpful" onClick={this.isUnhelpful.bind(this)}/>
+                <FlatButton label="Unhelpful" onClick={this.isUnhelpful.bind(this)}/>
                   <Badge
                     badgeContent={this.state.unhelpful}
                     primary={true}
