@@ -109,7 +109,7 @@ module.exports = {
   },
   deleteAUser: (req, res) => {
     Models.User.destroy({
-      where: { id: req.params.id },
+      where: { email: req.params.email },
     })
     .then(() => {
       res.status(204).end();
