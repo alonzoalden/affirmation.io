@@ -45,11 +45,7 @@ module.exports = {
       .then((sentiment) => {
         returnPost['sentiment'] = sentiment;
       })
-      .catch((error) => {
-        console.log('sentiment error: ', error);
-      })
-    })
-    .then(() => {
+      .then(() => {
       Models.Favorites.findAll({
         where: {
           postId: req.params.id,
@@ -59,11 +55,7 @@ module.exports = {
       .then((favorites) => {
         returnPost['favorites'] = favorites;
       })
-      .catch((error) => {
-        console.log('favorites error: ', error)
-      })
-    })
-    .then(() => {
+      .then(() => {
       Models.Flags.findAll({
         where: {
           postId: req.params.id,
@@ -76,9 +68,8 @@ module.exports = {
       .then(() => {
         res.status(200).json(returnPost);
       })
-      .catch((error) => {
-        console.log('flags error: ', error)
-      })
+    })
+    })
     })
     .catch((error) => {
       res.send(error);
