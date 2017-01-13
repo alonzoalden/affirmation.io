@@ -2,6 +2,7 @@ const Models = require('../../../database/database_config');
 
 module.exports = {
   addAUser: (req, res) => {
+    console.log('Adding User!');
     Models.User.build({
       email: req.body.email,
       name: req.body.name,
@@ -11,9 +12,11 @@ module.exports = {
       about: req.body.about || ':/',
     }).save()
     .then((newUser) => {
+      console.log('Added user successfully');
       res.status(201).json(newUser);
     })
     .catch((error) => {
+      console.log('Error adding user');
       res.send(error);
     });
   },
