@@ -3,6 +3,7 @@ import {EventEmitter} from 'events';
 import React, {Component, PropTypes} from 'react';
 import {browserHistory} from 'react-router';
 import Auth0Lock from 'auth0-lock';
+import axios from 'axios';
 
 const NEXT_PATH_KEY = 'next_path';
 const ID_TOKEN_KEY = 'id_token';
@@ -50,6 +51,26 @@ lock.on('authenticated', authResult => {
   lock.getUserInfo(authResult.accessToken, (error, profile) => {
     if (error) { return setProfile({error}); }
     setProfile(profile);
+    console.log('profile in lock.on:', profile);
+
+    axios({
+      method: 'post',
+      data: {
+        'email': profile.email,
+        'name': profile.name,
+        'avatar': profile.picture
+      },
+      url: 'http://localhost:8000/api/users',
+    })
+    .then(() => {
+      console.log('Added User!');
+      // browserHistory.push(getNextPath());
+      // clearNextPath();
+    })
+    .catch((error) => {
+      console.log('Error adding user:', error);
+    });
+
     browserHistory.push(getNextPath());
     clearNextPath();
   });
