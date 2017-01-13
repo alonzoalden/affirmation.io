@@ -13,6 +13,7 @@ import SentimentVeryDissatisfied from 'material-ui/svg-icons/social/sentiment-ve
 import ReportProblem from 'material-ui/svg-icons/action/report-problem';
 import Favorite from 'material-ui/svg-icons/action/favorite';
 import IconButton from 'material-ui/IconButton';
+import Divider from 'material-ui/Divider';
 
 class PostView extends React.Component {
   constructor(props) {
@@ -177,6 +178,7 @@ class PostView extends React.Component {
                 subtitle={this.props.post.user.job + ' - ' + this.props.post.user.location}
                 avatar={this.props.post.user.avatar}
               />
+            <Divider />
             <CardTitle titleStyle={{ 'text-align': 'center' }} title={this.props.post.title} />
               <CardText>
                 {this.props.post.message}

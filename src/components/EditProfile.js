@@ -6,7 +6,8 @@ import './EditProfile.css';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import ImageFilterVintage from 'material-ui/svg-icons/image/filter-vintage';
 // import PlacesSpa from 'material-ui/svg-icons/places/spa';
-// import Divider from 'material-ui/Divider';
+import Divider from 'material-ui/Divider';
+import {Tabs, Tab} from 'material-ui/Tabs';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
@@ -21,6 +22,8 @@ import InlineEdit from 'react-edit-inline';
 import FlatButton from 'material-ui/FlatButton';
 import Refresh from 'material-ui/svg-icons/navigation/refresh';
 //
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 let mainAcc = '';
 // let secondaryAccs = [
 //   'github',
@@ -84,7 +87,9 @@ const linkedInAtts = [
 class EditProfile extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      value: "a"
+    };
   }
 
   static propTypes = {
@@ -167,7 +172,7 @@ class EditProfile extends Component {
     );
   }
 
-  renderPostList() {
+  renderPostList(input) {
     console.log('state in PostList:',this.state);
     const profile = this.state.userProfile
     console.log('profile in PostList:', profile);
@@ -187,12 +192,13 @@ class EditProfile extends Component {
       }
     };
     if (profile) {
+      console.log('profile in PostList:',profile);
       return (
         <div style={styles.root}>
           <GridList
             style={styles.gridList} cols={2.2}
             >
-            {profile.posts.map((tile) => {
+            {profile[input].map((tile) => {
               return (
                 <GridTile
                   key={tile.id}
@@ -201,7 +207,7 @@ class EditProfile extends Component {
                   subtitle={<span>Phase: <b>{tile.phase}</b></span>}
                   actionIcon={<IconButton><StarBorder color="#FFDB77" /></IconButton>}
                   >
-                  <img src={profile.user.avatar} />
+                  <img src={require('../icons/laptop.png')} />
                 </GridTile>
               )
             })}
@@ -209,6 +215,13 @@ class EditProfile extends Component {
         </div>
       );
     }
+  }
+
+  handleTabChange = (value) => {
+    console.log('changed tabs to:', value);
+    this.setState({
+      value: value,
+    });
   }
 
   // onSubmit = (event) => {
@@ -278,7 +291,9 @@ class EditProfile extends Component {
       backgroundColor: '#FFDB77'
     };
     const barStyle = {
-      backgroundColor: '#867DCC'
+      backgroundColor: '#867DCC',
+      fontFamily: 'Nunito',
+      color: '#FFDB77'
     }
     const titleStyle = {
       fontFamily: 'Nunito',
@@ -292,7 +307,7 @@ class EditProfile extends Component {
     };
     const innerPaperStyle = {
       fontFamily: 'Nunito',
-      margin: 25,
+      margin: 10,
       overflow: 'auto'
     };
     if (this.state.userProfile && this.state.userProfile.user === undefined) {
@@ -316,35 +331,23 @@ class EditProfile extends Component {
 
         <div className="col-md-8 LightPurple">
           <div style={centerPaper}>
-            <Paper style={paperStyle} zDepth={2}>
-              <Toolbar style={barStyle}>
-                <ToolbarGroup>
-                  <ToolbarTitle style={titleStyle} text="User Profile" />
-                </ToolbarGroup>
-                <ToolbarGroup lastChild={true}>
-                  <FlatButton style={buttonStyle} label="Update Profile" icon={<Refresh />}/>
-                </ToolbarGroup>
-              </Toolbar>
-              {this.renderProfile()}
-              <BottomNavigation style={barStyle}>
-                <BottomNavigationItem style={titleStyle} label="Affirmations" icon={<ImageFilterVintage />} />
-                <BottomNavigationItem style={titleStyle} label="Favorites" icon={<ActionFavorite />} />
-              </BottomNavigation>
+            <Paper style={paperStyle} zDepth={1}>
+
+              <Tabs inkBarStyle={{backgroundColor: 'black'}}>
+                <Tab style={barStyle} label="User Profile">
+                  {this.renderProfile()}
+                </Tab>
+                <Tab style={barStyle} label="Affirmations">
+                  <div style={innerPaperStyle}>
+                    {this.renderPostList('posts')}
+                  </div>
+                </Tab>
+              </Tabs>
+
+              <Divider />
+
             </Paper>
           </div>
-        </div>
-
-        <div className="col-md-8" style={centerPaper}>
-          <Paper style={paperStyle} zDepth={2}>
-            <Toolbar style={barStyle}>
-              <ToolbarGroup>
-                <ToolbarTitle style={titleStyle} text="User Posts" />
-              </ToolbarGroup>
-            </Toolbar>
-            <div style={innerPaperStyle}>
-              {this.renderPostList()}
-            </div>
-          </Paper>
         </div>
 
       </div>
