@@ -73,7 +73,8 @@
     "react-tap-event-plugin": "^2.0.1",
     "sequelize": "^3.28.0",
     "sinon": "^1.17.7",
-    "validator": "^6.2.0"
+    "validator": "^6.2.0",
+    "visible-react": "0.0.8"
   },
   "scripts": {
     "start": "node scripts/start.js",
