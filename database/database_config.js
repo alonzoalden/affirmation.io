@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 // #######################__Create Connection__##############################
 
 
-const dbConnection = new Sequelize(process.env.DATABASE_URL);
+const dbConnection = new Sequelize(process.env.DATABASE_URL).catch(() => {console.log('There has been a database error!')});
 
 // ########################__Define Models__###############################
 
