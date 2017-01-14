@@ -83,6 +83,7 @@
   },
   "proxy": "http://localhost:3001",
   "jest": {
+    "setupTestFrameworkScriptFile": "src/setupTests.js",
     "moduleFileExtensions": [
       "jsx",
       "js",
