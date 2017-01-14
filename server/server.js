@@ -6,7 +6,9 @@ const port = process.env.PORT || 8000;
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes');
-
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('./build'));
+}
 app.use(express.static(path.join(__dirname, '../dist')));
 app.use(morgan('dev'));
 
