@@ -174,6 +174,16 @@ class EditProfile extends Component {
       overflow: 'auto',
       backgroundColor: '#FFDB77'
     };
+    const imageInput = {
+      cursor: 'pointer',
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      right: 0,
+      left: 0,
+      width: '100%',
+      opacity: 0,
+    };
     const buttonStyle = {
       fontFamily: 'Nunito',
       backgroundColor: '#867DCC',
@@ -181,7 +191,7 @@ class EditProfile extends Component {
     };
     return (
       <Card style={cardStyle} zDepth={1}>
-        <CardMedia overlay={<CardTitle subtitle={<InlineEdit text={profile.name} paramName="name" activeClassName="Purple" change={this.handleProfileEdit.bind(this, 'name')} />} subtitleStyle={{color: '#FFDB77'}}/>}>
+        <CardMedia overlay={<CardTitle subtitle={<InlineEdit text={profile.name} paramName="name" activeClassName="Purple" change={this.handleProfileEdit.bind(this, 'name')} />} subtitleStyle={{color: '#FFDB77'}}/> }>
           <img src={profile.avatar} size={200} />
         </CardMedia>
         <CardTitle style={{fontFamily: "Nunito"}} title={<InlineEdit text={profile.job} paramName="job" change={this.handleProfileEdit.bind(this, 'job')} />} subtitle={<InlineEdit text={profile.location} paramName="location" change={this.handleProfileEdit.bind(this, 'location')} />} />
@@ -196,6 +206,8 @@ class EditProfile extends Component {
             primary={true}
             icon={<Refresh />}
             style={{color: '#FFDB77'}}
+            onSubmit={this.handleSubmit.bind(this)}
+            onClick={this.handleSubmit.bind(this)}
             />
         </BottomNavigation>
       </Card>
