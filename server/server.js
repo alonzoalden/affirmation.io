@@ -8,8 +8,8 @@ const morgan = require('morgan');
 const routes = require('./routes');
 
 
-app.use(express.static('../build'));
-app.use('/static', express.static('../build/static'));
+// app.use(express.static('../build'));
+// app.use('/static', express.static('../build/static'));
 // app.use(express.static(path.join(__dirname, '../dist')));
 app.use(morgan('dev'));
 
