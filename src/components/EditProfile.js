@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import {connectProfile} from '../auth';
 import './EditProfile.css';
 // import Avatar from 'material-ui/Avatar';
-// import ActionSettings from 'material-ui/svg-icons/action/settings';
+import ActionSettings from 'material-ui/svg-icons/action/settings';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import ImageFilterVintage from 'material-ui/svg-icons/image/filter-vintage';
 // import PlacesSpa from 'material-ui/svg-icons/places/spa';
+import Snackbar from 'material-ui/Snackbar';
 import Divider from 'material-ui/Divider';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
@@ -17,19 +18,14 @@ import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigati
 import axios from 'axios';
 // FROM DINO
 import Paper from 'material-ui/Paper';
-import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
+
 import InlineEdit from 'react-edit-inline';
 import FlatButton from 'material-ui/FlatButton';
 import Refresh from 'material-ui/svg-icons/navigation/refresh';
 //
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
-let mainAcc = '';
-// let secondaryAccs = [
-//   'github',
-//   'google-oauth2',
-//   'linkedin'
-// ];
+
 const gitHubAtts = [
   // 'email',
   // 'name',
@@ -88,7 +84,8 @@ class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: "a"
+      value: "a",
+      open: false
     };
   }
 
@@ -119,28 +116,6 @@ class EditProfile extends Component {
     this.getUser();
   }
 
-  // findMain(profile) {
-  //   if (profile.html_url !== undefined) {
-  //     mainAcc = 'github';
-  //     secondaryAccs = [
-  //       'google-oauth2',
-  //       'linkedin'
-  //     ];
-  //   } else if (profile.gender !== undefined) {
-  //     mainAcc = 'google-oauth2';
-  //     secondaryAccs = [
-  //       'github',
-  //       'linkedin'
-  //     ];
-  //   } else if (profile.summary !== undefined) {
-  //     mainAcc = 'linkedin';
-  //     secondaryAccs = [
-  //       'github',
-  //       'google-oauth2'
-  //     ];
-  //   }
-  // }
-
   handleSubmit() {
     axios({
       method: 'put',
@@ -153,8 +128,9 @@ class EditProfile extends Component {
       },
       url: `http://localhost:8000/api/users/${this.state.userProfile.user.email}`,
     }).then(() => {
-      console.log('profile was updated!');
-      // this.setState({dialogOpen: true}); // signal to user that profile was updated successfully
+      this.setState({
+        open: true
+      });
     });
   }
 
@@ -206,17 +182,23 @@ class EditProfile extends Component {
             primary={true}
             icon={<Refresh />}
             style={{color: '#FFDB77'}}
-            onSubmit={this.handleSubmit.bind(this)}
             onClick={this.handleSubmit.bind(this)}
             />
         </BottomNavigation>
+        <Snackbar
+          open={this.state.open}
+          message="Profile was updated!"
+          autoHideDuration={3000}
+          onRequestClose={this.handleRequestClose}
+        />
       </Card>
     );
   }
 
   renderProfilePaper() {
-    const profile = this.props.profile;
-    const user_metadata = profile.user_metadata || {};
+    let profile = this.state.userProfile.user;
+    const authProfile = this.props.profile;
+    const user_metadata = authProfile.user_metadata || {};
     const innerPaperStyle = {
       fontFamily: 'Nunito',
       margin: 25,
@@ -229,21 +211,12 @@ class EditProfile extends Component {
     return (
       <div style={innerPaperStyle}>
         <p><span style={strong}>Email:</span> <InlineEdit text={profile.email} /></p>
-        <p><span style={strong}>Location:</span> <InlineEdit text={user_metadata.location || 'unknown'} /></p>
-        <p><span style={strong}>GitHub:</span> <a style={{textDecoration: 'none', color: 'black'}} href={profile.html_url}>{profile.nickname}</a></p>
-        {gitHubAtts.map((detail) => {
-          return (
-            <p><span style={strong}>{detail}:</span> <InlineEdit text={profile[detail]} /></p>
-          );
-        })}
       </div>
     );
   }
 
   renderPostList(input) {
-    console.log('state in PostList:',this.state);
     const profile = this.state.userProfile
-    console.log('profile in PostList:', profile);
     const styles = {
       root: {
         display: 'flex',
@@ -260,7 +233,6 @@ class EditProfile extends Component {
       }
     };
     if (profile) {
-      console.log('profile in PostList:',profile);
       return (
         <div style={styles.root}>
           <GridList
@@ -286,7 +258,6 @@ class EditProfile extends Component {
   }
 
   handleTabChange = (value) => {
-    console.log('changed tabs to:', value);
     this.setState({
       value: value,
     });
@@ -356,16 +327,6 @@ class EditProfile extends Component {
       backgroundColor: '#867DCC',
       fontFamily: 'Nunito',
       color: '#FFDB77'
-    }
-    const titleStyle = {
-      fontFamily: 'Nunito',
-      color: '#FFDB77',
-      paddingLeft: 10
-    };
-    const buttonStyle = {
-      fontFamily: 'Nunito',
-      backgroundColor: '#867DCC',
-      color: '#FFDB77'
     };
     const innerPaperStyle = {
       fontFamily: 'Nunito',
@@ -396,13 +357,13 @@ class EditProfile extends Component {
           <div style={centerPaper}>
             <Paper style={paperStyle} zDepth={1}>
               <Tabs inkBarStyle={{backgroundColor: 'black'}}>
-                <Tab style={barStyle} label="User Profile">
-                  {this.renderProfilePaper()}
-                </Tab>
                 <Tab style={barStyle} label="Affirmations">
                   <div style={innerPaperStyle}>
                     {this.renderPostList('posts')}
                   </div>
+                </Tab>
+                <Tab style={barStyle} icon={<ActionSettings />}>
+                  {this.renderProfilePaper()}
                 </Tab>
               </Tabs>
               <Divider />
