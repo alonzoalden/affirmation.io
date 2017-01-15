@@ -5,7 +5,7 @@ var axios = require('axios');
 //Create more versatile tests check other crud operations.
 //GET POST PUT DELETE
 
-describe('Bobby.com user account should be deleted to be added later', function() {
+describe('Make sure bobby.com is not a user in the database', function() {
 
   it('Should delete user bobby.com', function(done) {
     axios({
@@ -68,6 +68,7 @@ describe('Should post data to be persisted on the database', function() {
       message: 'only a test.',
       anon: false,
       userEmail: 'bobby.com',
+      id: 1,
     })
     .then((user) => {
       var success = user.data;
@@ -80,8 +81,18 @@ describe('Should post data to be persisted on the database', function() {
   })
 })
 
+describe('Should delete posted data on the database', function() {
+  it('Should delete the last post to the data base', function(done) {
+    return axios.delete('http://localhost:8000/api/posts/wanttolearn/1/bobby.com')
+    .then((msg) => {
+      var statusCode = msg.status;
+      expect(statusCode).to.equal(204);
+      done();
+    })
+  })
+})
 
-describe('Should delete once again to clear the database', function() {
+describe('Should delete user once again to clear the database', function() {
   it('Should delete user bobby.com', function(done) {
     axios({
       method: 'delete',
