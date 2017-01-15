@@ -97,8 +97,11 @@ module.exports = {
     Models.User.update({
       name: req.body.name,
       avatar: req.body.avatar,
+      job: req.body.job,
+      location: req.body.location,
+      about: req.body.about,
     }, {
-      where: { id: req.params.id },
+      where: { email: req.params.email },
     })
     .then(() => {
       res.status(204).end();
