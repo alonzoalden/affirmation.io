@@ -46,4 +46,8 @@ module.exports = function (app, express) {
 // app.get('/', function (request, response){
 //     response.sendFile(path.join(__dirname, '../build', 'index.html'));
 //   });
+
+app.get('/', function (request, response){
+    response.json("Howdy!");
+  });
 };
