@@ -108,8 +108,7 @@ class EditProfile extends Component {
       this.setState({ userProfile: user.data })
     })
     .then(() => {
-      console.log('state:', this.state);
-      this.provideDetails();
+      console.log('state on render:', this.state);
     })
     .catch((error) => {
       console.log(error)
@@ -142,11 +141,68 @@ class EditProfile extends Component {
   //   }
   // }
 
-  provideDetails() { // Returns info from main account
-    console.log('details:', this.state.userProfile.user);
+  handleSubmit() {
+    axios({
+      method: 'put',
+      data: {
+        'name': this.state.name,
+        'avatar': this.state.userProfile.user.avatar,
+        'job': this.state.job,
+        'about': this.state.about,
+        'location': this.state.location
+      },
+      url: `http://localhost:8000/api/users/${this.state.userProfile.user.email}`,
+    }).then(() => {
+      console.log('profile was updated!');
+      // this.setState({dialogOpen: true}); // signal to user that profile was updated successfully
+    });
   }
 
-  renderProfile() {
+  handleProfileEdit(edited, event) {
+    this.setState({
+      [edited]: event[edited]
+    });
+    console.log('new state:', this.state);
+  }
+
+  renderProfileCard() {
+    let profile = this.state.userProfile.user;
+    console.log('state in card render:', this.state);
+    const cardStyle = {
+      width: 350,
+      margin: 20,
+      overflow: 'auto',
+      backgroundColor: '#FFDB77'
+    };
+    const buttonStyle = {
+      fontFamily: 'Nunito',
+      backgroundColor: '#867DCC',
+      color: '#FFDB77',
+    };
+    return (
+      <Card style={cardStyle} zDepth={1}>
+        <CardMedia overlay={<CardTitle subtitle={<InlineEdit text={profile.name} paramName="name" activeClassName="Purple" change={this.handleProfileEdit.bind(this, 'name')} />} subtitleStyle={{color: '#FFDB77'}}/>}>
+          <img src={profile.avatar} size={200} />
+        </CardMedia>
+        <CardTitle style={{fontFamily: "Nunito"}} title={<InlineEdit text={profile.job} paramName="job" change={this.handleProfileEdit.bind(this, 'job')} />} subtitle={<InlineEdit text={profile.location} paramName="location" change={this.handleProfileEdit.bind(this, 'location')} />} />
+        <CardText style={{fontFamily: "Nunito"}} >
+          <InlineEdit text={profile.about} paramName="about" change={this.handleProfileEdit.bind(this, 'about')} />
+        </CardText>
+        <Divider style={{backgroundColor: 'black'}}/>
+        <BottomNavigation style={buttonStyle}>
+          <BottomNavigationItem
+            label="Update Profile"
+            labelPosition="before"
+            primary={true}
+            icon={<Refresh />}
+            style={{color: '#FFDB77'}}
+            />
+        </BottomNavigation>
+      </Card>
+    );
+  }
+
+  renderProfilePaper() {
     const profile = this.props.profile;
     const user_metadata = profile.user_metadata || {};
     const innerPaperStyle = {
@@ -284,12 +340,6 @@ class EditProfile extends Component {
       overflow: 'auto',
       backgroundColor: '#FFDB77'
     };
-    const cardStyle = {
-      width: 350,
-      margin: 20,
-      overflow: 'auto',
-      backgroundColor: '#FFDB77'
-    };
     const barStyle = {
       backgroundColor: '#867DCC',
       fontFamily: 'Nunito',
@@ -316,26 +366,26 @@ class EditProfile extends Component {
       );
     }
 
+    if (!this.state.userProfile) {
+      return (
+        <div>
+          Loading Profile...
+        </div>
+      );
+    }
     return (
       <div className={flexbox}>
 
         <div className="col-md-4 LightPurple">
-          <Card style={cardStyle} zDepth={1}>
-            <CardMedia overlay={<CardTitle subtitle={profile.identities[1].profileData.headline} />}>
-              <img src={profile.picture} size={200} />
-            </CardMedia>
-            <CardTitle title={profile.name} subtitle="Bio" />
-            <CardText style={{fontFamily: "Nunito"}}>{profile.identities[1].profileData.summary}</CardText>
-          </Card>
+          {this.renderProfileCard()}
         </div>
 
         <div className="col-md-8 LightPurple">
           <div style={centerPaper}>
             <Paper style={paperStyle} zDepth={1}>
-
               <Tabs inkBarStyle={{backgroundColor: 'black'}}>
                 <Tab style={barStyle} label="User Profile">
-                  {this.renderProfile()}
+                  {this.renderProfilePaper()}
                 </Tab>
                 <Tab style={barStyle} label="Affirmations">
                   <div style={innerPaperStyle}>
@@ -343,9 +393,7 @@ class EditProfile extends Component {
                   </div>
                 </Tab>
               </Tabs>
-
               <Divider />
-
             </Paper>
           </div>
         </div>
