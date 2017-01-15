@@ -43,7 +43,7 @@ module.exports = function (app, express) {
   //need to add this to handle direct addressing of routes.
   //will serve index.html which has our js linked for routing.
 
-app.get('/', function (request, response){
+app.get('/*', function (request, response){
     response.sendFile(path.join(__dirname,'../build', 'index.html'));
   });
 };
