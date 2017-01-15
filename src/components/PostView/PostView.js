@@ -42,7 +42,7 @@ class PostView extends React.Component {
     if (this.state.userVote.length === 1) {
 
       if (this.state.userVote[0].helpfulness) {  //<--- addresses the true property
-        return axios.put('https://localhost:8000/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/vote/null', {
+        return axios.put('/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/vote/null', {
           email: this.props.post.user.email,
           helpful: this.state.helpful - 1,
           unhelpful: this.state.unhelpful,
@@ -59,7 +59,7 @@ class PostView extends React.Component {
 
       } else { //<--- addresses the false property
        //change their last vote from false to true
-        return axios.put('https://localhost:8000/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/vote/helpful', {
+        return axios.put('/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/vote/helpful', {
           email: this.props.post.user.email,
           helpful: this.state.helpful + 1,
           unhelpful: this.state.unhelpful - 1,
@@ -77,7 +77,7 @@ class PostView extends React.Component {
         })
       }
     } else { //<---- clicking helpful the first time
-      return axios.post('https://localhost:8000/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/vote/helpful', {
+      return axios.post('/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/vote/helpful', {
         email: this.props.post.user.email,
         sentiment: this.state.sentiment + 1,
         helpful: this.state.helpful + 1,
@@ -97,7 +97,7 @@ class PostView extends React.Component {
     console.log('State before -Click:', this.state);
     if (this.state.userVote.length === 1) {
       if (!this.state.userVote[0].helpfulness) {  //<--- addresses the true property
-        return axios.put('https://localhost:8000/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/vote/null', {
+        return axios.put('/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/vote/null', {
           email: this.props.post.user.email,
           helpful: this.state.helpful,
           unhelpful: this.state.unhelpful - 1,
@@ -113,7 +113,7 @@ class PostView extends React.Component {
         })
       } else { //<--- addresses the false property
        //change their last vote from true to false
-        return axios.put('https://localhost:8000/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/vote/unhelpful', {
+        return axios.put('/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/vote/unhelpful', {
           email: this.props.post.user.email,
           helpful: this.state.helpful - 1,
           unhelpful: this.state.unhelpful + 1,
@@ -131,7 +131,7 @@ class PostView extends React.Component {
         })
       }
     } else { //<---- clicking unhelpful the first time
-      return axios.post('https://localhost:8000/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/vote/unhelpful', {
+      return axios.post('/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/vote/unhelpful', {
         email: this.props.post.user.email,
         sentiment: this.state.sentiment - 1,
         unhelpful: this.state.unhelpful + 1,
