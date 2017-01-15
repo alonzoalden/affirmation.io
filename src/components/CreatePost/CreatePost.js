@@ -95,7 +95,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
           'anon': that.state.anon,
           'userEmail': that.props.profile.email
         },
-        url: `https://localhost:8000/api/posts/${that.state.phase}`,
+        url: `${process.env.API_URL}/posts/${that.state.phase}`,
       }).then(() => {
         that.setState({dialogOpen: true});
         setTimeout(() => {that.context.router.push(`/${that.state.phase}`);}, 2500);
