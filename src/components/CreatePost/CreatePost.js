@@ -86,6 +86,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       });
       return;
     } else {
+      console.log(process.env.API_URL);
       that.setState({errors: {}});
       axios({
         method: 'post',
@@ -95,7 +96,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
           'anon': that.state.anon,
           'userEmail': that.props.profile.email
         },
-        url: `${process.env.API_URL}/posts/${that.state.phase}`,
+        url: `/api/posts/${that.state.phase}`,
       }).then(() => {
         that.setState({dialogOpen: true});
         setTimeout(() => {that.context.router.push(`/${that.state.phase}`);}, 2500);
