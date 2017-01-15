@@ -8,7 +8,7 @@ const morgan = require('morgan');
 const routes = require('./routes');
 
 
-// app.use(express.static('../build'));
+app.use(express.static('../build'));
 // app.use(express.static(path.join(__dirname, '../dist')));
 app.use(morgan('dev'));
 
