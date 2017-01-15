@@ -64,6 +64,7 @@ lock.on('authenticated', authResult => {
     })
     .then(() => {
       console.log('Added User!');
+      console.log(process.env.API_URL);
       // browserHistory.push(getNextPath());
       // clearNextPath();
     })
