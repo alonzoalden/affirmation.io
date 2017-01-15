@@ -38,7 +38,7 @@ module.exports = function (app, express) {
     .put(userController.updateAUser)
     .delete(userController.deleteAUser);
 
-app.use('/api', router);
+// app.use('/api', router);
 
   //need to add this to handle direct addressing of routes.
   //will serve index.html which has our js linked for routing.
