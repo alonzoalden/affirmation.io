@@ -28,7 +28,7 @@ class PhaseView extends React.Component {
 
   getPreviewPosts() {
     let phase = this.props.location.pathname.toLowerCase()
-    return axios.get('https://localhost:8000/api/posts' + phase)
+    return axios.get('/api/posts' + phase)
       .then((arr) => {
           arr.data.sort((a,b) => {
             return (a.sentiment < b.sentiment) ? 1 : -1
