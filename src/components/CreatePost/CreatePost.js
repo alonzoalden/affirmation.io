@@ -22,13 +22,10 @@ require('medium-editor/dist/css/medium-editor.css');
 require('medium-editor/dist/css/themes/default.css');
 import Popover from 'material-ui/Popover';
 import FlatButton from 'material-ui/FlatButton';
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import ReactTooltip from 'react-tooltip';
 
 class CreatePost extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
@@ -291,7 +288,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
           </ToolbarGroup>
           <ToolbarGroup>
             <ToolbarSeparator />
-            <i className="material-icons">visibility_off</i>
+            <i className="material-icons" data-tip="Submit annonymously">visibility_off</i>
             {this.renderAnonToggle()}
             {this.renderPhaseSelector()}
             <FlatButton onClick={this.validateAndSubmit.bind(this)} style={button} label="Submit" />
@@ -331,6 +328,9 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
                 <div style={center}>
                   {this.renderSuccessDialog()}
                 </div>
+                <ReactTooltip
+                  place='bottom'
+                />
               </div>
             </div>
           </div>
