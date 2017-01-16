@@ -3,22 +3,11 @@ const Sequelize = require('sequelize');
 // #######################__Create Connection__##############################
 console.log(process.env.NODE_ENV);
 
-if (process.env.NODE_ENV === 'production') {
-  const dbConnection = new Sequelize(process.env.DATABASE_URL);
-} else {
-  const dbConnection = new Sequelize('app_data', /*local user,*/ '', {
+  const dbConnection = process.env.NODE_ENV === 'production' ? new Sequelize(process.env.DATABASE_URL) : new Sequelize('app_data', 'davidflowers', '', {
     host: 'localhost',
     dialect: 'postgres',
     port: 5432,
   });
-}
-
-  const dbConnection = new Sequelize('app_data', 'davidflowers', '', {
-    host: 'localhost',
-    dialect: 'postgres',
-    port: 5432,
-  });
-
 
 // ########################__Define Models__###############################
 
