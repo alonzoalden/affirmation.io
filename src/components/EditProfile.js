@@ -100,7 +100,7 @@ class EditProfile extends Component {
   }
 
   getUser() {
-    axios.get('https://localhost:8000/api/users/' + this.props.profile.email)
+    axios.get('/api/users/' + this.props.profile.email)
     .then((user) => {
       this.setState({ userProfile: user.data })
     })
