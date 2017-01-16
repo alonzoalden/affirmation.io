@@ -147,7 +147,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
 
   renderPhaseSelector() {
     const dropDown = {
-      marginBottom: 8,
+      margin: 0,
       padding: 0,
       marginRight: 0
     };
@@ -201,7 +201,6 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
           >
           Thanks for sharing your knowledge with the community!
         </Dialog>
-
     );
   }
   renderPopOver(){
@@ -229,6 +228,8 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
   renderToolBar(){
     const toolBarText = {
       fontSize: 20,
+      fontFamily: 'Nunito',
+      fontWeight: 'bold'
     };
     const button = {
       backgroundColor: '#867dcc',
@@ -236,6 +237,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       marginLeft: 0,
       marginRight: 0
     };
+
     return (
       <div>
         <Toolbar>
