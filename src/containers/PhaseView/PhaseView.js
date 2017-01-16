@@ -12,7 +12,7 @@ import Badge from 'material-ui/Badge';
 import SentimentVerySatisfied from 'material-ui/svg-icons/social/sentiment-very-satisfied';
 import SentimentVeryDissatisfied from 'material-ui/svg-icons/social/sentiment-very-dissatisfied';
 import PostPreview from '../../components/PostPreview/PostPreview';
-import InfiniteScroll from 'react-infinite-scroller';
+// import InfiniteScroll from 'react-infinite-scroller';
 
 class PhaseView extends React.Component {
   constructor(props) {
