@@ -146,25 +146,29 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
   }
 
   renderPhaseSelector() {
-    const phase = {
-      paddingBottom: 10
+    const dropDown = {
+      marginBottom: 8,
+      padding: 0,
+      marginRight: 0
     };
     return (
       <div>
-        <div style={phase}>Phase</div>
-        <RadioButtonGroup name='phaseSelector' onChange={this.phaseChangeHandler.bind(this)}>
-          <RadioButton value='wanttolearn'label='Want to Learn'/>
-          <RadioButton value='learningtocode'label='Learning to Code'/>
-          <RadioButton value='jobhunt'label='Looking for a Job'/>
-          <RadioButton value='onthejob'label='Working as a Software Engineer'/>
-        </RadioButtonGroup>
+        <DropDownMenu value={this.state.value} onChange={this.phaseChangeHandler.bind(this)} style={dropDown} iconStyle={{fill: 'black'}}>
+          <MenuItem value='Phase' primaryText="Select Phase" />
+          <MenuItem value='wanttolearn' primaryText="Want to Learn" />
+          <MenuItem value='learningtocode' primaryText="Learning to Code" />
+          <MenuItem value='jobhunt' primaryText="Looking for a Job" />
+          <MenuItem value='onthejob' primaryText="Working as a Software Engineer" />
+        </DropDownMenu>
       </div>
     );
   }
 
   renderAnonToggle(props) {
     const toggle = {
-      maxWidth: 50
+      maxWidth: 50,
+      marginLeft: 13,
+      marginRight: 0
     };
     return (
       <Toggle
@@ -226,11 +230,6 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       marginLeft: 0,
       marginRight: 0
     };
-    const dropDown = {
-      marginBottom: 8,
-      padding: 0,
-      marginRight: 0
-    };
     const toolBarText = {
       fontSize: 20,
     };
@@ -248,13 +247,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
                 <ToolbarSeparator />
                 <i className="material-icons">visibility_off</i>
                 {this.renderAnonToggle()}
-                <DropDownMenu value={this.state.value} onChange={this.phaseChangeHandler.bind(this)} style={dropDown} iconStyle={{fill: 'black'}}>
-                  <MenuItem value='Phase' primaryText="Select Phase" />
-                  <MenuItem value='wanttolearn' primaryText="Want to Learn" />
-                  <MenuItem value='learningtocode' primaryText="Learning to Code" />
-                  <MenuItem value='jobhunt' primaryText="Looking for a Job" />
-                  <MenuItem value='onthejob' primaryText="Working as a Software Engineer" />
-                </DropDownMenu>
+                {this.renderPhaseSelector()}
                 <FlatButton onClick={this.validateAndSubmit.bind(this)} style={button} label="Submit" />
               </ToolbarGroup>
             </Toolbar>
