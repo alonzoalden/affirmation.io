@@ -239,7 +239,7 @@ function clearNextPath() {
   localStorage.removeItem(NEXT_PATH_KEY);
 }
 
-function isLoggedIn() {
+export function isLoggedIn() {
   const idToken = getIdToken();
   return idToken && !isTokenExpired(idToken);
 }

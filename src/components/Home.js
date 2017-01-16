@@ -1,15 +1,26 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import { connectProfile, newLock } from '../auth';
 import Auth0Lock from 'auth0-lock';
 import './Home.css';
 import './Animate.css';
+import {isLoggedIn} from '../auth';
 class Home extends Component {
   static propTypes = {
     ...connectProfile.PropTypes
-  };
+  }
+
+  static contextTypes = {
+    router: PropTypes.object,
+  }
+
+  componentWillMount() {
+    if (isLoggedIn()) {
+      this.context.router.push('/dashboard');
+    }
+  }
   componentDidMount(){
     newLock();
-  };
+  }
   // <h3>Whether you are exploring, learning, job hunting, or looking to
   //   expand your seasoned career, you will inevitably face the unknown.
   //   Obtain advice from profound experienced professionalsin the field
