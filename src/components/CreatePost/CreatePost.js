@@ -22,13 +22,10 @@ require('medium-editor/dist/css/medium-editor.css');
 require('medium-editor/dist/css/themes/default.css');
 import Popover from 'material-ui/Popover';
 import FlatButton from 'material-ui/FlatButton';
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import ReactTooltip from 'react-tooltip';
 
 class CreatePost extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
@@ -129,25 +126,39 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
   }
 
   renderTitleTextField() {
+    const titleText = {
+      fontSize: 40,
+      fontFamily: 'Roboto',
+      fontWeight: 'bold',
+      border: 'none'
+    };
     return (
-        <Editor
-          className='glowing-border'
-          data-placeholder='Title'
-          text={this.state.title}
-          errorText={this.state.errors.title}
-          onChange={this.titleChangeHandler.bind(this)}
-          options={{toolbar: {buttons: ['bold', 'italic', 'underline','h2', 'h3', 'quote']}}}
+      <div>
+        <input
+        placeholder="Title"
+        className='glowing-border'
+        style={titleText}
+        text={this.state.title}
+        onChange={this.titleChangeHandler.bind(this)}
         />
+        </div>
     );
   }
 
   renderMessageTextField(props) {
+    const messageText = {
+      fontSize: 22,
+      lineHeight: 1.1,
+      fontFamily: 'Roboto'
+    };
     return (
         <Editor
           data-placeholder='Write advice here...'
+          className='glowing-border'
+          style={messageText}
           text={this.state.message}
           onChange={this.messageChangeHandler.bind(this)}
-          options={{toolbar: {buttons: ['bold', 'italic', 'underline']}}}
+          options={{toolbar: {buttons: ['bold', 'italic', 'underline', 'h2', 'h3', 'quote']}, placeholder: { hideOnClick: false}}}
         />
     );
   }
@@ -215,6 +226,29 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       height: 130,
       width: 150,
       padding: 15,
+      color: 'white',
+      backgroundColor: '#393939',
+      fontFamily: 'Roboto'
+    };
+    return (
+      <div>
+         <Popover
+            open={this.state.open}
+            anchorEl={this.state.anchorEl}
+
+            onRequestClose={this.handleRequestClose}
+          >
+          <div style={pop}>Submitting your affirmation will become available after you start writing.</div>
+        </Popover>
+      </div>
+    )
+  }
+
+  renderPhasePopOver(){
+    const pop = {
+      height: 50,
+      width: 50,
+      padding: 15,
       color: 'red'
     };
     return (
@@ -226,7 +260,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
             targetOrigin={{horizontal: 'left', vertical: 'top'}}
             onRequestClose={this.handleRequestClose}
           >
-          <div style={pop}>Submitting your affirmation will become available after you start writing.</div>
+          <div style={pop}>Select Phase.</div>
         </Popover>
       </div>
     )
@@ -235,7 +269,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
   renderToolBar(){
     const toolBarText = {
       fontSize: 20,
-      fontFamily: 'Nunito',
+      fontFamily: 'Roboto',
       fontWeight: 'bold'
     };
     const button = {
@@ -244,16 +278,19 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       marginLeft: 0,
       marginRight: 0
     };
+    const toolbar = {
+      marginTop: 20
+    };
 
     return (
       <div>
-        <Toolbar>
+        <Toolbar style={toolbar}>
           <ToolbarGroup >
           <div style={toolBarText}>Submit Affirmation</div>
           </ToolbarGroup>
           <ToolbarGroup>
             <ToolbarSeparator />
-            <i className="material-icons">visibility_off</i>
+            <i className="material-icons" data-tip="Submit annonymously">visibility_off</i>
             {this.renderAnonToggle()}
             {this.renderPhaseSelector()}
             <FlatButton onClick={this.validateAndSubmit.bind(this)} style={button} label="Submit" />
@@ -265,7 +302,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
 
   render() {
     const paperStyle = {
-      height: 600,
+      height: 550,
       width: 750,
       overflow: 'auto',
       padding: 30,
@@ -275,6 +312,9 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+    };
+    const tooltip = {
+      fontFamily: 'Roboto'
     };
     return (
       <div>
@@ -293,6 +333,10 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
                 <div style={center}>
                   {this.renderSuccessDialog()}
                 </div>
+                <ReactTooltip
+                  place='bottom'
+                  style={tooltip}
+                />
               </div>
             </div>
           </div>

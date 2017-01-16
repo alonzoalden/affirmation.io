@@ -4,3 +4,20 @@
 .medium-editor-placeholder {
     font-size: 24px;
 }
+.medium-editor-element:focus {
+    border: 0px;
+}
+
+.glowing-border:focus { 
+    outline: none;
+    border-color: white;
+    /*border-radius: 10;*/
+    box-shadow: 0 0 4px 2px white;
+    -webkit-border-radius: 2px;
+       -moz-border-radius: 2px;
+            border-radius: 2px;
+}
+
+.title {
+    margin-bottom: 10px;
+}
