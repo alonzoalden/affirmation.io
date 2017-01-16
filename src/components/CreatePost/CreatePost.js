@@ -102,8 +102,8 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     }
   }
 
-  titleChangeHandler(text, medium) {
-    this.setState({title: text});
+  titleChangeHandler(e) {
+    this.setState({title: e.target.value});
   }
 
   messageChangeHandler(text, medium) {
@@ -236,7 +236,6 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
          <Popover
             open={this.state.open}
             anchorEl={this.state.anchorEl}
-
             onRequestClose={this.handleRequestClose}
           >
           <div style={pop}>Submitting your affirmation will become available after you start writing.</div>
