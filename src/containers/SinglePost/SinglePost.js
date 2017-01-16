@@ -28,7 +28,7 @@ export class SinglePost extends React.Component {
 
   getCurrentPost() {
     let path = this.props.location.pathname.toLowerCase();
-    return axios.get('http://localhost:8000/api/posts' + path + '/' + this.props.profile.email)
+    return axios.get('/api/posts' + path + '/' + this.props.profile.email)
       .then((result) => {
         this.setState({ post: result.data });
       })

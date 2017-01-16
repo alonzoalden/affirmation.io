@@ -7,7 +7,13 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes');
 
-app.use(express.static(path.join(__dirname, '../dist')));
+console.log(process.env);
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static(path.join(__dirname, '../build')));
+} else {
+	app.use(express.static(path.join(__dirname, '../dist')));
+}
+
 app.use(morgan('dev'));
 
 app.use(cors());

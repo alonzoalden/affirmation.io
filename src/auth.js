@@ -60,7 +60,7 @@ lock.on('authenticated', authResult => {
         'name': profile.name,
         'avatar': profile.picture
       },
-      url: 'http://localhost:8000/api/users',
+      url: '/api/users',
     })
     .then(() => {
       console.log('Added User!');
