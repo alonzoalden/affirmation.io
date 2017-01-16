@@ -204,6 +204,27 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
 
     );
   }
+  renderPopOver(){
+    const pop = {
+      height: 130,
+      width: 150,
+      padding: 15,
+      color: 'red'
+    };
+    return (
+      <div>
+         <Popover
+            open={this.state.open}
+            anchorEl={this.state.anchorEl}
+            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+            targetOrigin={{horizontal: 'left', vertical: 'top'}}
+            onRequestClose={this.handleRequestClose}
+          >
+          <div style={pop}>Submitting your affirmation will become available after you start writing.</div>
+        </Popover>
+      </div>
+    )
+  }
 
   render() {
     const paperStyle = {
@@ -217,12 +238,6 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-    };
-    const pop = {
-      height: 130,
-      width: 150,
-      padding: 15,
-      color: 'red'
     };
     const button = {
       backgroundColor: '#867dcc',
@@ -258,15 +273,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
                   <div>
                     {this.renderMessageTextField()}
                   </div>
-                  <Popover
-                    open={this.state.open}
-                    anchorEl={this.state.anchorEl}
-                    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                    targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                    onRequestClose={this.handleRequestClose}
-                  >
-                  <div style={pop}>Submitting your affirmation will become available after you start writing.</div>
-                </Popover>
+                  {this.renderPopOver()}
                 <div style={center}>
                   {this.renderSuccessDialog()}
                 </div>
