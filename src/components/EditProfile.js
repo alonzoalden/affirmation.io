@@ -4,6 +4,7 @@ import './EditProfile.css';
 // import Avatar from 'material-ui/Avatar';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
+import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever';
 import ImageFilterVintage from 'material-ui/svg-icons/image/filter-vintage';
 // import PlacesSpa from 'material-ui/svg-icons/places/spa';
 import Snackbar from 'material-ui/Snackbar';
@@ -16,6 +17,7 @@ import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import axios from 'axios';
+import Badge from 'material-ui/Badge';
 // FROM DINO
 import Paper from 'material-ui/Paper';
 import { Link } from 'react-router';
@@ -167,14 +169,16 @@ class EditProfile extends Component {
     };
     return (
       <Card style={cardStyle} zDepth={1}>
-        <CardMedia overlay={<CardTitle subtitle={<InlineEdit text={profile.name} paramName="name" activeClassName="Purple" change={this.handleProfileEdit.bind(this, 'name')} />} subtitleStyle={{color: '#FFDB77'}}/> }>
+        <CardMedia overlay={<CardTitle subtitle={<InlineEdit text={profile.name} paramName="name" activeClassName="Purple" change={this.handleProfileEdit.bind(this, 'name')} />} subtitleStyle={{fontFamily: 'Nunito', color: '#FFDB77', fontSize: 20}}/> }>
           <img src={profile.avatar} size={200} />
         </CardMedia>
         <CardTitle style={{fontFamily: "Nunito"}} title={<InlineEdit text={profile.job} paramName="job" change={this.handleProfileEdit.bind(this, 'job')} />} subtitle={<InlineEdit text={profile.location} paramName="location" change={this.handleProfileEdit.bind(this, 'location')} />} />
-        <CardText style={{fontFamily: "Nunito"}} >
-          <InlineEdit text={profile.about} paramName="about" change={this.handleProfileEdit.bind(this, 'about')} />
+        <CardText style={{fontFamily: 'Nunito'}}>
+          <h2 style={{color: '#867DCC'}}><strong>About Me</strong></h2>
+          <Divider style={{backgroundColor: '#867DCC'}}/>
+          <br />
+          <InlineEdit style={{width: '100%', height: '100%'}} text={profile.about} paramName="about" change={this.handleProfileEdit.bind(this, 'about')} />
         </CardText>
-        <Divider style={{backgroundColor: 'black'}}/>
         <BottomNavigation style={buttonStyle}>
           <BottomNavigationItem
             label="Update Profile"
@@ -208,9 +212,19 @@ class EditProfile extends Component {
       fontSize: 18,
       color: '#867DCC'
     };
+    const center = {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    };
     return (
       <div style={innerPaperStyle}>
-        <p><span style={strong}>Email:</span> <InlineEdit text={profile.email} /></p>
+        <div>
+          <p><span style={strong}>Email:</span> <InlineEdit text={profile.email} /></p>
+        </div>
+        <div style={center}>
+          <FlatButton style={{backgroundColor: '#ED222A'}} icon={<ActionDeleteForever />} />
+        </div>
       </div>
     );
   }
@@ -250,8 +264,10 @@ class EditProfile extends Component {
                       {tile.phase}
                     </Link>}
                   </b></span>}
-                  actionIcon={<IconButton><StarBorder color="#FFDB77" /></IconButton>}
-                  >
+                  actionIcon={
+                    <Badge badgeContent={tile.favorites} badgeStyle={{backgroundColor: '#FFDB77', top: 18, right: 18, color: '#867DCC'}}>
+                      <IconButton><StarBorder color="#FFDB77" /></IconButton>
+                    </Badge>}>
                   <img src={require('../icons/laptop.png')} />
                 </GridTile>
               )
@@ -315,7 +331,6 @@ class EditProfile extends Component {
       display: '-ms-flexbox',
       display: 'flex',
       overflow: 'hidden',
-      backgroundColor: '#AB92F2'
     };
     const centerPaper = {
       display: 'flex',
@@ -354,11 +369,11 @@ class EditProfile extends Component {
     return (
       <div className={flexbox}>
 
-        <div className="col-md-4 LightPurple">
+        <div className="col-md-4">
           {this.renderProfileCard()}
         </div>
 
-        <div className="col-md-8 LightPurple">
+        <div className="col-md-8">
           <div style={centerPaper}>
             <Paper style={paperStyle} zDepth={1}>
               <Tabs inkBarStyle={{backgroundColor: 'black'}}>
