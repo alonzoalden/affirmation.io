@@ -226,6 +226,34 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     )
   }
 
+  renderToolBar(){
+    const toolBarText = {
+      fontSize: 20,
+    };
+    const button = {
+      backgroundColor: '#867dcc',
+      color: 'white',
+      marginLeft: 0,
+      marginRight: 0
+    };
+    return (
+      <div>
+        <Toolbar>
+          <ToolbarGroup >
+          <div style={toolBarText}>Submit Affirmation</div>
+          </ToolbarGroup>
+          <ToolbarGroup>
+            <ToolbarSeparator />
+            <i className="material-icons">visibility_off</i>
+            {this.renderAnonToggle()}
+            {this.renderPhaseSelector()}
+            <FlatButton onClick={this.validateAndSubmit.bind(this)} style={button} label="Submit" />
+          </ToolbarGroup>
+        </Toolbar>
+      </div>
+    )
+  }
+
   render() {
     const paperStyle = {
       height: 600,
@@ -239,40 +267,19 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       alignItems: 'center',
       justifyContent: 'center',
     };
-    const button = {
-      backgroundColor: '#867dcc',
-      color: 'white',
-      marginLeft: 0,
-      marginRight: 0
-    };
-    const toolBarText = {
-      fontSize: 20,
-    };
-
     return (
       <div>
         <div style={center}>
           <div>
-          <div>
-            <Toolbar>
-              <ToolbarGroup >
-              <div style={toolBarText}>Submit Affirmation</div>
-              </ToolbarGroup>
-              <ToolbarGroup>
-                <ToolbarSeparator />
-                <i className="material-icons">visibility_off</i>
-                {this.renderAnonToggle()}
-                {this.renderPhaseSelector()}
-                <FlatButton onClick={this.validateAndSubmit.bind(this)} style={button} label="Submit" />
-              </ToolbarGroup>
-            </Toolbar>
-            <div style={paperStyle}>
+            <div>
+              {this.renderToolBar()}
+              <div style={paperStyle}>
                 <div className='title'>
-                    {this.renderTitleTextField()}
-                  </div><br />
-                  <div>
-                    {this.renderMessageTextField()}
-                  </div>
+                  {this.renderTitleTextField()}
+                </div><br />
+                <div>
+                  {this.renderMessageTextField()}
+                </div>
                   {this.renderPopOver()}
                 <div style={center}>
                   {this.renderSuccessDialog()}
