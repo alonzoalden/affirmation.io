@@ -5,9 +5,9 @@
 */
 
 import React, { PropTypes } from 'react';
-import Paper from 'material-ui/Paper';
+// import Paper from 'material-ui/Paper';
 import Toggle from 'material-ui/Toggle';
-import TextField from 'material-ui/TextField';
+// import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import AddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
@@ -16,7 +16,19 @@ import Dialog from 'material-ui/Dialog';
 import validator from 'validator';
 import axios from 'axios';
 import {connectProfile} from '../../auth';
-
+import Editor from 'react-medium-editor';
+import './CreatePost.css';
+require('medium-editor/dist/css/medium-editor.css');
+require('medium-editor/dist/css/themes/default.css');
+import Popover from 'material-ui/Popover';
+import FlatButton from 'material-ui/FlatButton';
+import IconMenu from 'material-ui/IconMenu';
+import IconButton from 'material-ui/IconButton';
+import FontIcon from 'material-ui/FontIcon';
+import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
+import MenuItem from 'material-ui/MenuItem';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 
 class CreatePost extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
@@ -28,7 +40,9 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       anon: false,
       errors: {},
       submitting: false,
-      dialogOpen: false
+      dialogOpen: false,
+      open: false,
+      value: 'Phase'
     };
   }
   static propTypes = {
@@ -37,6 +51,12 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
 
   static contextTypes = {
     router: PropTypes.object,
+  };
+  
+  handleRequestClose = () => {
+    this.setState({
+      open: false,
+    });
   };
 
   validateAndSubmit(e) {
@@ -54,7 +74,11 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       isValid = false;
     }
     if (!isValid) {
-      that.setState({errors: newErrors});
+      that.setState({
+        errors: newErrors,
+        open: true,
+        anchorEl: e.currentTarget
+      });
       return;
     } else {
       that.setState({errors: {}});
@@ -74,16 +98,19 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     }
   }
 
-  titleChangeHandler(e) {
-    this.setState({title: e.target.value});
+  titleChangeHandler(text, medium) {
+    this.setState({title: text});
   }
 
-  messageChangeHandler(e) {
-    this.setState({message: e.target.value});
+  messageChangeHandler(text, medium) {
+    this.setState({message: text});
   }
 
-  phaseChangeHandler(e) {
-    this.setState({phase: e.target.value});
+  phaseChangeHandler(e, index, value) {
+    this.setState({
+      phase: value,
+      value: value
+    });
   }
 
   toggleChangeHandler() {
@@ -96,50 +123,56 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
 
   renderTitleTextField() {
     return (
-      <TextField
-        onChange={this.titleChangeHandler.bind(this)}
-        value={this.state.title}
-        hintText="This is a example title"
-        floatingLabelText="Please input a title for your affirmation"
-        errorText={this.state.errors.title}
-        fullWidth={true}
-      />
+        <Editor
+          className='glowing-border'
+          data-placeholder='Title'
+          text={this.state.title}
+          errorText={this.state.errors.title}
+          onChange={this.titleChangeHandler.bind(this)}
+          options={{toolbar: {buttons: ['bold', 'italic', 'underline','h2', 'h3', 'quote']}}}
+        />
     );
   }
 
   renderMessageTextField(props) {
     return (
-      <TextField
-        onChange={this.messageChangeHandler.bind(this)}
-        value={this.state.message}
-        hintText="Best advice ever"
-        floatingLabelText="Please spread your knowledge and experience to our community. :D"
-        fullWidth={true}
-        multiLine={true}
-        rows={8}
-        errorText={this.state.errors.message}
-      />
+        <Editor
+          data-placeholder='Write advice here...'
+          text={this.state.message}
+          onChange={this.messageChangeHandler.bind(this)}
+          options={{toolbar: {buttons: ['bold', 'italic', 'underline']}}}
+        />
     );
   }
 
   renderPhaseSelector() {
+    const dropDown = {
+      margin: 0,
+      padding: 0,
+      marginRight: 0
+    };
     return (
       <div>
-        <div>Phase</div>
-        <RadioButtonGroup name='phaseSelector' onChange={this.phaseChangeHandler.bind(this)}>
-          <RadioButton value='wanttolearn'label='Want to Learn'/>
-          <RadioButton value='learningtocode'label='Learning to Code'/>
-          <RadioButton value='jobhunt'label='Looking for a Job'/>
-          <RadioButton value='onthejob'label='Working as a Software Engineer'/>
-        </RadioButtonGroup>
+        <DropDownMenu value={this.state.value} onChange={this.phaseChangeHandler.bind(this)} style={dropDown} iconStyle={{fill: 'black'}}>
+          <MenuItem value='Phase' primaryText="Select Phase" />
+          <MenuItem value='wanttolearn' primaryText="Want to Learn" />
+          <MenuItem value='learningtocode' primaryText="Learning to Code" />
+          <MenuItem value='jobhunt' primaryText="Looking for a Job" />
+          <MenuItem value='onthejob' primaryText="Working as a Software Engineer" />
+        </DropDownMenu>
       </div>
     );
   }
 
   renderAnonToggle(props) {
+    const toggle = {
+      maxWidth: 50,
+      marginLeft: 13,
+      marginRight: 0
+    };
     return (
       <Toggle
-        label="Anonymous?"
+        style={toggle}
         onToggle={this.toggleChangeHandler.bind(this)}
       />
     );
@@ -168,16 +201,68 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
           >
           Thanks for sharing your knowledge with the community!
         </Dialog>
-
     );
+  }
+  renderPopOver(){
+    const pop = {
+      height: 130,
+      width: 150,
+      padding: 15,
+      color: 'red'
+    };
+    return (
+      <div>
+         <Popover
+            open={this.state.open}
+            anchorEl={this.state.anchorEl}
+            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+            targetOrigin={{horizontal: 'left', vertical: 'top'}}
+            onRequestClose={this.handleRequestClose}
+          >
+          <div style={pop}>Submitting your affirmation will become available after you start writing.</div>
+        </Popover>
+      </div>
+    )
+  }
+
+  renderToolBar(){
+    const toolBarText = {
+      fontSize: 20,
+      fontFamily: 'Nunito',
+      fontWeight: 'bold'
+    };
+    const button = {
+      backgroundColor: '#867dcc',
+      color: 'white',
+      marginLeft: 0,
+      marginRight: 0
+    };
+
+    return (
+      <div>
+        <Toolbar>
+          <ToolbarGroup >
+          <div style={toolBarText}>Submit Affirmation</div>
+          </ToolbarGroup>
+          <ToolbarGroup>
+            <ToolbarSeparator />
+            <i className="material-icons">visibility_off</i>
+            {this.renderAnonToggle()}
+            {this.renderPhaseSelector()}
+            <FlatButton onClick={this.validateAndSubmit.bind(this)} style={button} label="Submit" />
+          </ToolbarGroup>
+        </Toolbar>
+      </div>
+    )
   }
 
   render() {
     const paperStyle = {
       height: 600,
-      width: 600,
-      margin: 20,
+      width: 750,
       overflow: 'auto',
+      padding: 30,
+      backgroundColor: 'white'
     };
     const center = {
       display: 'flex',
@@ -186,33 +271,23 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     };
     return (
       <div>
-        <h2 style={center}>Submit an Affirmation</h2>
         <div style={center}>
           <div>
-            <Paper style={paperStyle} zDepth={4}>
-              <form onSubmit={this.validateAndSubmit.bind(this)}>
-                <div style={{ margin: 20 }}>
-                  <div>
-                    {this.renderTitleTextField()}
-                  </div><br />
-                  <div>
-                    {this.renderMessageTextField()}
-                  </div><br />
-                  <div>
-                    {this.renderPhaseSelector()}
-                  </div><br />
-                  <div>
-                    {this.renderAnonToggle()}
-                  </div><br />
-                  <div style={center}>
-                    {this.renderSubmitButton()}
-                  </div><br />
-                  <div style={center}>
-                    {this.renderSuccessDialog()}
-                  </div>
+            <div>
+              {this.renderToolBar()}
+              <div style={paperStyle}>
+                <div className='title'>
+                  {this.renderTitleTextField()}
+                </div><br />
+                <div>
+                  {this.renderMessageTextField()}
                 </div>
-              </form>
-            </Paper>
+                  {this.renderPopOver()}
+                <div style={center}>
+                  {this.renderSuccessDialog()}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
