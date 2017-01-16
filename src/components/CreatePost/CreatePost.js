@@ -42,6 +42,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       submitting: false,
       dialogOpen: false,
       open: false,
+      checkPhase: '',
       value: 'Phase'
     };
   }
@@ -71,6 +72,10 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     }
     if (validator.isEmpty(that.state.message)) {
       Object.assign(newErrors, {message: "You must add a message."});
+      isValid = false;
+    }
+    if (validator.isEmpty(that.state.checkPhase)) {
+      Object.assign(newErrors, {message: "You must add a phase."});
       isValid = false;
     }
     if (!isValid) {
@@ -109,7 +114,8 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
   phaseChangeHandler(e, index, value) {
     this.setState({
       phase: value,
-      value: value
+      value: value,
+      checkPhase: value
     });
   }
 
