@@ -226,7 +226,9 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       height: 130,
       width: 150,
       padding: 15,
-      color: 'red'
+      color: 'white',
+      backgroundColor: '#393939',
+      fontFamily: 'Roboto'
     };
     return (
       <div>
@@ -311,6 +313,9 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       alignItems: 'center',
       justifyContent: 'center',
     };
+    const tooltip = {
+      fontFamily: 'Roboto'
+    };
     return (
       <div>
         <div style={center}>
@@ -330,6 +335,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
                 </div>
                 <ReactTooltip
                   place='bottom'
+                  style={tooltip}
                 />
               </div>
             </div>
