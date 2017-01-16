@@ -129,25 +129,39 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
   }
 
   renderTitleTextField() {
+    const titleText = {
+      fontSize: 40,
+      fontFamily: 'Roboto',
+      fontWeight: 'bold',
+      border: 'none'
+    };
     return (
-        <Editor
-          className='glowing-border'
-          data-placeholder='Title'
-          text={this.state.title}
-          errorText={this.state.errors.title}
-          onChange={this.titleChangeHandler.bind(this)}
-          options={{toolbar: {buttons: ['bold', 'italic', 'underline','h2', 'h3', 'quote']}}}
+      <div>
+        <input
+        placeholder="Title"
+        className='glowing-border'
+        style={titleText}
+        text={this.state.title}
+        onChange={this.titleChangeHandler.bind(this)}
         />
+        </div>
     );
   }
 
   renderMessageTextField(props) {
+    const messageText = {
+      fontSize: 22,
+      lineHeight: 1.1,
+      fontFamily: 'Roboto'
+    };
     return (
         <Editor
           data-placeholder='Write advice here...'
+          className='glowing-border'
+          style={messageText}
           text={this.state.message}
           onChange={this.messageChangeHandler.bind(this)}
-          options={{toolbar: {buttons: ['bold', 'italic', 'underline']}}}
+          options={{toolbar: {buttons: ['bold', 'italic', 'underline', 'h2', 'h3', 'quote']}, placeholder: { hideOnClick: false}}}
         />
     );
   }
@@ -222,8 +236,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
          <Popover
             open={this.state.open}
             anchorEl={this.state.anchorEl}
-            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-            targetOrigin={{horizontal: 'left', vertical: 'top'}}
+
             onRequestClose={this.handleRequestClose}
           >
           <div style={pop}>Submitting your affirmation will become available after you start writing.</div>
@@ -232,10 +245,32 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     )
   }
 
+  renderPhasePopOver(){
+    const pop = {
+      height: 50,
+      width: 50,
+      padding: 15,
+      color: 'red'
+    };
+    return (
+      <div>
+         <Popover
+            open={this.state.open}
+            anchorEl={this.state.anchorEl}
+            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+            targetOrigin={{horizontal: 'left', vertical: 'top'}}
+            onRequestClose={this.handleRequestClose}
+          >
+          <div style={pop}>Select Phase.</div>
+        </Popover>
+      </div>
+    )
+  }
+
   renderToolBar(){
     const toolBarText = {
       fontSize: 20,
-      fontFamily: 'Nunito',
+      fontFamily: 'Roboto',
       fontWeight: 'bold'
     };
     const button = {
@@ -244,10 +279,13 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       marginLeft: 0,
       marginRight: 0
     };
+    const toolbar = {
+      marginTop: 20
+    };
 
     return (
       <div>
-        <Toolbar>
+        <Toolbar style={toolbar}>
           <ToolbarGroup >
           <div style={toolBarText}>Submit Affirmation</div>
           </ToolbarGroup>
@@ -265,7 +303,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
 
   render() {
     const paperStyle = {
-      height: 600,
+      height: 550,
       width: 750,
       overflow: 'auto',
       padding: 30,
