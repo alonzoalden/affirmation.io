@@ -42,8 +42,13 @@ module.exports = function (app, express) {
 
   //need to add this to handle direct addressing of routes.
   //will serve index.html which has our js linked for routing.
-
-  app.get('/*', function (request, response){
+  if (process.env.NODE_ENV === 'production') { 
+    app.get('/*', function (request, response){
       response.sendFile(path.join(__dirname,'../build', 'index.html'));
     });
+  } else {
+    app.get('/*', function (request, response){
+    response.sendFile(path.join(__dirname,'../public', 'index.html'));
+    });
+  }
 };
