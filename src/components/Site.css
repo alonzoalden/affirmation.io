@@ -1,5 +1,20 @@
-.Site {
-  /*text-align: center;*/
+.Purple {
+  background-color: #B49AFF;
+}
+.LightPurple {
+  background-color: #AB92F2;
+}
+.Blue {
+  background-color: #9AB6FF;
+}
+.LightBlue {
+  background-color: #6EF1FF;
+}
+.Green {
+  background-color: #28E48D;
+}
+.Gold {
+  background-color: #FFF4B0;
 }
 
 .Nunito {

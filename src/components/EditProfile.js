@@ -9,7 +9,7 @@ import ImageFilterVintage from 'material-ui/svg-icons/image/filter-vintage';
 import Snackbar from 'material-ui/Snackbar';
 import Divider from 'material-ui/Divider';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
@@ -18,7 +18,7 @@ import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigati
 import axios from 'axios';
 // FROM DINO
 import Paper from 'material-ui/Paper';
-
+import { Link } from 'react-router';
 import InlineEdit from 'react-edit-inline';
 import FlatButton from 'material-ui/FlatButton';
 import Refresh from 'material-ui/svg-icons/navigation/refresh';
@@ -225,8 +225,7 @@ class EditProfile extends Component {
       },
       gridList: {
         width: 500,
-        height: 450,
-        overflowX: 'auto',
+        height: 450
       },
       titleStyle: {
         color: '#FFDB77'
@@ -235,16 +234,22 @@ class EditProfile extends Component {
     if (profile) {
       return (
         <div style={styles.root}>
-          <GridList
-            style={styles.gridList} cols={2.2}
-            >
+          <GridList style={styles.gridList} cols={2.2}>
             {profile[input].map((tile) => {
               return (
                 <GridTile
                   key={tile.id}
-                  title={tile.title}
+                  title={
+                    <Link to={`/${tile.phase}/${tile.id}`} style={{textDecoration: 'none', color: '#FFDB77'}}>
+                      {tile.title}
+                    </Link>
+                  }
                   titleStyle={styles.titleStyle}
-                  subtitle={<span>Phase: <b>{tile.phase}</b></span>}
+                  subtitle={<span>Phase: <b>{
+                    <Link to={`/${tile.phase}/`} style={{textDecoration: 'none', color: '#FFDB77'}}>
+                      {tile.phase}
+                    </Link>}
+                  </b></span>}
                   actionIcon={<IconButton><StarBorder color="#FFDB77" /></IconButton>}
                   >
                   <img src={require('../icons/laptop.png')} />
@@ -362,7 +367,7 @@ class EditProfile extends Component {
                     {this.renderPostList('posts')}
                   </div>
                 </Tab>
-                <Tab style={barStyle} icon={<ActionSettings />}>
+                <Tab style={barStyle} icon={<ActionSettings />} >
                   {this.renderProfilePaper()}
                 </Tab>
               </Tabs>
