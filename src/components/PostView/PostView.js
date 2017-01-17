@@ -15,6 +15,11 @@ import Favorite from 'material-ui/svg-icons/action/favorite';
 import IconButton from 'material-ui/IconButton';
 import Divider from 'material-ui/Divider';
 import Snackbar from 'material-ui/Snackbar';
+import Editor from 'react-medium-editor';
+import ReactTooltip from 'react-tooltip';
+import './PostView.css';
+require('medium-editor/dist/css/medium-editor.css');
+require('medium-editor/dist/css/themes/default.css');
 
 class PostView extends React.Component {
   constructor(props) {
@@ -266,14 +271,48 @@ class PostView extends React.Component {
 
   render() {
     const cardStyle = {
-      width: 600,
+      width: 700,
       margin: 20,
+      marginTop: 0,
       overflow: 'auto',
     };
     const center = {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+    };
+    const title = {
+      fontSize: 40,
+      paddingTop: 15,
+      paddingLeft: 20,
+      fontFamily: 'Roboto'
+    };
+    const message = {
+      fontSize: 22,
+      paddingTop: 15,
+      paddingLeft: 20,
+      paddingBottom: 20,
+      paddingRight: 20,
+      lineHeight: 1.1,
+      fontFamily: 'Roboto'
+    };
+    const titleStyles = {
+      marginTop: 43,
+      padding: 0
+    };
+    const cardHeader = {
+      marginTop: 0,
+      padding: 0,
+      paddingLeft: 20,
+      // paddingBottom: 20
+    };
+    const icons = {
+      paddingTop: 35,
+      marginRight: 0,
+      paddingRight: 0
+    };
+    const tooltip = {
+      fontFamily: 'Roboto'
     };
     return (
       <div>
@@ -283,55 +322,61 @@ class PostView extends React.Component {
               style={cardStyle}
             >
               <CardHeader
+                className='float'
+                style={cardHeader}
+                titleStyle={titleStyles}
                 title={this.props.post.anon ? 'Anonymous' : this.props.post.user.name}
                 subtitle={this.props.post.user.job + ' - ' + this.props.post.user.location}
                 avatar={this.props.post.user.avatar}
-              />
+              >
+              <Badge
+                badgeContent={this.state.helpful}
+                primary={true}
+                badgeStyle={{top: 35, right: 8}}
+              >
+                <IconButton style={icons} data-tip="This affirmation is helpful" onClick={this.isHelpful.bind(this)}>
+                  <SentimentVerySatisfied />
+                </IconButton>
+              </Badge>
+              <Badge
+                badgeContent={this.state.unhelpful}
+                primary={true}
+                badgeStyle={{top: 35, right: 8}}
+              >
+                <IconButton style={icons} data-tip="This affirmation is unhelpful" onClick={this.isUnhelpful.bind(this)}>
+                  <SentimentVeryDissatisfied />
+                </IconButton>
+              </Badge>
+              <Badge
+                badgeContent={this.state.favorites}
+                primary={true}
+                badgeStyle={{top: 35, right: 8}}
+              >
+                <IconButton style={icons} data-tip="You love this affirmation" onClick={this.favorite.bind(this)}>
+                  <Favorite />
+                </IconButton>
+              </Badge>
+              <Badge
+                badgeContent={this.state.flags}
+                primary={true}
+                badgeStyle={{top: 35, right: 8}}
+              >
+                <IconButton style={icons} data-tip="This affirmation contains hate or vulgar content" onClick={this.flag.bind(this)}>
+                  <ReportProblem />
+                </IconButton>
+              </Badge>
+              </CardHeader><br />
             <Divider />
-            <CardTitle titleStyle={{ 'text-align': 'center' }} title={this.props.post.title} />
-              <CardText>
-                {this.props.post.message}
-              </CardText>
-              <CardActions>
-                <div style={center}>
-                  <Badge
-                    badgeContent={this.state.helpful}
-                    primary={true}
-                    badgeStyle={{top: 12, right: 12}}
-                  >
-                    <IconButton tooltip="This affirmation is helpful" onClick={this.isHelpful.bind(this)}>
-                      <SentimentVerySatisfied />
-                    </IconButton>
-                  </Badge>
-                  <Badge
-                    badgeContent={this.state.unhelpful}
-                    primary={true}
-                    badgeStyle={{top: 12, right: 12}}
-                  >
-                    <IconButton tooltip="This affirmation is unhelpful" onClick={this.isUnhelpful.bind(this)}>
-                      <SentimentVeryDissatisfied />
-                    </IconButton>
-                  </Badge>
-                  <Badge
-                    badgeContent={this.state.favorites}
-                    primary={true}
-                    badgeStyle={{top: 12, right: 12}}
-                  >
-                    <IconButton tooltip="You love this affirmation" onClick={this.favorite.bind(this)}>
-                      <Favorite />
-                    </IconButton>
-                  </Badge>
-                  <Badge
-                    badgeContent={this.state.flags}
-                    primary={true}
-                    badgeStyle={{top: 12, right: 12}}
-                  >
-                    <IconButton tooltip="This affirmation contains hate or vulgar content" onClick={this.flag.bind(this)}>
-                      <ReportProblem />
-                    </IconButton>
-                  </Badge>
-                </div>
-              </CardActions>
+              <Editor
+                style={title}
+                text={this.props.post.title}
+                options={{disableEditing: true, toolbar: false }}
+              />
+              <Editor
+                style={message}
+                text={this.props.post.message}
+                options={{disableEditing: true, toolbar: false }}
+              />
               <Snackbar
                 open={this.state.snackFlag}
                 message="If it's that bad just delete it..."
@@ -352,6 +397,22 @@ class PostView extends React.Component {
                 message="Don't be so hard on yourself! :)"
                 autoHideDuration={3000}
               />
+                <ReactTooltip
+                  place='bottom'
+                  style={tooltip}
+                />
+                <ReactTooltip
+                  place='bottom'
+                  style={tooltip}
+                />
+                <ReactTooltip
+                  place='bottom'
+                  style={tooltip}
+                />
+                <ReactTooltip
+                  place='bottom'
+                  style={tooltip}
+                />
             </Card>
           </div>
         </div>
