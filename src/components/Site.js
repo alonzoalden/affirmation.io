@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { connectProfile, logout } from '../auth';
+import { connectProfile, logout, isLoggedIn } from '../auth';
 import './Site.css';
 // import logo from '../logo.svg';
 // <Avatar src={logo} className="Site-logo" alt="logo" style={logoStyle}/> ----> Spinning React Logo - switch to Lotus??
@@ -34,7 +34,11 @@ class Site extends Component {
   static propTypes = {
     ...connectProfile.PropTypes,
     children: PropTypes.any
-  };
+  }
+
+  static contextTypes = {
+    router: PropTypes.object,
+  }
 
   getUser() {
     axios.get('/api/users/' + this.props.profile.email)
@@ -52,6 +56,14 @@ class Site extends Component {
   componentWillMount() {
     if (this.props.profile) {
       this.getUser();
+    }
+  }
+
+  handleLogoClick() {
+    if (isLoggedIn()) {
+      this.context.router.push('/dashboard');
+    } else {
+      this.context.router.push('/home');
     }
   }
 
@@ -151,7 +163,7 @@ class Site extends Component {
       return (
         <div className="Site">
           <Toolbar style={barStyle}>
-            <ToolbarGroup firstChild={true}>
+            <ToolbarGroup onClick={this.handleLogoClick.bind(this)} firstChild={true}>
               <h2 style={paddedTitleStyle}>Affirmation.io</h2>
             </ToolbarGroup>
             <ToolbarGroup>
