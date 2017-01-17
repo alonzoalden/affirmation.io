@@ -24,7 +24,8 @@ import Popover from 'material-ui/Popover';
 import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from 'material-ui/DropDownMenu';
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import {Toolbar, ToolbarGroup, ToolbarSeparator} from 'material-ui/Toolbar';
+import {Card} from 'material-ui/Card';
 import ReactTooltip from 'react-tooltip';
 
 class CreatePost extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -101,8 +102,8 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     }
   }
 
-  titleChangeHandler(text, medium) {
-    this.setState({title: text});
+  titleChangeHandler(e) {
+    this.setState({title: e.target.value});
   }
 
   messageChangeHandler(text, medium) {
@@ -228,14 +229,13 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       padding: 15,
       color: 'white',
       backgroundColor: '#393939',
-      fontFamily: 'Roboto'
+      fontFamily: 'Roboto',
     };
     return (
       <div>
          <Popover
             open={this.state.open}
             anchorEl={this.state.anchorEl}
-
             onRequestClose={this.handleRequestClose}
           >
           <div style={pop}>Submitting your affirmation will become available after you start writing.</div>
@@ -302,9 +302,8 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
 
   render() {
     const paperStyle = {
-      height: 550,
+      minHeight: 550,
       width: 750,
-      overflow: 'auto',
       padding: 30,
       backgroundColor: 'white'
     };
@@ -322,7 +321,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
           <div>
             <div>
               {this.renderToolBar()}
-              <div style={paperStyle}>
+              <Card style={paperStyle}>
                 <div className='title'>
                   {this.renderTitleTextField()}
                 </div><br />
@@ -337,7 +336,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
                   place='bottom'
                   style={tooltip}
                 />
-              </div>
+              </Card>
             </div>
           </div>
         </div>
