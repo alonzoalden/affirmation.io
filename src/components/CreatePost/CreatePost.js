@@ -263,7 +263,9 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
             anchorEl={this.state.anchorEl}
             onRequestClose={this.handleRequestClose}
           >
-          <div style={pop}>Submitting your affirmation will become available after you start writing.</div>
+          {this.state.title === '' ? <div style={pop}>Your affirmation needs a title!</div> : null}
+          {this.state.message === '' ? <div style={pop}>Your affirmation needs some content, too!</div> : null}
+          {this.state.phase === null || this.state.phase === "Phase" ? <div style={pop}>Don't forget to choose a phase!</div> : null}
         </Popover>
       </div>
     )
