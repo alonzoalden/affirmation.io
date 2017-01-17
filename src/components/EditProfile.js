@@ -12,6 +12,7 @@ import Divider from 'material-ui/Divider';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Card, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import {GridList, GridTile} from 'material-ui/GridList';
+import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
@@ -229,50 +230,39 @@ class EditProfile extends Component {
     );
   }
 
-  renderPostList(input) {
+  renderPostList() {
     const profile = this.state.userProfile
-    const styles = {
-      root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
-      },
-      gridList: {
-        width: 500,
-        height: 450
-      },
-      titleStyle: {
-        color: '#FFDB77'
-      }
+    const tableStyle = {
+      fontFamily: 'Nunito',
+      backgroundColor: '#FFDB77'
     };
     if (profile) {
       return (
-        <div style={styles.root}>
-          <GridList style={styles.gridList} cols={2.2}>
-            {profile[input].map((tile) => {
-              return (
-                <GridTile
-                  key={tile.id}
-                  title={
-                    <Link to={`/${tile.phase}/${tile.id}`} style={{textDecoration: 'none', color: '#FFDB77'}}>
-                      {tile.title}
-                    </Link>
-                  }
-                  titleStyle={styles.titleStyle}
-                  subtitle={<span>Phase: <b>{
-                    <Link to={`/${tile.phase}/`} style={{textDecoration: 'none', color: '#FFDB77'}}>
-                      {tile.phase}
-                    </Link>}
-                  </b></span>}
-                  actionIcon={
-                    <Badge badgeContent={tile.favorites} badgeStyle={{backgroundColor: '#FFDB77', top: 18, right: 18, color: '#867DCC'}}>
-                      <IconButton><StarBorder color="#FFDB77" /></IconButton>
-                    </Badge>}>
-                  <img src={require('../icons/laptop.png')} />
-                </GridTile>
-              )
-            })}
-          </GridList>
+        <div>
+          <Table selectable multiSelectable style={tableStyle}>
+            <TableHeader displaySelectAll={false}>
+              <TableRow style={{fontSize: 20}}>
+                <TableHeaderColumn>Affirmation Title</TableHeaderColumn>
+                <TableHeaderColumn>Phase</TableHeaderColumn>
+                <TableHeaderColumn tooltip="Favorites"><ActionFavorite /></TableHeaderColumn>
+                <TableHeaderColumn>Helpful</TableHeaderColumn>
+                <TableHeaderColumn>Unhelpful</TableHeaderColumn>
+              </TableRow>
+            </TableHeader>
+            <TableBody showRowHover>
+              {profile.posts.map((post) => {
+                return (
+                  <TableRow displayBorder>
+                    <TableRowColumn>{post.title}</TableRowColumn>
+                    <TableRowColumn>{post.phase}</TableRowColumn>
+                    <TableRowColumn>{post.favorites}</TableRowColumn>
+                    <TableRowColumn>{post.helpful}</TableRowColumn>
+                    <TableRowColumn>{post.unhelpful}</TableRowColumn>
+                  </TableRow>
+                )
+              })}
+            </TableBody>
+          </Table>
         </div>
       );
     }
@@ -379,7 +369,7 @@ class EditProfile extends Component {
               <Tabs inkBarStyle={{backgroundColor: 'black'}}>
                 <Tab style={barStyle} label="Affirmations">
                   <div style={innerPaperStyle}>
-                    {this.renderPostList('posts')}
+                    {this.renderPostList()}
                   </div>
                 </Tab>
                 <Tab style={barStyle} icon={<ActionSettings />} >
