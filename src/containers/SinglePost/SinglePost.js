@@ -50,6 +50,7 @@ export class SinglePost extends React.Component {
           favorites={this.state.post.favorites}
           flags={this.state.post.flags}
           sentiment={this.state.post.sentiment}
+          authUser={this.props.profile}
         />
       </div>
     )
