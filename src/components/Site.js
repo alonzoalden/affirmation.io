@@ -152,6 +152,8 @@ class Site extends Component {
       backgroundColor: grey900
     };
     const paddedTitleStyle = {
+      fontFamily: 'cursive',
+      fontSize: '2em',
       color: 'white',
       paddingLeft: 10,
       paddingBottom: 8
