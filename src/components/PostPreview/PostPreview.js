@@ -10,6 +10,7 @@ import { Card, CardHeader, CardText } from 'material-ui/Card';
 import Badge from 'material-ui/Badge';
 import SentimentVerySatisfied from 'material-ui/svg-icons/social/sentiment-very-satisfied';
 import SentimentVeryDissatisfied from 'material-ui/svg-icons/social/sentiment-very-dissatisfied';
+import Favorite from 'material-ui/svg-icons/action/favorite-border';
 import Divider from 'material-ui/Divider';
 import Editor from 'react-medium-editor';
 require('medium-editor/dist/css/medium-editor.css');
@@ -55,9 +56,20 @@ class PostPreview extends React.Component {
     return (
       <Badge
         badgeContent={num}
-        primary={true}
+        secondary={true}
       >
         <SentimentVeryDissatisfied />
+      </Badge>
+    );
+  }
+
+  isFavorite(num) {
+    return (
+      <Badge
+        badgeContent={num}
+        primary={true}
+      >
+        <Favorite />
       </Badge>
     );
   }
@@ -77,7 +89,7 @@ class PostPreview extends React.Component {
       width: 600,
       margin: 10,
       overflow: 'auto',
-      backgroundColor: 'lightgrey',
+      backgroundColor: '#FFF0FF',
     };
     const title = {
       fontSize: 40,
@@ -93,13 +105,10 @@ class PostPreview extends React.Component {
       fontFamily: 'Roboto'
     };
     const mainStyle = this.state.hover ? hoverCardStyle : cardStyle
-
     let advice = this.props.post.message.slice(0, 200)
-    // let message = this.props.post.message.slice(20, 200) + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-
     let that = this
     let currentPath = '/' + this.props.post.phase + '/'
-    console.log('currentPath : ' + currentPath)
+
     return (
       <div style={center}>
         <div>
@@ -126,8 +135,9 @@ class PostPreview extends React.Component {
                 text={advice}
                 options={{disableEditing: true, toolbar: false }}
               />
+            <Divider />
               <div style={{float: 'left', marginLeft: 20, marginTop: 26}}><a href={currentPath + this.props.post.id}>Read more</a></div>
-              <div style={{ float: "right", marginRight: 20 }}> {this.isHelpful(this.props.post.helpful)} {this.isUnhelpful(this.props.post.unhelpful)}  </div>
+              <div style={{ float: "right", marginRight: 20, marginTop: 16 }}> {this.isHelpful(this.props.post.helpful)} {this.isUnhelpful(this.props.post.unhelpful)} {this.isFavorite(this.props.post.favorites)} </div>
             </Card>
           </div>
         </div>
