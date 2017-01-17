@@ -129,7 +129,7 @@ class EditProfile extends Component {
         'about': this.state.about,
         'location': this.state.location
       },
-      url: `http://localhost:8000/api/users/${this.state.userProfile.user.email}`,
+      url: `/api/users/${this.state.userProfile.user.email}`,
     }).then(() => {
       this.setState({
         open: true
