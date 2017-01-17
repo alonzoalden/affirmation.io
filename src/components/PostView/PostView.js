@@ -18,6 +18,7 @@ import Snackbar from 'material-ui/Snackbar';
 import Editor from 'react-medium-editor';
 import ReactTooltip from 'react-tooltip';
 import './PostView.css';
+import DisqusComments from '../Comments.js';
 require('medium-editor/dist/css/medium-editor.css');
 require('medium-editor/dist/css/themes/default.css');
 
@@ -415,6 +416,12 @@ class PostView extends React.Component {
                 />
             </Card>
           </div>
+        </div>
+        <div style={{paddingLeft: 50, paddingRight: 50}}>
+          <DisqusComments
+            post={`${this.props.post.phase}/${this.props.post.id}`}
+            url={"https://localhost:8000/"}
+          />
         </div>
       </div>
     );
