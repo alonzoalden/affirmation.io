@@ -417,10 +417,12 @@ class PostView extends React.Component {
             </Card>
           </div>
         </div>
-        <div style={{paddingLeft: 50, paddingRight: 50}}>
+        <div style={{paddingLeft: 35, paddingRight: 35}}>
           <DisqusComments
+            postUrl={`https://localhost:3000/${this.props.post.phase}/${this.props.post.id}`}
             post={`${this.props.post.phase}/${this.props.post.id}`}
-            url={"https://localhost:8000/"}
+            postTitle={this.props.post.title}
+            url={"https://localhost:3000/"}
           />
         </div>
       </div>
