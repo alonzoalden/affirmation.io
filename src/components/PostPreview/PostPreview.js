@@ -5,8 +5,9 @@
 */
 
 import React from 'react';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
-// import FlatButton from 'material-ui/FlatButton';
+import { Link } from 'react-router';
+import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 import Badge from 'material-ui/Badge';
 import SentimentVerySatisfied from 'material-ui/svg-icons/social/sentiment-very-satisfied';
 import SentimentVeryDissatisfied from 'material-ui/svg-icons/social/sentiment-very-dissatisfied';
@@ -136,8 +137,12 @@ class PostPreview extends React.Component {
                 options={{disableEditing: true, toolbar: false }}
               />
             <Divider />
-              <div style={{float: 'left', marginLeft: 20, marginTop: 26}}><a href={currentPath + this.props.post.id}>Read more</a></div>
-              <div style={{ float: "right", marginRight: 20, marginTop: 16 }}> {this.isHelpful(this.props.post.helpful)} {this.isUnhelpful(this.props.post.unhelpful)} {this.isFavorite(this.props.post.favorites)} </div>
+              <CardActions>
+                <Link to={currentPath + this.props.post.id}>
+                  <FlatButton label="Read More" style={{ marginTop: 15 }} />
+                </Link>
+                <div style={{ float: "right", marginRight: 20, marginTop: 5 }}> {this.isHelpful(this.props.post.helpful)} {this.isUnhelpful(this.props.post.unhelpful)} {this.isFavorite(this.props.post.favorites)} </div>
+              </CardActions>
             </Card>
           </div>
         </div>
