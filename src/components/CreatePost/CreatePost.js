@@ -140,7 +140,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
           style={titleText}
           text={this.state.title}
           onChange={this.titleChangeHandler.bind(this)}
-          options={{toolbar: {buttons: ['underline']}, placeholder: { hideOnClick: false}}}
+          options={{toolbar: false, placeholder: { hideOnClick: false}}}
         />
     );
   }
