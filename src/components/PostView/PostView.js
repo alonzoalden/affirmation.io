@@ -316,7 +316,7 @@ class PostView extends React.Component {
       fontFamily: 'Roboto'
     };
     return (
-      <div>
+      <div style={{backgroundColor: 'white'}}>
         <div style={center}>
           <div style={{ margin: 20 }}>
             <Card
@@ -417,13 +417,17 @@ class PostView extends React.Component {
             </Card>
           </div>
         </div>
-        <div style={{paddingLeft: 35, paddingRight: 35}}>
-          <DisqusComments
-            postUrl={`https://localhost:3000/${this.props.post.phase}/${this.props.post.id}`}
-            post={`${this.props.post.phase}/${this.props.post.id}`}
-            postTitle={this.props.post.title}
-            url={"https://localhost:3000/"}
-          />
+        <div style={center}>
+          <div style={{ margin: 20 }}>
+            <div style={{ width: 700, margin: 20 }}>
+              <DisqusComments
+                postUrl={`https://localhost:3000/${this.props.post.phase}/${this.props.post.id}`}
+                post={`${this.props.post.phase}/${this.props.post.id}`}
+                postTitle={this.props.post.title}
+                url={"https://localhost:3000/"}
+              />
+            </div>
+          </div>
         </div>
       </div>
     );
