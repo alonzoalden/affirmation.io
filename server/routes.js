@@ -21,13 +21,13 @@ module.exports = function (app, express) {
     .post(postController.setHelpfulness)
     .put(postController.updateHelpfulness);
 
-  router.route('/posts/:phase/:id/favorite')
+  router.route('/posts/:phase/:id/favorite/:favorite')
     .post(postController.favoriteAPost)
-    .put(postController.updateFavoriteAPost);
+    .put(postController.removeFavorite);
 
-  router.route('/posts/:phase/:id/flag/')
+  router.route('/posts/:phase/:id/flag/:flag')
     .post(postController.flagAPost)
-    .put(postController.updateFlagAPost);
+    .put(postController.removeFlag);
 
   router.route('/users')
     .post(userController.addAUser)

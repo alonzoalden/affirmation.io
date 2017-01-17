@@ -194,7 +194,7 @@ module.exports = {
     }).save()
     .then(() => {
       Models.Post.update({ // send in req.body.flags as count = count + 1
-        flag: req.body.flag
+        flag: req.body.flags
       }, {
         where: { id: req.params.id }
       })
@@ -256,10 +256,9 @@ module.exports = {
       });
     }
   },
-  updateFavoriteAPost: (req, res) => { // favorite property comes in as the NEW value
-    Models.Favorites.update({
-      favorite: req.body.favorite
-    }, {
+  removeFavorite: (req, res) => { // favorite property comes in as the NEW value
+    console.log(req.body);
+    Models.Favorites.destroy({
       where: {
         postId: req.params.id,
         userEmail: req.body.email
@@ -272,17 +271,15 @@ module.exports = {
         where: { id: req.params.id }
       })
       .then(() => {
-        res.status(204).end();
+        res.status(204).end(); // verify status code
       })
     })
     .catch((error) => {
       res.send(error);
     });
   },
-  updateFlagAPost: (req, res) => {
-    Models.Flags.update({
-      flag: req.body.flag
-    }, {
+  removeFlag: (req, res) => {
+    Models.Flags.destroy({
       where: {
         postId: req.params.id,
         userEmail: req.body.email
