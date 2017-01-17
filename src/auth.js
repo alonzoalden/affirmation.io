@@ -34,7 +34,11 @@ var options = {
   // socialButtonStyle: 'small',
   allowedConnections: ['linkedin', 'github', 'google-oauth2'],
   theme: {
-    primaryColor: '#28D2E4'
+    primaryColor: '#28D2E4',
+    logo: 'https://placehold.it/1x1/F0F0F0'
+  },
+  languageDictionary: {
+    title: 'Log In'
   }
 };
 var lock = new Auth0Lock('Dpl5kikwiCjHc3SkUtMVMw4rT2H6v5rZ', 'hrr20-lotus.auth0.com', options, );
