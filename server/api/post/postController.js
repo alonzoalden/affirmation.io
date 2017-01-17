@@ -110,11 +110,31 @@ module.exports = {
     });
   },
   deleteAPost: (req, res) => {
-    Models.Post.destroy({
-      where: { id: req.params.id },
+    console.log('deleting votes');
+    Models.Sentiment.destroy({
+      where: { postId: req.params.id },
     })
     .then(() => {
-      res.status(204).end();
+      console.log('deleting favs');
+      Models.Favorites.destroy({
+        where: { postId: req.params.id },
+      })
+      .then(() => {
+        console.log('deleting flags');
+        Models.Flags.destroy({
+          where: { postId: req.params.id },
+        })
+        .then(() => {
+          console.log('deleting the post!!');
+          Models.Post.destroy({
+            where: { id: req.params.id },
+          })
+          .then(() => {
+            console.log('deleted successfully');
+            res.status(204).end();
+          })
+        })
+      })
     })
     .catch((error) => {
       res.send(error);

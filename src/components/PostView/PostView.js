@@ -3,7 +3,7 @@
 * PostView
 *
 */
-import React from 'react';
+import React, { PropTypes } from 'react';
 import axios from 'axios';
 import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
@@ -12,6 +12,10 @@ import SentimentVerySatisfied from 'material-ui/svg-icons/social/sentiment-very-
 import SentimentVeryDissatisfied from 'material-ui/svg-icons/social/sentiment-very-dissatisfied';
 import ReportProblem from 'material-ui/svg-icons/action/report-problem';
 import Favorite from 'material-ui/svg-icons/action/favorite';
+import Delete from 'material-ui/svg-icons/action/delete';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import HorizontalDots from 'material-ui/svg-icons/navigation/more-horiz';
 import IconButton from 'material-ui/IconButton';
 import Divider from 'material-ui/Divider';
 import Snackbar from 'material-ui/Snackbar';
@@ -19,8 +23,10 @@ import Editor from 'react-medium-editor';
 import ReactTooltip from 'react-tooltip';
 import './PostView.css';
 import DisqusComments from '../Comments.js';
+import Dialog from 'material-ui/Dialog';
 require('medium-editor/dist/css/medium-editor.css');
 require('medium-editor/dist/css/themes/default.css');
+import {connectProfile} from '../../auth';
 
 class PostView extends React.Component {
   constructor(props) {
@@ -30,10 +36,18 @@ class PostView extends React.Component {
       snackFavorites: false,
       snackHelpful: false,
       snackUnhelpful: false,
+      dialogOpen: false,
     }
   }
 
-  componentDidMount(){
+  static propTypes = {
+    ...connectProfile.PropTypes,
+  }
+  static contextTypes = {
+    router: PropTypes.object,
+  }
+
+  componentWillMount(){
     this.setState({
       helpful: this.props.post.helpful,
       unhelpful: this.props.post.unhelpful,
@@ -270,6 +284,35 @@ class PostView extends React.Component {
     return this.state.authUser.email === this.props.post.userEmail;
   }
 
+  renderDelete() {
+    if(this.checkUser()) {
+      return (
+        <IconMenu
+          iconButtonElement={<IconButton><HorizontalDots /></IconButton>}
+          anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+          targetOrigin={{horizontal: 'left', vertical: 'top'}}>
+          <MenuItem primaryText="Delete This Post" onClick={this.deletePost.bind(this)}/>
+        </IconMenu>
+      );
+    }
+  }
+
+  deletePost() {
+    // const that = this;
+    axios.delete('/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/' + this.props.post.userEmail)
+    .then(() => {
+      // post should be deleted
+      console.log('post was deleted!');
+      this.setState({dialogOpen: true});
+      setTimeout(() => {
+        this.context.router.push(`/${this.props.post.phase}`);
+      }, 2500);
+    })
+    .catch((error) => {
+      console.log('error deleting post:', error);
+    })
+  }
+
   render() {
     const cardStyle = {
       width: 700,
@@ -366,6 +409,7 @@ class PostView extends React.Component {
                   <ReportProblem />
                 </IconButton>
               </Badge>
+              {this.renderDelete()}
               </CardHeader><br />
             <Divider />
               <Editor
@@ -417,6 +461,13 @@ class PostView extends React.Component {
             </Card>
           </div>
         </div>
+        <Dialog
+          title="All Done!"
+          modal={false}
+          open={this.state.dialogOpen}
+          >
+          Your affirmation is now deleted! Thank you for your contributions!
+        </Dialog>
         <div style={center}>
           <div style={{ margin: 20 }}>
             <div style={{ width: 700, margin: 20 }}>
