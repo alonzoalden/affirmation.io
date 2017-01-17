@@ -12,8 +12,12 @@ import Badge from 'material-ui/Badge';
 import SentimentVerySatisfied from 'material-ui/svg-icons/social/sentiment-very-satisfied';
 import SentimentVeryDissatisfied from 'material-ui/svg-icons/social/sentiment-very-dissatisfied';
 import Favorite from 'material-ui/svg-icons/action/favorite-border';
+import IconButton from 'material-ui/IconButton';
+import ReportProblem from 'material-ui/svg-icons/action/report-problem';
 import Divider from 'material-ui/Divider';
 import Editor from 'react-medium-editor';
+
+
 require('medium-editor/dist/css/medium-editor.css');
 require('medium-editor/dist/css/themes/default.css');
 
@@ -48,7 +52,9 @@ class PostPreview extends React.Component {
         badgeContent={num}
         primary={true}
       >
-        <SentimentVerySatisfied />
+
+          <SentimentVerySatisfied />
+
       </Badge>
     );
   }
@@ -57,7 +63,7 @@ class PostPreview extends React.Component {
     return (
       <Badge
         badgeContent={num}
-        secondary={true}
+        primary={true}
       >
         <SentimentVeryDissatisfied />
       </Badge>
@@ -75,6 +81,17 @@ class PostPreview extends React.Component {
     );
   }
 
+  isProblem(num) {
+    return (
+      <Badge
+        badgeContent={num}
+        primary={true}
+      >
+        <ReportProblem />
+      </Badge>
+    )
+  }
+
   render() {
     const cardStyle = {
       width: 600,
@@ -90,7 +107,7 @@ class PostPreview extends React.Component {
       width: 600,
       margin: 10,
       overflow: 'auto',
-      backgroundColor: '#FFF0FF',
+      backgroundColor: '#17FDFC',
     };
     const title = {
       fontSize: 40,
@@ -103,10 +120,11 @@ class PostPreview extends React.Component {
       paddingTop: 15,
       paddingLeft: 20,
       lineHeight: 1.1,
-      fontFamily: 'Roboto'
+      fontFamily: 'Roboto',
+      marginRight: 20,
     };
     const mainStyle = this.state.hover ? hoverCardStyle : cardStyle
-    let advice = this.props.post.message.slice(0, 200)
+    let advice = this.props.post.message.slice(0, 200).concat('...')
     let that = this
     let currentPath = '/' + this.props.post.phase + '/'
 
@@ -141,7 +159,7 @@ class PostPreview extends React.Component {
                 <Link to={currentPath + this.props.post.id}>
                   <FlatButton label="Read More" style={{ marginTop: 15 }} />
                 </Link>
-                <div style={{ float: "right", marginRight: 20, marginTop: 5 }}> {this.isHelpful(this.props.post.helpful)} {this.isUnhelpful(this.props.post.unhelpful)} {this.isFavorite(this.props.post.favorites)} </div>
+                <div style={{ float: "right", marginRight: 20, marginTop: 5 }}> {this.isHelpful(this.props.post.helpful)} {this.isUnhelpful(this.props.post.unhelpful)} {this.isFavorite(this.props.post.favorites)} {this.isProblem(this.props.post.flag)}</div>
               </CardActions>
             </Card>
           </div>
