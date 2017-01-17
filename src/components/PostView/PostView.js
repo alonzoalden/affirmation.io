@@ -47,7 +47,7 @@ class PostView extends React.Component {
     router: PropTypes.object,
   }
 
-  componentDidMount(){
+  componentWillMount(){
     this.setState({
       helpful: this.props.post.helpful,
       unhelpful: this.props.post.unhelpful,
@@ -284,6 +284,19 @@ class PostView extends React.Component {
     return this.state.authUser.email === this.props.post.userEmail;
   }
 
+  renderDelete() {
+    if(this.checkUser()) {
+      return (
+        <IconMenu
+          iconButtonElement={<IconButton><HorizontalDots /></IconButton>}
+          anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+          targetOrigin={{horizontal: 'left', vertical: 'top'}}>
+          <MenuItem primaryText="Delete This Post" onClick={this.deletePost.bind(this)}/>
+        </IconMenu>
+      );
+    }
+  }
+
   deletePost() {
     // const that = this;
     axios.delete('/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/' + this.props.post.userEmail)
@@ -396,12 +409,7 @@ class PostView extends React.Component {
                   <ReportProblem />
                 </IconButton>
               </Badge>
-              <IconMenu
-              iconButtonElement={<IconButton><HorizontalDots /></IconButton>}
-              anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-              targetOrigin={{horizontal: 'left', vertical: 'top'}}>
-                <MenuItem primaryText="Delete This Post" onClick={this.deletePost.bind(this)}/>
-              </IconMenu>
+              {this.renderDelete()}
               </CardHeader><br />
             <Divider />
               <Editor
