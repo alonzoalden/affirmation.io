@@ -107,7 +107,7 @@ class PostPreview extends React.Component {
       width: 600,
       margin: 10,
       overflow: 'auto',
-      backgroundColor: '#17FDFC',
+      //backgroundColor: '#17FDFC',
     };
     const title = {
       fontSize: 40,
@@ -151,7 +151,7 @@ class PostPreview extends React.Component {
               />
               <Editor
                 style={message}
-                text={advice}
+                text={advice + '...'}
                 options={{disableEditing: true, toolbar: false }}
               />
             <Divider />
