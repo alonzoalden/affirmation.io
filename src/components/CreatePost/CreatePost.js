@@ -102,8 +102,8 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     }
   }
 
-  titleChangeHandler(e) {
-    this.setState({title: e.target.value});
+  titleChangeHandler(text, medium) {
+    this.setState({title: text});
   }
 
   messageChangeHandler(text, medium) {
@@ -134,15 +134,14 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       border: 'none'
     };
     return (
-      <div>
-        <input
-        placeholder="Title"
-        className='glowing-border'
-        style={titleText}
-        text={this.state.title}
-        onChange={this.titleChangeHandler.bind(this)}
+        <Editor
+          data-placeholder='Title'
+          className='glowing-border'
+          style={titleText}
+          text={this.state.title}
+          onChange={this.titleChangeHandler.bind(this)}
+          options={{toolbar: {buttons: ['underline']}, placeholder: { hideOnClick: false}}}
         />
-        </div>
     );
   }
 
