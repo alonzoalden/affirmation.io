@@ -27,6 +27,8 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import {Toolbar, ToolbarGroup, ToolbarSeparator} from 'material-ui/Toolbar';
 import {Card} from 'material-ui/Card';
 import ReactTooltip from 'react-tooltip';
+import Chip from 'material-ui/Chip';
+import Avatar from 'material-ui/Avatar';
 
 class CreatePost extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
@@ -41,7 +43,9 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       dialogOpen: false,
       open: false,
       checkPhase: '',
-      value: 'Phase'
+      value: 'Phase',
+      firstName: '',
+      lastName: ''
     };
   }
   static propTypes = {
@@ -57,6 +61,28 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       open: false,
     });
   };
+
+  getUser() {
+    axios.get('/api/users/' + this.props.profile.email)
+    .then((user) => {
+      let name = user.data.user.name.split(' ');
+      console.log('User: ', name);
+      this.setState({ 
+        firstName: name[0][0],
+        lastName: name[1][0]
+       })
+    })
+    .then(() => {
+      console.log('state on render:', this.state);
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
+  componentWillMount() {
+    this.getUser();
+  }
 
   validateAndSubmit(e) {
     e.preventDefault();
@@ -102,8 +128,8 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     }
   }
 
-  titleChangeHandler(e) {
-    this.setState({title: e.target.value});
+  titleChangeHandler(text, medium) {
+    this.setState({title: text});
   }
 
   messageChangeHandler(text, medium) {
@@ -134,15 +160,14 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       border: 'none'
     };
     return (
-      <div>
-        <input
-        placeholder="Title"
-        className='glowing-border'
-        style={titleText}
-        text={this.state.title}
-        onChange={this.titleChangeHandler.bind(this)}
+        <Editor
+          data-placeholder='Title'
+          className='glowing-border'
+          style={titleText}
+          text={this.state.title}
+          onChange={this.titleChangeHandler.bind(this)}
+          options={{toolbar: false, placeholder: { hideOnClick: false}}}
         />
-        </div>
     );
   }
 
@@ -281,12 +306,26 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     const toolbar = {
       marginTop: 20
     };
+    const chip = {
+      paddingLeft: 15,
+      paddingRight: 15
+    };
 
+          // <div style={toolBarText}>Submit Affirmation</div>
     return (
       <div>
         <Toolbar style={toolbar}>
           <ToolbarGroup >
-          <div style={toolBarText}>Submit Affirmation</div>
+        <Chip
+          backgroundColor={'#867dcc'}
+          labelColor={'#fff'}
+          labelStyle={chip}
+        >
+          <Avatar size={32} color={'#A298F7'} backgroundColor={'#413D63'}>
+            {this.state.firstName + this.state.lastName} 
+          </Avatar>
+          MY AFFIRMATION
+        </Chip>
           </ToolbarGroup>
           <ToolbarGroup>
             <ToolbarSeparator />
@@ -315,6 +354,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     const tooltip = {
       fontFamily: 'Roboto'
     };
+    console.log(this.props);
     return (
       <div>
         <div style={center}>
