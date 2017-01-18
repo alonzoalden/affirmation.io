@@ -92,6 +92,15 @@ module.exports = {
       res.send(error);
     });
   },
+  getEveryPost: (req, res) => {
+    Models.Post.findAll({})
+      .then((posts) => {
+        res.status(200).json(posts);
+      })
+      .catch((error) => {
+        res.send(error);
+      });
+  },
   updateAPost: (req, res) => {
     Models.Post.update({
       title: req.body.title,
@@ -319,4 +328,20 @@ module.exports = {
       res.send(error);
     });
   },
+  getAllFavorites: (req, res) => {
+    console.log('getAllFavorites is now being called')
+    Models.Favorites.findAll({
+      include: [Models.Post],
+      where: {
+        userEmail: req.params.favorite
+      }
+    })
+    .then((faves) => {
+      console.log('getAllFavorites has been called: ', faves)
+      res.status(200).json(faves);
+    })
+    .catch((error) => {
+      res.send(error);
+    })
+  }
 };

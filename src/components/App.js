@@ -11,6 +11,7 @@ import Dashboard from '../containers/Dashboard/Dashboard';
 import PostPreview from './PostPreview/PostPreview';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PhaseView from '../containers/PhaseView/PhaseView';
+import Profile from './Profile';
 import './App.css';
 
 class App extends Component {
@@ -23,7 +24,8 @@ class App extends Component {
             <Route path="/login" component={Login} />
             <Route onEnter={requireAuth}>
               {/* Place all authenticated routes here */}
-              <Route path="/profile/edit" component={EditProfile} />
+              <Route path="/profile/:user" component={Profile} />
+              <Route path="/profile" component={EditProfile} />
               <Route path="/createpost" component={CreatePost} />
               <Route path="/singlepost" component={SinglePost} />
               <Route path="/Dashboard" component={Dashboard} />
