@@ -24,6 +24,7 @@ import IconButton from 'material-ui/IconButton';
 import Divider from 'material-ui/Divider';
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import ReactTooltip from 'react-tooltip';
 
 class Site extends Component {
   constructor(props) {
@@ -71,25 +72,32 @@ class Site extends Component {
     let profile = this.state.userProfile;
     const nunito = {
       fontFamily: 'Nunito',
-      color: '#FFDB77',
+      color: '#fff',
     };
     const paddedRight = {
       paddingRight: 10
+    };
+    const tooltip = {
+      fontFamily: 'Roboto'
     };
     if (profile) {
       return (
         <div style={paddedRight}>
           <Link to="/createpost">
-            <IconButton iconStyle={{color: '#867DCC'}} hoveredStyle={{backgroundColor: '#FFDB77'}} tooltip="Create a Post" tooltipStyles={nunito} touch>
+            <IconButton data-tip='Create Post' iconStyle={{color: '#fff'}} touch>
               <ContentCreate />
             </IconButton>
 
           </Link>
           <Link to="/dashboard">
-            <IconButton iconStyle={{color: '#867DCC'}} hoveredStyle={{backgroundColor: '#FFDB77'}} tooltip="Dashboard" tooltipStyles={nunito} touch>
+            <IconButton data-tip='Dashboard' iconStyle={{color: '#fff'}} touch>
               <ActionDashboard />
             </IconButton>
           </Link>
+          <ReactTooltip
+            place='bottom'
+            style={tooltip}
+          />
         </div>
       );
     }
@@ -99,8 +107,9 @@ class Site extends Component {
     if (this.state.userProfile) {
       let profile = this.state.userProfile.user;
       const titleStyle = {
-        color: '#FFDB77',
-        fontFamily: 'Nunito'
+        color: '#fff',
+        fontFamily: 'Roboto',
+        fontSize: 14
       };
       const nunito = {
         fontFamily: 'Nunito',
@@ -108,7 +117,7 @@ class Site extends Component {
       };
       return (
         <ToolbarGroup lastChild={true}>
-          <ToolbarTitle text={profile.name} style={titleStyle} />
+          <ToolbarTitle text={profile.name.toUpperCase()} style={titleStyle} />
           {this.renderMenu()}
         </ToolbarGroup>
       );
@@ -128,9 +137,12 @@ class Site extends Component {
     const paddedRight = {
       paddingRight: 10
     };
+    const avatar = {
+      marginTop: 32
+    };
     return (
       <IconMenu
-        iconButtonElement={<Avatar src={profile.avatar}/>}
+        iconButtonElement={<Avatar style={avatar} src={profile.avatar}/>}
         anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
         listStyle={menuStyle}
@@ -152,8 +164,8 @@ class Site extends Component {
       backgroundColor: grey900
     };
     const paddedTitleStyle = {
-      fontFamily: 'cursive',
-      fontSize: '2em',
+      fontFamily: 'Roboto',
+      fontSize: 17,
       color: 'white',
       paddingLeft: 10,
       paddingBottom: 8
@@ -166,7 +178,7 @@ class Site extends Component {
         <div className="Site">
           <Toolbar style={barStyle}>
             <ToolbarGroup onClick={this.handleLogoClick.bind(this)} firstChild={true}>
-              <h2 style={paddedTitleStyle}>Affirmation.io</h2>
+              <h2 data-tip='Go To Dashboard' style={paddedTitleStyle}>AFFIRMATION</h2>
             </ToolbarGroup>
             <ToolbarGroup>
               {this.renderLinks()}
