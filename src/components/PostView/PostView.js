@@ -300,8 +300,8 @@ class PostView extends React.Component {
           iconButtonElement={<IconButton data-tip='More'><HorizontalDots /></IconButton>}
           anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
           targetOrigin={{horizontal: 'left', vertical: 'top'}}>
-          <MenuItem primaryText="Delete This Post" onClick={this.deletePost.bind(this)}/>
           <MenuItem primaryText="Update Post" onClick={this.submitEdit.bind(this)}/>
+          <MenuItem primaryText="Delete This Post" onClick={this.deletePost.bind(this)}/>
         </IconMenu>
       );
     }
@@ -342,7 +342,7 @@ class PostView extends React.Component {
       anon: this.props.post.anon
     })
     .then(()=>{
-      console.log('Put request successful!');
+      console.log('Put request successful!, ', this.state);
       this.setState({
         updating: true,
         dialogOpen: true
@@ -387,7 +387,7 @@ class PostView extends React.Component {
           data-placeholder='Write advice here...'
           className='glowing-border'
           style={message}
-          text={this.props.post.title}
+          text={this.props.post.message}
           onChange={this.messageChangeHandler.bind(this)}
           options={{toolbar: {buttons: ['bold', 'italic', 'underline', 'h2', 'h3', 'quote']}, placeholder: { hideOnClick: false}}}
         />
@@ -448,7 +448,7 @@ class PostView extends React.Component {
     return (
       <div style={{backgroundColor: 'white'}}>
         <div style={center}>
-          <div style={{ margin: 20 }}>
+          <div style={{ margin: 30 }}>
             <Card
               style={cardStyle}
             >
@@ -537,8 +537,8 @@ class PostView extends React.Component {
           
         </Dialog>
         <div style={center}>
-          <div style={{ margin: 20 }}>
-            <div style={{ width: 700, margin: 20 }}>
+          <div style={{ margin: 20, marginTop: 0 }}>
+            <div style={{ width: 750, margin: 20, marginTop: 0 }}>
               <DisqusComments
                 postUrl={`https://localhost:3000/${this.props.post.phase}/${this.props.post.id}`}
                 post={`${this.props.post.phase}/${this.props.post.id}`}
