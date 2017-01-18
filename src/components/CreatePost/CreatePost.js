@@ -89,12 +89,12 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     const that = this;
     let isValid = true;
     let newErrors = {};
-
-    if (validator.isEmpty(that.state.title)){
+    
+    if (validator.isEmpty(that.state.title) || validator.equals(that.state.title, '<p><br></p>')){
       Object.assign(newErrors, {title: "You must add a title."});
       isValid = false;
     }
-    if (validator.isEmpty(that.state.message)) {
+    if (validator.isEmpty(that.state.message) || validator.equals(that.state.message, '<p><br></p>')) {
       Object.assign(newErrors, {message: "You must add a message."});
       isValid = false;
     }
@@ -134,6 +134,8 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
 
   messageChangeHandler(text, medium) {
     this.setState({message: text});
+    console.log(validator.equals(this.state.message, '<p><br></p>'));
+    console.log(this.state.message);
   }
 
   phaseChangeHandler(e, index, value) {
@@ -248,6 +250,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     );
   }
   renderPopOver(){
+    const that = this;
     const pop = {
       height: 130,
       width: 150,
@@ -263,9 +266,9 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
             anchorEl={this.state.anchorEl}
             onRequestClose={this.handleRequestClose}
           >
-          {this.state.title === '' ? <div style={pop}>Your affirmation needs a title!</div> : null}
-          {this.state.message === '' ? <div style={pop}>Your affirmation needs some content, too!</div> : null}
-          {this.state.phase === null || this.state.phase === "Phase" ? <div style={pop}>Don't forget to choose a phase!</div> : null}
+          {(validator.isEmpty(that.state.title) || validator.equals(that.state.title, '<p><br></p>')) ? <div style={pop}>Your affirmation needs a title!</div> : null}
+          {(validator.isEmpty(that.state.message) || validator.equals(that.state.message, '<p><br><p>')) ? <div style={pop}>Your affirmation needs some content, too!</div> : null}
+          {(this.state.phase === null || this.state.phase === "Phase") ? <div style={pop}>Don't forget to choose a phase!</div> : null}
         </Popover>
       </div>
     )
