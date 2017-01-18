@@ -10,7 +10,7 @@ import ImageFilterVintage from 'material-ui/svg-icons/image/filter-vintage';
 import Snackbar from 'material-ui/Snackbar';
 import Divider from 'material-ui/Divider';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import {Card, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardMedia, CardTitle, CardText, CardHeader} from 'material-ui/Card';
 import {GridList, GridTile} from 'material-ui/GridList';
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import IconButton from 'material-ui/IconButton';
@@ -19,6 +19,9 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import axios from 'axios';
 import Badge from 'material-ui/Badge';
+import { List, ListItem } from 'material-ui/List';
+import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
+import Face from 'material-ui/svg-icons/action/face';
 // FROM DINO
 import Paper from 'material-ui/Paper';
 import { Link } from 'react-router';
@@ -28,60 +31,6 @@ import Refresh from 'material-ui/svg-icons/navigation/refresh';
 //
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
-
-const gitHubAtts = [
-  // 'email',
-  // 'name',
-  // 'nickname',
-  // 'html_url',
-  // 'location',
-  'public_repos',
-  'followers',
-  'following',
-  'updated_at'
-  /**
-  EXTRA INFO --------- ---------  --------- --------->
-  'public_gists',
-  'picture',
-  'gravatar_id',
-  'type',
-  'site_admin',
-  'user_metadata',
-  'emails',
-  'clientID',
-  'user_id',
-  'identities',
-  'created_at',
-  'email_verified',
-  'sub',
-  API LINKS ----- ----- -----> CAN REQUEST INFO FROM THE FOLLOWING API ENDPOINTS:
-  'followers_url',
-  'following_url',
-  'gists_url',
-  'starred_url',
-  'subscriptions_url',
-  'organizations_url',
-  'repos_url',
-  'events_url',
-  'received_events_url'
-  <----- ----- ----- API LINKS
-  <--------- --------- --------- --------- EXTRA INFO
-  **/
-];
-
-const googleAtts = [ // user_metadata.location -- NYC
-  'gender'
-  // 'email',
-  // 'name',
-  // 'picture',
-];
-//
-const linkedInAtts = [
-  'headline',
-  'industry',
-  'summary'
-  // location.name
-];
 
 class EditProfile extends Component {
   constructor(props) {
@@ -105,10 +54,11 @@ class EditProfile extends Component {
   getUser() {
     axios.get('/api/users/' + this.props.profile.email)
     .then((user) => {
+      user.data.posts.sort((a,b) => {
+        return (a.favorites < b.favorites) ? 1 : -1
+      })
       this.setState({ userProfile: user.data })
-    })
-    .then(() => {
-      console.log('state on render:', this.state);
+      console.log('state in getUser:', this.state);
     })
     .catch((error) => {
       console.log(error)
@@ -141,17 +91,14 @@ class EditProfile extends Component {
     this.setState({
       [edited]: event[edited]
     });
-    console.log('new state:', this.state);
   }
 
   renderProfileCard() {
     let profile = this.state.userProfile.user;
-    console.log('state in card render:', this.state);
     const cardStyle = {
       width: 350,
-      margin: 20,
-      overflow: 'auto',
-      backgroundColor: '#FFDB77'
+      margin: 10,
+      overflow: 'auto'
     };
     const imageInput = {
       cursor: 'pointer',
@@ -165,20 +112,37 @@ class EditProfile extends Component {
     };
     const buttonStyle = {
       fontFamily: 'Nunito',
-      backgroundColor: '#867DCC',
-      color: '#FFDB77',
+      backgroundColor: '#FFDB77'
     };
     return (
       <Card style={cardStyle} zDepth={1}>
-        <CardMedia overlay={<CardTitle subtitle={<InlineEdit text={profile.name} paramName="name" activeClassName="Purple" change={this.handleProfileEdit.bind(this, 'name')} />} subtitleStyle={{fontFamily: 'Nunito', color: '#FFDB77', fontSize: 20}}/> }>
-          <img src={profile.avatar} size={200} />
+        <CardHeader style={{backgroundColor: 'white'}}
+          title={<InlineEdit text={profile.name} paramName="name" activeClassName="Gold" change={this.handleProfileEdit.bind(this, 'name')} />}
+          titleStyle={{fontFamily: 'Nunito', color: '#867DCC', fontSize: 26}}/>
+        />
+        <CardMedia style={{paddingBottom: 0}}>
+          <img src={profile.avatar} />
         </CardMedia>
-        <CardTitle style={{fontFamily: "Nunito"}} title={<InlineEdit text={profile.job} paramName="job" change={this.handleProfileEdit.bind(this, 'job')} />} subtitle={<InlineEdit text={profile.location} paramName="location" change={this.handleProfileEdit.bind(this, 'location')} />} />
-        <CardText style={{fontFamily: 'Nunito'}}>
+        <CardTitle style={{fontFamily: "Nunito", paddingTop: 0}}
+          title={
+            <span>
+              <strong style={{color: '#867DCC'}}>Job: </strong>
+              <InlineEdit text={profile.job} paramName="job"
+                change={this.handleProfileEdit.bind(this, 'job')}
+              />
+            </span>}
+          subtitle={
+            <span>
+              <strong style={{color: '#867DCC'}}>Location: </strong>
+              <InlineEdit text={profile.location} paramName="location"
+                change={this.handleProfileEdit.bind(this, 'location')}
+              />
+            </span>} />
+        <CardText style={{flexDirection:'row', flex: 1, flexWrap: 'wrap', whiteSpace: 'normal', fontFamily: 'Nunito'}}>
           <h2 style={{color: '#867DCC'}}><strong>About Me</strong></h2>
           <Divider style={{backgroundColor: '#867DCC'}}/>
           <br />
-          <InlineEdit style={{width: '100%', height: '100%'}} text={profile.about} paramName="about" change={this.handleProfileEdit.bind(this, 'about')} />
+          <InlineEdit style={{width: '100%', height: 100}} text={profile.about} paramName="about" change={this.handleProfileEdit.bind(this, 'about')} />
         </CardText>
         <BottomNavigation style={buttonStyle}>
           <BottomNavigationItem
@@ -200,7 +164,7 @@ class EditProfile extends Component {
     );
   }
 
-  renderProfilePaper() {
+  renderProfileOptions() {
     let profile = this.state.userProfile.user;
     const authProfile = this.props.profile;
     const user_metadata = authProfile.user_metadata || {};
@@ -220,11 +184,8 @@ class EditProfile extends Component {
     };
     return (
       <div style={innerPaperStyle}>
-        <div>
-          <p><span style={strong}>Email:</span> <InlineEdit text={profile.email} /></p>
-        </div>
         <div style={center}>
-          <FlatButton style={{backgroundColor: '#ED222A'}} icon={<ActionDeleteForever />} />
+          <FlatButton label="Delete Account" style={{backgroundColor: '#ED222A', color: 'white'}} icon={<ActionDeleteForever />} />
         </div>
       </div>
     );
@@ -233,36 +194,90 @@ class EditProfile extends Component {
   renderPostList() {
     const profile = this.state.userProfile
     const tableStyle = {
-      fontFamily: 'Nunito',
-      backgroundColor: '#FFDB77'
+      fontFamily: 'Nunito'
     };
     if (profile) {
       return (
         <div>
-          <Table selectable multiSelectable style={tableStyle}>
-            <TableHeader displaySelectAll={false}>
-              <TableRow style={{fontSize: 20}}>
-                <TableHeaderColumn>Affirmation Title</TableHeaderColumn>
-                <TableHeaderColumn>Phase</TableHeaderColumn>
-                <TableHeaderColumn tooltip="Favorites"><ActionFavorite /></TableHeaderColumn>
-                <TableHeaderColumn>Helpful</TableHeaderColumn>
-                <TableHeaderColumn>Unhelpful</TableHeaderColumn>
-              </TableRow>
-            </TableHeader>
-            <TableBody showRowHover>
-              {profile.posts.map((post) => {
-                return (
-                  <TableRow displayBorder>
-                    <TableRowColumn>{post.title}</TableRowColumn>
-                    <TableRowColumn>{post.phase}</TableRowColumn>
-                    <TableRowColumn>{post.favorites}</TableRowColumn>
-                    <TableRowColumn>{post.helpful}</TableRowColumn>
-                    <TableRowColumn>{post.unhelpful}</TableRowColumn>
-                  </TableRow>
-                )
-              })}
-            </TableBody>
-          </Table>
+          <List>
+          {profile.posts.map((post) => {
+            if (!post.anon) {
+              return (
+                <div>
+                  <Link to={`/${post.phase}/${post.id}`} style={{ textDecoration: 'none' }}>
+                    <ListItem
+                      rightAvatar={
+                        <Badge
+                          badgeContent={post.favorites}
+                          primary={true}
+                          badgeStyle={{top: 5, right: 5}}
+                          >
+                          <FavoriteBorder />
+                        </Badge>
+                      }
+                      primaryText={post.title}
+                      secondaryText={
+                        <p>{post.message}</p>
+                      }
+                      secondaryTextLines={2}
+                      />
+                  </Link>
+                  <Divider inset={true} />
+                </div>
+              )
+            }
+          })}
+          </List>
+        </div>
+      );
+    }
+  }
+
+  renderFavoriteList() {
+    const profile = this.state.userProfile
+    const tableStyle = {
+      fontFamily: 'Nunito'
+    };
+    if (this.state.allFaves) {
+      return (
+        <div>
+          <List>
+          {this.state.allPosts.map((post) => {
+            if(this.state.allFaves[post.id]) {
+              return (
+                <div>
+                  <ListItem
+                    disabled={true}
+                    leftAvatar={
+                      <Avatar src={profile.user.avatar} />
+                    }
+                  >
+                    {profile.user.name}
+                  </ListItem>
+                  <Link to={`/${post.phase}/${post.id}`} style={{ textDecoration: 'none' }}>
+                    <ListItem
+                      rightAvatar={
+                        <Badge
+                        badgeContent={post.favorites}
+                        primary={true}
+                        badgeStyle={{top: 5, right: 5}}
+                        >
+                          <FavoriteBorder />
+                        </Badge>
+                      }
+                      primaryText={post.title}
+                      secondaryText={
+                        <p>{post.message}</p>
+                      }
+                      secondaryTextLines={2}
+                    />
+                  </Link>
+                  <Divider inset={true} />
+                </div>
+              )
+            }
+          })}
+          </List>
         </div>
       );
     }
@@ -273,45 +288,6 @@ class EditProfile extends Component {
       value: value,
     });
   }
-
-  // onSubmit = (event) => {
-  //   event.preventDefault();
-  //
-  //   this.setState({saving: true}, async () => {
-  //     const error = await this.props.onUpdateProfile({
-  //       user_metadata: {
-  //         location: this.locationInput.value
-  //       }
-  //     });
-  //     this.setState({error, saved: !error, saving: false});
-  //   });
-  // }
-  //
-  // onClearSaved = (event) => {
-  //   this.setState({saved: false});
-  // }
-  //
-  // <div className="EditProfile-heading">Edit Profile</div>
-  // <form className="EditProfile-form" onSubmit={this.onSubmit} onChange={this.onClearSaved}>
-  //   <fieldset className="EditProfile-fieldset" disabled={saving}>
-  //     <label className="EditProfile-locationLabel" htmlFor="location">Location</label>
-  //     <input
-  //       ref={(ref) => this.locationInput = ref}
-  //       className="EditProfile-locationInput"
-  //       id="location"
-  //       type="text"
-  //       placeholder="City or State"
-  //       />
-  //     <div className="EditProfile-formControls">
-  //       <button className="EditProfile-submitButton" type="submit">
-  //         {saving ? 'Saving...' : 'Save'}
-  //       </button>
-  //       {saved && (
-  //         <div className="EditProfile-saved">Saved</div>
-  //       )}
-  //     </div>
-  //   </fieldset>
-  // </form>
 
   render() {
     const {profile} = this.props;
@@ -331,12 +307,10 @@ class EditProfile extends Component {
       width: 800,
       margin: 35,
       overflow: 'auto',
-      backgroundColor: '#FFDB77'
     };
     const barStyle = {
       backgroundColor: '#867DCC',
       fontFamily: 'Nunito',
-      color: '#FFDB77'
     };
     const innerPaperStyle = {
       fontFamily: 'Nunito',
@@ -358,29 +332,29 @@ class EditProfile extends Component {
     }
     return (
       <div className={flexbox}>
-
         <div className="col-md-4">
           {this.renderProfileCard()}
         </div>
-
         <div className="col-md-8">
           <div style={centerPaper}>
             <Paper style={paperStyle} zDepth={1}>
-              <Tabs inkBarStyle={{backgroundColor: 'black'}}>
-                <Tab style={barStyle} label="Affirmations">
+              <Tabs inkBarStyle={{backgroundColor: '#FFDB77'}}>
+                <Tab style={barStyle} label="Affirmations" icon={<Face />}>
                   <div style={innerPaperStyle}>
                     {this.renderPostList()}
                   </div>
                 </Tab>
-                <Tab style={barStyle} icon={<ActionSettings />} >
-                  {this.renderProfilePaper()}
+                <Tab style={barStyle} label="Affirmations" icon={<FavoriteBorder />} >
+                  {this.renderFavoriteList()}
+                </Tab>
+                <Tab style={barStyle} label="Settings" icon={<ActionSettings />} >
+                  {this.renderProfileOptions()}
                 </Tab>
               </Tabs>
               <Divider />
             </Paper>
           </div>
         </div>
-
       </div>
     );
   }

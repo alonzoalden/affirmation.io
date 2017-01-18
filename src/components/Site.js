@@ -136,7 +136,7 @@ class Site extends Component {
         listStyle={menuStyle}
         style={paddedRight}
       >
-        <Link to="/profile/edit" style={{textDecoration: 'none'}}>
+        <Link to="/profile" style={{textDecoration: 'none'}}>
           <MenuItem primaryText="Profile" style={titleStyle}/>
         </Link>
 
