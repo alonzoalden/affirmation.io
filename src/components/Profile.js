@@ -324,14 +324,6 @@ class EditProfile extends Component {
             if(this.state.allFaves[post.id]) {
               return (
                 <div>
-                  <ListItem
-                    disabled={true}
-                    leftAvatar={
-                      <Link to={`/profile/${post.userEmail}`} style={{ textDecoration: 'none' }}><Avatar src="https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg" /></Link>
-                    }
-                  >
-                    <Link to={`/profile/${post.userEmail}`} style={{ textDecoration: 'none' }}>{post.userEmail}</Link>
-                  </ListItem>
                   <Link to={`/${post.phase}/${post.id}`} style={{ textDecoration: 'none' }}>
                     <ListItem
                       rightAvatar={
