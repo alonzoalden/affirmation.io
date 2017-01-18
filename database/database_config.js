@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 // #######################__Create Connection__##############################
 console.log(process.env.NODE_ENV);
 
-  const dbConnection = process.env.NODE_ENV === 'production' ? new Sequelize(process.env.DATABASE_URL) : new Sequelize('app_data', '', '', {
+  const dbConnection = process.env.NODE_ENV === 'production' ? new Sequelize(process.env.DATABASE_URL) : new Sequelize('app_data', 'enduser', '', {
     host: 'localhost',
     dialect: 'postgres',
     port: 5432,

@@ -5,13 +5,19 @@
 */
 
 import React from 'react';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
-// import FlatButton from 'material-ui/FlatButton';
+import { Link } from 'react-router';
+import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 import Badge from 'material-ui/Badge';
 import SentimentVerySatisfied from 'material-ui/svg-icons/social/sentiment-very-satisfied';
 import SentimentVeryDissatisfied from 'material-ui/svg-icons/social/sentiment-very-dissatisfied';
+import Favorite from 'material-ui/svg-icons/action/favorite-border';
+import IconButton from 'material-ui/IconButton';
+import ReportProblem from 'material-ui/svg-icons/action/report-problem';
 import Divider from 'material-ui/Divider';
 import Editor from 'react-medium-editor';
+
+
 require('medium-editor/dist/css/medium-editor.css');
 require('medium-editor/dist/css/themes/default.css');
 
@@ -62,6 +68,28 @@ class PostPreview extends React.Component {
     );
   }
 
+  isFavorite(num) {
+    return (
+      <Badge
+        badgeContent={num}
+        primary={true}
+      >
+        <Favorite />
+      </Badge>
+    );
+  }
+
+  isProblem(num) {
+    return (
+      <Badge
+        badgeContent={num}
+        primary={true}
+      >
+        <ReportProblem />
+      </Badge>
+    )
+  }
+
   render() {
     const cardStyle = {
       width: 600,
@@ -77,7 +105,7 @@ class PostPreview extends React.Component {
       width: 600,
       margin: 10,
       overflow: 'auto',
-      backgroundColor: 'lightgrey',
+      //backgroundColor: '#17FDFC',
     };
     const title = {
       fontSize: 40,
@@ -90,16 +118,14 @@ class PostPreview extends React.Component {
       paddingTop: 15,
       paddingLeft: 20,
       lineHeight: 1.1,
-      fontFamily: 'Roboto'
+      fontFamily: 'Roboto',
+      marginRight: 20,
     };
     const mainStyle = this.state.hover ? hoverCardStyle : cardStyle
-
     let advice = this.props.post.message.slice(0, 200)
-    // let message = this.props.post.message.slice(20, 200) + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-
     let that = this
     let currentPath = '/' + this.props.post.phase + '/'
-    console.log('currentPath : ' + currentPath)
+
     return (
       <div style={center}>
         <div>
@@ -115,7 +141,7 @@ class PostPreview extends React.Component {
                 subtitle={this.props.post.user.job + ' - ' + this.props.post.user.location}
                 avatar={this.props.post.anon ? "https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg" : this.props.post.user.avatar}
               />
-            <Divider />
+            <Divider style={{marginTop: -25}}/>
               <Editor
                 style={title}
                 text={this.props.post.title}
@@ -126,8 +152,13 @@ class PostPreview extends React.Component {
                 text={advice}
                 options={{disableEditing: true, toolbar: false }}
               />
-              <div style={{float: 'left', marginLeft: 20, marginTop: 26}}><a href={currentPath + this.props.post.id}>Read more</a></div>
-              <div style={{ float: "right", marginRight: 20 }}> {this.isHelpful(this.props.post.helpful)} {this.isUnhelpful(this.props.post.unhelpful)}  </div>
+            <Divider />
+              <CardActions>
+                <Link to={currentPath + this.props.post.id}>
+                  <FlatButton label="Read More" style={{ marginTop: 15 }} />
+                </Link>
+                <div style={{ float: "right", marginRight: 20, marginTop: 5 }}> {this.isHelpful(this.props.post.helpful)} {this.isUnhelpful(this.props.post.unhelpful)} {this.isFavorite(this.props.post.favorites)} {this.isProblem(this.props.post.flag)}</div>
+              </CardActions>
             </Card>
           </div>
         </div>

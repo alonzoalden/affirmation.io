@@ -12,48 +12,80 @@ import Badge from 'material-ui/Badge';
 import SentimentVerySatisfied from 'material-ui/svg-icons/social/sentiment-very-satisfied';
 import SentimentVeryDissatisfied from 'material-ui/svg-icons/social/sentiment-very-dissatisfied';
 import PostPreview from '../../components/PostPreview/PostPreview';
-// import InfiniteScroll from 'react-infinite-scroller';
+import InfiniteScroll from 'react-infinite-scroller';
 
 class PhaseView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: [],
+      allPosts: [],
+      currentPosts: [],
+      postIndexStart: 0,
+      hasMoreItems: true,
     }
   }
 
-  componentDidMount() {
-    this.getPreviewPosts();
-  }
+  loadItems(page) {
+    if (this.state.allPosts.length === 0) {
+      let phase = this.props.location.pathname.toLowerCase()
+      return axios.get('/api/posts' + phase)
+        .then((arr) => {
+          if (arr.data.length === 0) {
+            this.setState({
+              hasMoreItems: false
+            })
+          } else {
+            arr.data.sort((a,b) => {
+              return (a.sentiment < b.sentiment) ? 1 : -1
+            })
+            this.setState({
+              allPosts: arr.data,
+              currentPosts: [],
+            })
+          }
+        })
+      } else {
+        let postSection = this.state.allPosts.slice(this.state.postIndexStart, (this.state.postIndexStart+5))
 
-  getPreviewPosts() {
-    let phase = this.props.location.pathname.toLowerCase()
-    return axios.get('/api/posts' + phase)
-      .then((arr) => {
-          arr.data.sort((a,b) => {
-            return (a.sentiment < b.sentiment) ? 1 : -1
+        let posts = this.state.currentPosts
+        postSection.map((post, index) => {
+          posts.push(post)
+        })
+
+        this.setState({
+          currentPosts: posts,
+          postIndexStart: this.state.postIndexStart +5,
+        })
+
+        if (this.state.postIndexStart >= this.state.allPosts.length) {
+          this.setState({
+            hasMoreItems: false,
           })
-          this.setState({ posts: arr.data })
-      })
+        }
+      }
   }
 
   render() {
 
-    const loader = <div className="loader">Loading ...</div>
+    const loader = <div className="loader"><center><img src={require('../../icons/Spinner.gif')}/></center></div>
+    let itemViews = []
+    if (this.state.currentPosts.length > 0) {
+      this.state.currentPosts.map((post) => {
+        itemViews.push( <div><PostPreview post={post} /></div> )
+      })
+    }
 
-    return (
-      <div>
-        {this.state.posts.map((post, index) => {
-          return (
-            <div>
-              <PostPreview
-                post={post}
-              />
-            </div>
-          )
-        })}
-      </div>
-    )
+      return (
+          <InfiniteScroll
+              pageStart={0}
+              loadMore={this.loadItems.bind(this, this.state.postIndexStart)}
+              hasMore={this.state.hasMoreItems}
+              loader={loader}>
+
+              {itemViews}
+
+          </InfiniteScroll>
+      );
   }
 }
 
