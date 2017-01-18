@@ -121,6 +121,9 @@ class EditProfile extends Component {
     let userPath = window.location.pathname.split("/").slice(-1)[0];
     axios.get('/api/users/' + userPath)
     .then((user) => {
+      user.data.posts.sort((a,b) => {
+         return (a.favorites < b.favorites) ? 1 : -1
+      })
       this.setState({ userProfile: user.data })
       this.objectify(user.data.favorites);
     })
@@ -185,6 +188,7 @@ class EditProfile extends Component {
   }
 
   renderProfileCard() {
+    console.log('userProfile: ', this.state.userProfile);
     let profile = this.state.userProfile.user;
     console.log('state in card render:', this.state);
     const cardStyle = {
@@ -217,8 +221,8 @@ class EditProfile extends Component {
         </CardMedia>
         <CardTitle
           style={{fontFamily: "Nunito"}}
-          title={profile.job}
-          subtitle={profile.location}
+          title={'Job: ' + profile.job}
+          subtitle={'Location: ' + profile.location}
         />
         <CardText style={{fontFamily: 'Nunito'}}>
           <h2 style={{color: '#867DCC'}}><strong>About Me</strong></h2>
@@ -274,29 +278,31 @@ class EditProfile extends Component {
           <List>
           {profile.posts.map((post) => {
             console.log(profile);
-            return (
-              <div>
-                <Link to={`/${post.phase}/${post.id}`} style={{ textDecoration: 'none' }}>
-                <ListItem
-                  rightAvatar={
-                    <Badge
-                    badgeContent={post.favorites}
-                    primary={true}
-                    badgeStyle={{top: 5, right: 5}}
-                    >
-                      <FavoriteBorder />
-                    </Badge>
-                  }
-                  primaryText={post.title}
-                  secondaryText={
-                    <p>{post.message}</p>
-                  }
-                  secondaryTextLines={2}
-                />
-                </Link>
-              <Divider inset={true} />
-              </div>
-            )
+            if(!post.anon) {
+              return (
+                <div>
+                  <Link to={`/${post.phase}/${post.id}`} style={{ textDecoration: 'none' }}>
+                  <ListItem
+                    rightAvatar={
+                      <Badge
+                      badgeContent={post.favorites}
+                      primary={true}
+                      badgeStyle={{top: 5, right: 5}}
+                      >
+                        <FavoriteBorder />
+                      </Badge>
+                    }
+                    primaryText={post.title}
+                    secondaryText={
+                      <p>{post.message}</p>
+                    }
+                    secondaryTextLines={2}
+                  />
+                  </Link>
+                <Divider inset={true} />
+                </div>
+              )
+            }
           })}
           </List>
         </div>
@@ -321,10 +327,10 @@ class EditProfile extends Component {
                   <ListItem
                     disabled={true}
                     leftAvatar={
-                      <Avatar src={profile.user.avatar} />
+                      <Link to={`/profile/${post.userEmail}`} style={{ textDecoration: 'none' }}><Avatar src="https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg" /></Link>
                     }
                   >
-                    {profile.user.name}
+                    <Link to={`/profile/${post.userEmail}`} style={{ textDecoration: 'none' }}>{post.userEmail}</Link>
                   </ListItem>
                   <Link to={`/${post.phase}/${post.id}`} style={{ textDecoration: 'none' }}>
                     <ListItem
