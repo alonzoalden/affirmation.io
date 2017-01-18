@@ -8,6 +8,9 @@ module.exports = function (app, express) {
   const router = express.Router();
 
   //these are the api endpoints and routes
+  router.route('/allposts')
+    .get(postController.getEveryPost);
+
   router.route('/posts/:phase')
     .post(postController.addAPost)
     .get(postController.getAllPosts);
@@ -23,7 +26,8 @@ module.exports = function (app, express) {
 
   router.route('/posts/:phase/:id/favorite/:favorite')
     .post(postController.favoriteAPost)
-    .put(postController.removeFavorite);
+    .put(postController.removeFavorite)
+    .get(postController.getAllFavorites);
 
   router.route('/posts/:phase/:id/flag/:flag')
     .post(postController.flagAPost)
@@ -42,7 +46,7 @@ module.exports = function (app, express) {
 
   //need to add this to handle direct addressing of routes.
   //will serve index.html which has our js linked for routing.
-  if (process.env.NODE_ENV === 'production') { 
+  if (process.env.NODE_ENV === 'production') {
     app.get('/*', function (request, response){
       response.sendFile(path.join(__dirname,'../build', 'index.html'));
     });
