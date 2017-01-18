@@ -3,21 +3,17 @@ import {connectProfile} from '../auth';
 import './EditProfile.css';
 import Avatar from 'material-ui/Avatar';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
-import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever';
-import ImageFilterVintage from 'material-ui/svg-icons/image/filter-vintage';
-// import PlacesSpa from 'material-ui/svg-icons/places/spa';
 import Snackbar from 'material-ui/Snackbar';
 import Divider from 'material-ui/Divider';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import {Card, CardMedia, CardTitle, CardText, CardHeader} from 'material-ui/Card';
+import {Card, CardText, CardHeader} from 'material-ui/Card';
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import axios from 'axios';
 import Badge from 'material-ui/Badge';
 import { List, ListItem } from 'material-ui/List';
 import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 import Face from 'material-ui/svg-icons/action/face';
-
 import Paper from 'material-ui/Paper';
 import { Link } from 'react-router';
 import InlineEdit from 'react-edit-inline';
@@ -112,9 +108,9 @@ class EditProfile extends Component {
     });
   }
 
-  handleMediumEdit(text, medium) {
+  handleMediumEdit(param, text, medium) {
     this.setState({
-      'about': text
+      [param]: text
     });
   }
 
@@ -124,57 +120,55 @@ class EditProfile extends Component {
       width: 275,
       overflow: 'auto'
     };
-    const imageInput = {
-      cursor: 'pointer',
-      position: 'absolute',
-      top: 0,
-      bottom: 0,
-      right: 0,
-      left: 0,
-      width: '100%',
-      opacity: 0,
-    };
+    // const imageInput = {
+    //   cursor: 'pointer',
+    //   position: 'absolute',
+    //   top: 0,
+    //   bottom: 0,
+    //   right: 0,
+    //   left: 0,
+    //   width: '100%',
+    //   opacity: 0,
+    // };
     const buttonStyle = {
-      fontFamily: 'Nunito',
       backgroundColor: '#FFDB77'
     };
     return (
       <Card style={cardStyle} zDepth={1}>
         <CardHeader style={{backgroundColor: 'white'}}
-          title={<InlineEdit text={profile.name} paramName="name" activeClassName="Gold" change={this.handleProfileEdit.bind(this, 'name')} />}
+          title={<InlineEdit style={{width: '100%'}} text={profile.name}
+          paramName="name" change={this.handleProfileEdit.bind(this, 'name')} />}
           titleStyle={{fontFamily: 'Nunito', color: '#867DCC', fontSize: 26}}/>
         />
-        <CardMedia style={{paddingBottom: 0}}>
-          <img src={profile.avatar} />
-        </CardMedia>
-        <CardTitle style={{fontFamily: "Nunito", paddingTop: 0}}
-          title={
-            <span>
-              <strong style={{color: '#867DCC'}}>Job: </strong>
-              <InlineEdit text={profile.job} paramName="job"
-                change={this.handleProfileEdit.bind(this, 'job')}
-              />
-            </span>}
-          subtitle={
-            <span>
-              <strong style={{color: '#867DCC'}}>Location: </strong>
-              <InlineEdit text={profile.location} paramName="location"
-                change={this.handleProfileEdit.bind(this, 'location')}
-              />
-            </span>} />
-        <CardText style={{flexDirection:'row', flex: 1, flexWrap: 'wrap', whiteSpace: 'normal', fontFamily: 'Nunito'}}>
-          <h2 style={{color: '#867DCC'}}><strong>About Me</strong></h2>
+        <div style={{height: 275, width: 275}}>
+          <Avatar src={profile.avatar} size={275} style={{borderRadius: 3}}/>
+        </div>
+        <CardText style={{fontFamily: 'Nunito'}}>
+          <span style={{fontSize: 22}}>
+            <strong style={{color: '#867DCC'}}>Job: </strong>
+            <InlineEdit text={profile.job} paramName="job"
+              change={this.handleProfileEdit.bind(this, 'job')}
+            />
+          </span>
+          <br />
+          <span>
+            <strong style={{color: '#867DCC'}}>Location: </strong>
+            <InlineEdit text={profile.location} paramName="location"
+              change={this.handleProfileEdit.bind(this, 'location')}
+            />
+          </span>
+          <h3 style={{color: '#867DCC'}}><strong>About Me</strong></h3>
           <Divider style={{backgroundColor: '#867DCC'}}/>
           <br />
-          <Editor text={profile.about} onChange={this.handleMediumEdit.bind(this)} options={{disableEditing: false, toolbar: false}} />
+          <Editor text={profile.about} onChange={this.handleMediumEdit.bind(this, 'about')}
+            options={{disableEditing: false, toolbar: false}} />
+          <br />
         </CardText>
         <BottomNavigation style={buttonStyle}>
           <BottomNavigationItem
             label="Update Profile"
             labelPosition="before"
-            primary={true}
             icon={<Refresh />}
-            style={{color: '#FFDB77'}}
             onClick={this.handleSubmit.bind(this)}
             />
         </BottomNavigation>
@@ -182,15 +176,12 @@ class EditProfile extends Component {
           open={this.state.open}
           message="Profile was updated!"
           autoHideDuration={3000}
-          onRequestClose={this.handleRequestClose}
         />
       </Card>
     );
   }
 
   renderProfileOptions() {
-    let profile = this.state.userProfile.user;
-    const authProfile = this.props.profile;
     const innerPaperStyle = {
       fontFamily: 'Nunito',
       margin: 25,
@@ -204,7 +195,8 @@ class EditProfile extends Component {
     return (
       <div style={innerPaperStyle}>
         <div style={center}>
-          <FlatButton label="Delete Account" style={{backgroundColor: '#ED222A', color: 'white'}} icon={<ActionDeleteForever />} />
+          <FlatButton label="Delete Account" style={{backgroundColor: '#ED222A', color: 'white'}}
+            icon={<ActionDeleteForever />} />
         </div>
       </div>
     );
@@ -231,8 +223,10 @@ class EditProfile extends Component {
                           <FavoriteBorder />
                         </Badge>
                       }
-                      primaryText={<Editor text={post.title} options={{disableEditing: true, toolbar: false }} />}
-                      secondaryText={<p>{<Editor text={post.message} options={{disableEditing: true, toolbar: false }} />}</p>}
+                      primaryText={<Editor text={post.title}
+                        options={{disableEditing: true, toolbar: false }} />}
+                      secondaryText={<Editor text={post.message}
+                        options={{disableEditing: true, toolbar: false }} />}
                       secondaryTextLines={2}
                       />
                   </Link>
@@ -268,10 +262,10 @@ class EditProfile extends Component {
                           <FavoriteBorder />
                         </Badge>
                       }
-                      primaryText={post.title}
-                      secondaryText={
-                        <p>{post.message}</p>
-                      }
+                      primaryText={<Editor text={post.title}
+                        options={{disableEditing: true, toolbar: false }} />}
+                      secondaryText={<Editor text={post.message}
+                        options={{disableEditing: true, toolbar: false }} />}
                       secondaryTextLines={2}
                     />
                   </Link>
@@ -293,8 +287,6 @@ class EditProfile extends Component {
   }
 
   render() {
-    const {profile} = this.props;
-    const {saving, saved} = this.state;
     const flexbox = {
       display: '-webkit-flex',
       display: '-ms-flexbox',
@@ -319,11 +311,6 @@ class EditProfile extends Component {
       fontFamily: 'Nunito',
       overflow: 'auto'
     };
-    if (this.state.userProfile && this.state.userProfile.user === undefined) {
-      return (
-        <div>Loading User Profile...</div>
-      );
-    }
 
     if (!this.state.userProfile) {
       return (
@@ -342,9 +329,7 @@ class EditProfile extends Component {
             <Paper style={paperStyle} zDepth={1}>
               <Tabs inkBarStyle={{backgroundColor: '#FFDB77'}}>
                 <Tab style={barStyle} label="Affirmations" icon={<Face />}>
-                  <div style={innerPaperStyle}>
-                    {this.renderPostList()}
-                  </div>
+                  {this.renderPostList()}
                 </Tab>
                 <Tab style={barStyle} label="Affirmations" icon={<FavoriteBorder />} >
                   {this.renderFavoriteList()}
