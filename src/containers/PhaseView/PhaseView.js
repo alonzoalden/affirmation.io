@@ -21,111 +21,60 @@ class PhaseView extends React.Component {
       allPosts: [],
       currentPosts: [],
       postIndexStart: 0,
-      postIndexEnd: 5,
       hasMoreItems: true,
     }
   }
 
-  componentDidMount() {
-    this.getPreviewPosts();
-  }
+  loadItems(page) {
+    if (this.state.allPosts.length === 0) {
+      let phase = this.props.location.pathname.toLowerCase()
+      return axios.get('/api/posts' + phase)
+        .then((arr) => {
+          if (arr.data.length === 0) {
+            this.setState({
+              hasMoreItems: false
+            })
+          } else {
+            arr.data.sort((a,b) => {
+              return (a.sentiment < b.sentiment) ? 1 : -1
+            })
+            this.setState({
+              allPosts: arr.data,
+              currentPosts: [],
+            })
+          }
+        })
+      } else {
+        let postSection = this.state.allPosts.slice(this.state.postIndexStart, (this.state.postIndexStart+5))
 
-  getPreviewPosts() {
+        let posts = this.state.currentPosts
+        postSection.map((post, index) => {
+          posts.push(post)
+        })
 
-    let phase = this.props.location.pathname.toLowerCase()
-    return axios.get('/api/posts' + phase)
-      .then((arr) => {
-          arr.data.sort((a,b) => {
-            return (a.sentiment < b.sentiment) ? 1 : -1
-          })
+        this.setState({
+          currentPosts: posts,
+          postIndexStart: this.state.postIndexStart +5,
+        })
+
+        if (this.state.postIndexStart >= this.state.allPosts.length) {
           this.setState({
-            allPosts: arr.data,
-            currentPosts: arr.data.slice(0,5),
+            hasMoreItems: false,
           })
-      })
-      .then(() => {
-        //this.loadItems(this)
-      })
+        }
+      }
   }
-
-  loadItems(page, start) {
-  if (this.state.allPosts.length === 0) {
-
-
-    let phase = this.props.location.pathname.toLowerCase()
-    return axios.get('/api/posts' + phase)
-      .then((arr) => {
-          arr.data.sort((a,b) => {
-            return (a.sentiment < b.sentiment) ? 1 : -1
-          })
-          this.setState({
-            allPosts: arr.data,
-            currentPosts: [],
-          })
-      })
-      // .then(() => {
-      //   this.loadItems(this, this.state.postIndexStart, this.state.postIndexEnd)
-      // })
-
-    } else {
-    let postSection = this.state.allPosts.slice(this.state.postIndexStart, (this.state.postIndexStart+5))
-
-    console.log(postSection, "asdf", start, this.state.currentPosts.length, this.state.allPosts.length)
-
-    let posts = this.state.currentPosts
-    postSection.map((post, index) => {
-      posts.push(post)
-      console.log(this.state.currentPosts)
-    })
-
-    this.setState({
-      currentPosts: posts,
-      postIndexStart: this.state.postIndexStart +5,
-      //postIndexEnd: this.state.postIndexEnd +5,
-    })
-
-    if (this.state.postIndexStart >= this.state.allPosts.length) {
-      this.setState({
-        hasMoreItems: false,
-      })
-      console.log(this.state.hasMoreItems, "LASDFASDF", this.state.currentPosts.length, this.state.allPosts.length)
-    }
-
-
-  }
- }
-
-    //  if (this.state.postIndex >= this.state.allPosts.length-1) {
-    //     this.setState({
-    //       hasMoreItems: false
-    //     })
-    //   }
-    //   if (index >= this.state.postIndex && index < this.state.postIndex + 3) {
-    //      currentPosts.push(post)
-    //      console.log(currentPosts, this.state.currentPosts.length, this.state.allPosts.length)
-
-    //      console.log(this.state.currentPosts, "ALL POSTS", this.state.hasMoreItems)
-    //   }
-
-    //   if (index === this.state.postIndex+3) {
-    //     this.setState({
-    //       postIndex: this.state.postIndex+3
-    //     })
-    //     console.log('POST INDEx' + this.state.postIndex, index, this.state.hasMoreItems)
-    //     return
-    //   }
-
-    // })
-    //}
-
 
   render() {
 
-    const loader = <div className="loader"><center>Loading...</center></div>
+    const loader = <div className="loader"><center><img src={require('../../icons/Spinner.gif')}/></center></div>
     let itemViews = []
-    this.state.currentPosts.map((post) => {
-      itemViews.push( <div><PostPreview post={post} /></div> )
-    })
+    if (this.state.currentPosts.length > 0) {
+      this.state.currentPosts.map((post) => {
+        itemViews.push( <div><PostPreview post={post} /></div> )
+      })
+    }
+
       return (
           <InfiniteScroll
               pageStart={0}
@@ -137,21 +86,6 @@ class PhaseView extends React.Component {
 
           </InfiniteScroll>
       );
-
-
-    // return (
-    //   <div>
-    //     {this.state.allPosts.map((post, index) => {
-    //       return (
-    //         <div>
-    //           <PostPreview
-    //             post={post}
-    //           />
-    //         </div>
-    //       )
-    //     })}
-    //   </div>
-    // )
   }
 }
 

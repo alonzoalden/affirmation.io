@@ -52,9 +52,7 @@ class PostPreview extends React.Component {
         badgeContent={num}
         primary={true}
       >
-
-          <SentimentVerySatisfied />
-
+        <SentimentVerySatisfied />
       </Badge>
     );
   }
@@ -124,7 +122,7 @@ class PostPreview extends React.Component {
       marginRight: 20,
     };
     const mainStyle = this.state.hover ? hoverCardStyle : cardStyle
-    let advice = this.props.post.message.slice(0, 200).concat('...')
+    let advice = this.props.post.message.slice(0, 200)
     let that = this
     let currentPath = '/' + this.props.post.phase + '/'
 
@@ -143,7 +141,7 @@ class PostPreview extends React.Component {
                 subtitle={this.props.post.user.job + ' - ' + this.props.post.user.location}
                 avatar={this.props.post.anon ? "https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg" : this.props.post.user.avatar}
               />
-            <Divider />
+            <Divider style={{marginTop: -25}}/>
               <Editor
                 style={title}
                 text={this.props.post.title}
@@ -151,7 +149,7 @@ class PostPreview extends React.Component {
               />
               <Editor
                 style={message}
-                text={advice + '...'}
+                text={advice}
                 options={{disableEditing: true, toolbar: false }}
               />
             <Divider />
