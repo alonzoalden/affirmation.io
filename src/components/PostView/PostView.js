@@ -27,6 +27,7 @@ import Dialog from 'material-ui/Dialog';
 require('medium-editor/dist/css/medium-editor.css');
 require('medium-editor/dist/css/themes/default.css');
 import {connectProfile} from '../../auth';
+import Avatar from 'material-ui/Avatar';
 
 class PostView extends React.Component {
   constructor(props) {
@@ -37,6 +38,8 @@ class PostView extends React.Component {
       snackHelpful: false,
       snackUnhelpful: false,
       dialogOpen: false,
+      deleting: false,
+      updating: false
     }
   }
 
@@ -57,7 +60,9 @@ class PostView extends React.Component {
       userVote: this.props.sentiment,
       userFlagged: this.props.flags,
       userFavorites: this.props.favorites,
-      authUser:  this.props.authUser
+      authUser:  this.props.authUser,
+      title: this.props.post.title,
+      message: this.props.post.message
     });
     console.log('PROPS:', this.props);
   }
@@ -284,14 +289,19 @@ class PostView extends React.Component {
     return this.state.authUser.email === this.props.post.userEmail;
   }
 
-  renderDelete() {
+  renderUserControls() {
+    const rightIcon = {
+      paddingTop: 35,
+      paddingRight: 0
+    };
     if(this.checkUser()) {
       return (
-        <IconMenu
-          iconButtonElement={<IconButton><HorizontalDots /></IconButton>}
+        <IconMenu style={rightIcon}
+          iconButtonElement={<IconButton data-tip='More'><HorizontalDots /></IconButton>}
           anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
           targetOrigin={{horizontal: 'left', vertical: 'top'}}>
           <MenuItem primaryText="Delete This Post" onClick={this.deletePost.bind(this)}/>
+          <MenuItem primaryText="Update Post" onClick={this.submitEdit.bind(this)}/>
         </IconMenu>
       );
     }
@@ -303,7 +313,10 @@ class PostView extends React.Component {
     .then(() => {
       // post should be deleted
       console.log('post was deleted!');
-      this.setState({dialogOpen: true});
+      this.setState({
+        deleting: true,
+        dialogOpen: true
+      });
       setTimeout(() => {
         this.context.router.push(`/${this.props.post.phase}`);
       }, 2500);
@@ -313,18 +326,37 @@ class PostView extends React.Component {
     })
   }
 
-  render() {
-    const cardStyle = {
-      width: 700,
-      margin: 20,
-      marginTop: 0,
-      overflow: 'auto',
-    };
-    const center = {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    };
+  titleChangeHandler(text, medium) {
+    this.setState({title: text});
+  }
+
+  messageChangeHandler(text, medium) {
+    this.setState({message: text});
+  }
+
+  submitEdit(){
+    return axios.put('/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/' + this.state.authUser.email, {
+      phase: this.props.post.phase,
+      title: this.state.title,
+      message: this.state.message,
+      anon: this.props.post.anon
+    })
+    .then(()=>{
+      console.log('Put request successful!');
+      this.setState({
+        updating: true,
+        dialogOpen: true
+      });
+      setTimeout(() => {
+        this.context.router.push(`/${this.props.post.phase}`);
+      }, 2500);
+    })
+    .catch((err)=>{
+      console.log('Put request error: ', err)
+    });
+  }
+
+  renderEditor(){
     const title = {
       fontSize: 40,
       paddingTop: 15,
@@ -340,8 +372,62 @@ class PostView extends React.Component {
       lineHeight: 1.1,
       fontFamily: 'Roboto'
     };
+    if (this.checkUser()){
+      return (
+        <div>
+        <Editor
+          data-placeholder='Title'
+          className='glowing-border'
+          style={title}
+          text={this.props.post.title}
+          onChange={this.titleChangeHandler.bind(this)}
+          options={{toolbar: false, placeholder: { hideOnClick: false}}}
+        />
+        <Editor
+          data-placeholder='Write advice here...'
+          className='glowing-border'
+          style={message}
+          text={this.props.post.title}
+          onChange={this.messageChangeHandler.bind(this)}
+          options={{toolbar: {buttons: ['bold', 'italic', 'underline', 'h2', 'h3', 'quote']}, placeholder: { hideOnClick: false}}}
+        />
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <Editor
+            style={title}
+            text={this.props.post.title}
+            options={{disableEditing: true, toolbar: false }}
+          />
+          <Editor
+            style={message}
+            text={this.props.post.message}
+            options={{disableEditing: true, toolbar: false }}
+          />
+        </div>
+      )
+    }
+  }
+
+  render() {
+    const cardStyle = {
+      width: 750,
+      margin: 20,
+      marginTop: 0,
+      overflow: 'auto',
+    };
+    const center = {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    };
     const titleStyles = {
       marginTop: 43,
+      padding: 0
+    };
+    const subtitleStyles = {
       padding: 0
     };
     const cardHeader = {
@@ -352,9 +438,10 @@ class PostView extends React.Component {
     };
     const icons = {
       paddingTop: 35,
-      marginRight: 0,
+      // marginRight: 20,
       paddingRight: 0
     };
+
     const tooltip = {
       fontFamily: 'Roboto'
     };
@@ -369,9 +456,10 @@ class PostView extends React.Component {
                 className='float'
                 style={cardHeader}
                 titleStyle={titleStyles}
+                subtitleStyle={subtitleStyles}
                 title={this.props.post.anon ? 'Anonymous' : this.props.post.user.name}
                 subtitle={this.props.post.user.job + ' - ' + this.props.post.user.location}
-                avatar={this.props.post.user.avatar}
+                avatar={<Avatar size={60} src={this.props.post.user.avatar}/>}
               >
               <Badge
                 badgeContent={this.state.helpful}
@@ -409,19 +497,10 @@ class PostView extends React.Component {
                   <ReportProblem />
                 </IconButton>
               </Badge>
-              {this.renderDelete()}
+              {this.renderUserControls()}
               </CardHeader><br />
             <Divider />
-              <Editor
-                style={title}
-                text={this.props.post.title}
-                options={{disableEditing: true, toolbar: false }}
-              />
-              <Editor
-                style={message}
-                text={this.props.post.message}
-                options={{disableEditing: true, toolbar: false }}
-              />
+            {this.renderEditor()}
               <Snackbar
                 open={this.state.snackFlag}
                 message="If it's that bad just delete it..."
@@ -446,18 +525,6 @@ class PostView extends React.Component {
                   place='bottom'
                   style={tooltip}
                 />
-                <ReactTooltip
-                  place='bottom'
-                  style={tooltip}
-                />
-                <ReactTooltip
-                  place='bottom'
-                  style={tooltip}
-                />
-                <ReactTooltip
-                  place='bottom'
-                  style={tooltip}
-                />
             </Card>
           </div>
         </div>
@@ -466,7 +533,8 @@ class PostView extends React.Component {
           modal={false}
           open={this.state.dialogOpen}
           >
-          Your affirmation is now deleted! Thank you for your contributions!
+          {this.state.deleting ? 'Your affirmation is now deleted! Thank you for your contributions!' : 'Your affirmation is now updated! Thank you for your contributions!'}
+          
         </Dialog>
         <div style={center}>
           <div style={{ margin: 20 }}>
