@@ -4,6 +4,8 @@ import Auth0Lock from 'auth0-lock';
 import './Home.css';
 import './Animate.css';
 import {isLoggedIn} from '../auth';
+import Paper from 'material-ui/Paper';
+
 class Home extends Component {
   static propTypes = {
     ...connectProfile.PropTypes
@@ -29,34 +31,49 @@ class Home extends Component {
   // </h3>
   render() {
     const text = {
-      marginTop: 120
+      marginTop: 50
+    };
+    const learn = {
+      marginTop: 90,
+      fontSize: 34,
+      fontWeight: 'bold'
     };
     const main = {
-      marginTop: 160
+      marginTop: 200,
+      color: '#fff'
     };
     const icon = {
-      height: 120,
-      width: 120,
-      marginTop: 180
+      height: 100,
+      width: 100,
+      marginTop: 110
+    };
+    const iconLast = {
+      height: 100,
+      width: 100,
+      marginTop: 125
     };
     const auth = {
-      paddingTop: 110,
+      paddingTop: 150,
       paddingLeft: 15
     };
     const github = {
-      color: '#867DCC',
+      color: '#fff',
       textDecoration: 'none'
     };
     const onTheJob = {
-      marginTop: 95
+      marginTop: 50,
     };
+    // const paper = {
+    //   height: 300,
+    //   width: 500
+    // };
     return (
       <div>
         <div className="row">
           <div className="col-xs-12">
             <div className="alert alert-info main" role="alert">
               <div className="col-sm-4 col-sm-offset-2">
-                <h1 style={main}>Candid Advice from Experienced Software Engineers</h1>
+                <h4 style={main}>Candid Advice from Experienced Software Engineers</h4>
               </div>
               <div style={auth} className="col-xs-3 col-xs-offset-1">
                 <div id="hiw-login-container"></div>
@@ -66,15 +83,26 @@ class Home extends Component {
         </div>
       <div className="row">
         <div className="col-xs-12">
+          <div className="alert alert-success learn" role="alert">
+            <div className="col-xs-6 col-xs-offset-3">
+              <h1 style={learn}>Great advice for great talent</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-xs-12">
           <div className="alert alert-success" role="alert">
             <div className="col-xs-4 col-xs-offset-2">
+            
               <h1 style={text}>Want to learn?</h1>
               <h3>
                 Are you thinking about learning to write code? Does the field of software engineering excite you? We know that it may be challenging to find out where to begin and what path to take. Let the advice from experienced software engineers guide you on the beginning of your journey!
               </h3>
+          
             </div>
             <div className="col-xs-3 col-xs-offset-2">
-              <img className='tossing' style={icon} src={require('../icons/rocket.png')}/>
+              <img className='tossing' style={icon} src={require('../icons/preview.jpg')}/>
             </div>
           </div>
         </div>
@@ -83,7 +111,7 @@ class Home extends Component {
         <div className="col-xs-12">
           <div className="alert alert-info" role="alert">
             <div className="col-xs-3 col-xs-offset-3">
-              <img className='tossing' style={icon} src={require('../icons/laptop.png')}/>
+              <img className='tossing' style={icon} src={require('../icons/preview.jpg')}/>
             </div>
             <div className="col-xs-4">
               <h1 style={text}>Learning to code?</h1>
@@ -104,22 +132,40 @@ class Home extends Component {
                 </h3>
             </div>
             <div className="col-xs-3 col-xs-offset-2">
-              <img className='tossing' style={icon} src={require('../icons/briefcase.png')}/>
+              <img className='tossing' style={icon} src={require('../icons/preview.jpg')}/>
             </div>
           </div>
         </div>
       </div>
       <div className="row">
         <div className="col-xs-12">
-          <div className="alert alert-info" role="alert">
+          <div className="alert alert-info last" role="alert">
             <div className="col-xs-3 col-xs-offset-3">
-              <img className='tossing' style={icon} src={require('../icons/certification.png')}/>
+              <img className='tossing' style={iconLast} src={require('../icons/preview.jpg')}/>
             </div>
             <div className="col-xs-4">
               <h1 style={onTheJob}>On the job?</h1>
                 <h3>
                   You've made it! But the journey has just begun. Are you curious as to how to effectively navigate the workspace? Would you like to know how to get the most out of this opportunity? Let the advice from experienced software engineers guide you in not only making your employer happy, but also to make sure that your learning never stops!
                 </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-xs-12">
+          <div className="alert grey" role="alert">
+            <div className="col-xs-6 col-xs-offset-3">
+              <h1 style={learn}></h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-xs-12">
+          <div className="alert blue" role="alert">
+            <div className="col-xs-6 col-xs-offset-3">
+              <h1 style={learn}></h1>
             </div>
           </div>
         </div>
