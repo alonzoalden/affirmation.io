@@ -132,34 +132,35 @@ class EditProfile extends Component {
     //   opacity: 0,
     // };
     const buttonStyle = {
-      backgroundColor: '#FFDB77'
+      backgroundColor: '#0093FF',
+      fontFamily: 'Nunito'
     };
     return (
       <Card style={cardStyle} zDepth={1}>
         <CardHeader style={{backgroundColor: 'white'}}
           title={<InlineEdit style={{width: '100%'}} text={profile.name}
           paramName="name" change={this.handleProfileEdit.bind(this, 'name')} />}
-          titleStyle={{fontFamily: 'Nunito', color: '#867DCC', fontSize: 26}}/>
+          titleStyle={{fontFamily: 'Nunito', color: '#0093FF', fontSize: 26}}/>
         />
         <div style={{height: 275, width: 275}}>
           <Avatar src={profile.avatar} size={275} style={{borderRadius: 3}}/>
         </div>
         <CardText style={{fontFamily: 'Nunito'}}>
           <span>
-            <strong style={{color: '#867DCC'}}>Job: </strong>
+            <strong style={{color: '#0093FF'}}>Job: </strong>
             <InlineEdit text={profile.job} paramName="job"
               change={this.handleProfileEdit.bind(this, 'job')}
             />
           </span>
           <br />
           <span>
-            <strong style={{color: '#867DCC'}}>Location: </strong>
+            <strong style={{color: '#0093FF'}}>Location: </strong>
             <InlineEdit text={profile.location} paramName="location"
               change={this.handleProfileEdit.bind(this, 'location')}
             />
           </span>
-          <h3 style={{color: '#867DCC'}}><strong>About Me</strong></h3>
-          <Divider style={{backgroundColor: '#867DCC'}}/>
+          <h3 style={{color: '#0093FF'}}><strong>About Me</strong></h3>
+          <Divider style={{backgroundColor: '#0093FF'}}/>
           <br />
           <Editor text={profile.about} onChange={this.handleMediumEdit.bind(this, 'about')}
             options={{disableEditing: false, toolbar: false}} />
@@ -167,9 +168,10 @@ class EditProfile extends Component {
         </CardText>
         <BottomNavigation style={buttonStyle}>
           <BottomNavigationItem
-            label="Update Profile"
+            label={<span style={{ color: 'white', fontFamily: 'Nunito' }}>UPDATE PROFILE</span>}
             labelPosition="before"
-            icon={<Refresh />}
+            icon={<Refresh color="white" />}
+            style={{ color: 'white' }}
             onClick={this.handleSubmit.bind(this)}
             />
         </BottomNavigation>
@@ -303,7 +305,7 @@ class EditProfile extends Component {
       overflow: 'auto',
     };
     const barStyle = {
-      backgroundColor: '#867DCC',
+      backgroundColor: '#0093FF',
       fontFamily: 'Nunito',
     };
 
@@ -320,7 +322,7 @@ class EditProfile extends Component {
         <div className="col-md-6 col-md-offset-1">
           <div style={centerPaper}>
             <Paper style={paperStyle} zDepth={1}>
-              <Tabs inkBarStyle={{backgroundColor: '#FFDB77'}}>
+              <Tabs inkBarStyle={{backgroundColor: '#B3D4FC'}}>
                 <Tab style={barStyle} label="Affirmations" icon={<Face />}>
                   {this.renderPostList()}
                 </Tab>
