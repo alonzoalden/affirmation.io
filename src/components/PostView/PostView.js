@@ -1,17 +1,16 @@
  /**
-*
 * PostView
-*
 */
 import React, { PropTypes } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router';
 import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import Badge from 'material-ui/Badge';
 import SentimentVerySatisfied from 'material-ui/svg-icons/social/sentiment-very-satisfied';
 import SentimentVeryDissatisfied from 'material-ui/svg-icons/social/sentiment-very-dissatisfied';
-import ReportProblem from 'material-ui/svg-icons/action/report-problem';
-import Favorite from 'material-ui/svg-icons/action/favorite';
+import ErrorOutline from 'material-ui/svg-icons/alert/error-outline';
+import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 import Delete from 'material-ui/svg-icons/action/delete';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -24,8 +23,8 @@ import ReactTooltip from 'react-tooltip';
 import './PostView.css';
 import DisqusComments from '../Comments.js';
 import Dialog from 'material-ui/Dialog';
-require('medium-editor/dist/css/medium-editor.css');
-require('medium-editor/dist/css/themes/default.css');
+import 'medium-editor/dist/css/medium-editor.css';
+import 'medium-editor/dist/css/themes/default.css';
 import {connectProfile} from '../../auth';
 import Avatar from 'material-ui/Avatar';
 
@@ -64,7 +63,6 @@ class PostView extends React.Component {
       title: this.props.post.title,
       message: this.props.post.message
     });
-    console.log('PROPS:', this.props);
   }
 
   isHelpful() { //unclicking helpful
@@ -308,10 +306,8 @@ class PostView extends React.Component {
   }
 
   deletePost() {
-    // const that = this;
     axios.delete('/api/posts/' + this.props.post.phase + '/' + this.props.post.id + '/' + this.props.post.userEmail)
     .then(() => {
-      // post should be deleted
       console.log('post was deleted!');
       this.setState({
         deleting: true,
@@ -411,6 +407,32 @@ class PostView extends React.Component {
     }
   }
 
+  renderNameLink() {
+    if (this.props.post.anon) {
+      return (
+        <span>Anonymous</span>
+      );
+    } else {
+      return (
+        <Link style={{textDecoration: 'none', color: 'black'}} to={`/profile/${this.props.post.user.email}`}>{this.props.post.user.name}</Link>
+      );
+    }
+  }
+
+  renderAvatarLink() {
+    if (this.props.post.anon) {
+      return (
+        <Avatar size={60} src="https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg" />
+      );
+    } else {
+      return (
+        <Link to={`/profile/${this.props.post.user.email}`}>
+          <Avatar size={60} src={this.props.post.user.avatar} />
+        </Link>
+      );
+    }
+  }
+
   render() {
     const cardStyle = {
       width: 750,
@@ -434,11 +456,9 @@ class PostView extends React.Component {
       marginTop: 0,
       padding: 0,
       paddingLeft: 20,
-      // paddingBottom: 20
     };
     const icons = {
       paddingTop: 35,
-      // marginRight: 20,
       paddingRight: 0
     };
 
@@ -457,10 +477,19 @@ class PostView extends React.Component {
                 style={cardHeader}
                 titleStyle={titleStyles}
                 subtitleStyle={subtitleStyles}
-                title={this.props.post.anon ? 'Anonymous' : this.props.post.user.name}
-                subtitle={this.props.post.user.job + ' - ' + this.props.post.user.location}
-                avatar={<Avatar size={60} src={this.props.post.user.avatar}/>}
+                title={this.renderNameLink()}
+                subtitle={this.props.post.anon ? 'Cyberspace' : this.props.post.user.job + ' - ' + this.props.post.user.location}
+                avatar={this.renderAvatarLink()}
               >
+              <Badge
+                badgeContent={this.state.favorites}
+                primary={true}
+                badgeStyle={{top: 35, right: 8}}
+                >
+                <IconButton style={icons} data-tip="You love this affirmation" onClick={this.favorite.bind(this)}>
+                  <FavoriteBorder />
+                </IconButton>
+              </Badge>
               <Badge
                 badgeContent={this.state.helpful}
                 primary={true}
@@ -480,27 +509,18 @@ class PostView extends React.Component {
                 </IconButton>
               </Badge>
               <Badge
-                badgeContent={this.state.favorites}
-                primary={true}
-                badgeStyle={{top: 35, right: 8}}
-              >
-                <IconButton style={icons} data-tip="You love this affirmation" onClick={this.favorite.bind(this)}>
-                  <Favorite />
-                </IconButton>
-              </Badge>
-              <Badge
                 badgeContent={this.state.flags}
                 primary={true}
                 badgeStyle={{top: 35, right: 8}}
               >
                 <IconButton style={icons} data-tip="This affirmation contains hate or vulgar content" onClick={this.flag.bind(this)}>
-                  <ReportProblem />
+                  <ErrorOutline />
                 </IconButton>
               </Badge>
               {this.renderUserControls()}
               </CardHeader><br />
-            <Divider />
-            {this.renderEditor()}
+              <Divider />
+              {this.renderEditor()}
               <Snackbar
                 open={this.state.snackFlag}
                 message="If it's that bad just delete it..."
@@ -534,7 +554,6 @@ class PostView extends React.Component {
           open={this.state.dialogOpen}
           >
           {this.state.deleting ? 'Your affirmation is now deleted! Thank you for your contributions!' : 'Your affirmation is now updated! Thank you for your contributions!'}
-          
         </Dialog>
         <div style={center}>
           <div style={{ margin: 20, marginTop: 0 }}>

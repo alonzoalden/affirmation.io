@@ -16,10 +16,9 @@ import IconButton from 'material-ui/IconButton';
 import ReportProblem from 'material-ui/svg-icons/action/report-problem';
 import Divider from 'material-ui/Divider';
 import Editor from 'react-medium-editor';
-
-
-require('medium-editor/dist/css/medium-editor.css');
-require('medium-editor/dist/css/themes/default.css');
+import 'medium-editor/dist/css/medium-editor.css';
+import 'medium-editor/dist/css/themes/default.css';
+import Avatar from 'material-ui/Avatar';
 
 class PostPreview extends React.Component {
   constructor(props) {
@@ -90,6 +89,32 @@ class PostPreview extends React.Component {
     )
   }
 
+  renderNameLink() {
+    if (this.props.post.anon) {
+      return (
+        <span>Anonymous</span>
+      );
+    } else {
+      return (
+        <Link style={{textDecoration: 'none', color: 'black'}} to={`/profile/${this.props.post.user.email}`}>{this.props.post.user.name}</Link>
+      );
+    }
+  }
+
+  renderAvatarLink() {
+    if (this.props.post.anon) {
+      return (
+        <Avatar size={60} src="https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg" />
+      );
+    } else {
+      return (
+        <Link to={`/profile/${this.props.post.user.email}`}>
+          <Avatar size={60} src={this.props.post.user.avatar} />
+        </Link>
+      );
+    }
+  }
+
   render() {
     const cardStyle = {
       width: 600,
@@ -137,9 +162,9 @@ class PostPreview extends React.Component {
               onMouseLeave={that.onMouseLeaveHandler}
             >
               <CardHeader
-                title={this.props.post.anon ? 'Anonymous' : this.props.post.user.name}
-                subtitle={this.props.post.user.job + ' - ' + this.props.post.user.location}
-                avatar={this.props.post.anon ? "https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg" : this.props.post.user.avatar}
+                title={this.renderNameLink()}
+                subtitle={this.props.post.anon ? 'Cyberspace' : this.props.post.user.job + ' - ' + this.props.post.user.location}
+                avatar={this.renderAvatarLink()}
               />
             <Divider style={{marginTop: -25}}/>
               <Editor
