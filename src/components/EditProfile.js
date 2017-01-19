@@ -20,9 +20,10 @@ import InlineEdit from 'react-edit-inline';
 import FlatButton from 'material-ui/FlatButton';
 import Refresh from 'material-ui/svg-icons/navigation/refresh';
 import Editor from 'react-medium-editor';
-require('medium-editor/dist/css/medium-editor.css');
-require('medium-editor/dist/css/themes/default.css');
+import 'medium-editor/dist/css/medium-editor.css';
+import 'medium-editor/dist/css/themes/default.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import LinearProgress from 'material-ui/LinearProgress';
 injectTapEventPlugin();
 
 class EditProfile extends Component {
@@ -144,7 +145,7 @@ class EditProfile extends Component {
           <Avatar src={profile.avatar} size={275} style={{borderRadius: 3}}/>
         </div>
         <CardText style={{fontFamily: 'Nunito'}}>
-          <span style={{fontSize: 22}}>
+          <span>
             <strong style={{color: '#867DCC'}}>Job: </strong>
             <InlineEdit text={profile.job} paramName="job"
               change={this.handleProfileEdit.bind(this, 'job')}
@@ -206,7 +207,7 @@ class EditProfile extends Component {
     const profile = this.state.userProfile;
     if (profile) {
       return (
-        <div>
+        <div style={{ marginTop: -8 }}>
           <List>
           {profile.posts.map((post) => {
             if (!post.anon) {
@@ -228,9 +229,9 @@ class EditProfile extends Component {
                       secondaryText={<Editor text={post.message}
                         options={{disableEditing: true, toolbar: false }} />}
                       secondaryTextLines={2}
-                      />
+                    />
                   </Link>
-                  <Divider inset={true} />
+                  <Divider />
                 </div>
               )
             }
@@ -242,10 +243,9 @@ class EditProfile extends Component {
   }
 
   renderFavoriteList() {
-    const profile = this.state.userProfile
     if (this.state.allFaves) {
       return (
-        <div>
+        <div style={{ marginTop: -8 }}>
           <List>
           {this.state.allPosts.map((post) => {
             if(this.state.allFaves[post.id]) {
@@ -269,7 +269,7 @@ class EditProfile extends Component {
                       secondaryTextLines={2}
                     />
                   </Link>
-                  <Divider inset={true} />
+                  <Divider />
                 </div>
               )
             }
@@ -288,9 +288,8 @@ class EditProfile extends Component {
 
   render() {
     const flexbox = {
-      display: '-webkit-flex',
-      display: '-ms-flexbox',
       display: 'flex',
+      justifyContent: 'center',
       overflow: 'hidden',
     };
     const centerPaper = {
@@ -307,21 +306,15 @@ class EditProfile extends Component {
       backgroundColor: '#867DCC',
       fontFamily: 'Nunito',
     };
-    const innerPaperStyle = {
-      fontFamily: 'Nunito',
-      overflow: 'auto'
-    };
 
     if (!this.state.userProfile) {
       return (
-        <div>
-          Loading Profile...
-        </div>
+        <div><LinearProgress mode="indeterminate" /></div>
       );
     }
     return (
-      <div className={flexbox}>
-        <div className="col-md-2 col-md-offset-2" style={{paddingTop: 42}}>
+      <div style={flexbox}>
+        <div className="col-md-2" style={{paddingTop: 42}}>
           {this.renderProfileCard()}
         </div>
         <div className="col-md-6 col-md-offset-1">
