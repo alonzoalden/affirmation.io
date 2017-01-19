@@ -236,7 +236,7 @@ class Site extends Component {
       <div className="Site">
         <Toolbar style={splashBarStyle}>
           <ToolbarGroup firstChild={true}>
-            <h2 style={splashPaddedTitleStyle}>AFFIRMATION.io</h2>
+            <h2 style={splashPaddedTitleStyle}>AFFIRMATION</h2>
           </ToolbarGroup>
         </Toolbar>
         <div className="Site-page">

@@ -55,6 +55,10 @@ h2 {
 
 .Site-page {
   /*padding: 10px;*/
+  background: #66beff; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #66beff , #FFFFFF); /* Chrome 10-25, Safari 5.1-6 */
+  background-color: linear-gradient(to left, #66beff , #FFFFFF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-image: url(https://www.transparenttextures.com/patterns/light-wool.png);
 }
 
 @keyframes Site-logo-spin {
