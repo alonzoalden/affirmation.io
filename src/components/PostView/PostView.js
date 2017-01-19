@@ -289,7 +289,6 @@ class PostView extends React.Component {
 
   renderUserControls() {
     const rightIcon = {
-      paddingTop: 35,
       paddingRight: 0
     };
     if(this.checkUser()) {
@@ -414,7 +413,7 @@ class PostView extends React.Component {
       );
     } else {
       return (
-        <Link style={{textDecoration: 'none', color: 'black'}} to={`/profile/${this.props.post.user.email}`}>{this.props.post.user.name}</Link>
+        <Link style={{textDecoration: 'none', color: 'black'}} to={`/profile/${window.btoa(this.props.post.user.email)}`}>{this.props.post.user.name}</Link>
       );
     }
   }
@@ -426,7 +425,7 @@ class PostView extends React.Component {
       );
     } else {
       return (
-        <Link to={`/profile/${this.props.post.user.email}`}>
+        <Link to={`/profile/${window.btoa(this.props.post.user.email)}`}>
           <Avatar size={60} src={this.props.post.user.avatar} />
         </Link>
       );
@@ -446,79 +445,77 @@ class PostView extends React.Component {
       justifyContent: 'center',
     };
     const titleStyles = {
-      marginTop: 43,
+      marginTop: 20,
       padding: 0
     };
     const subtitleStyles = {
       padding: 0
     };
     const cardHeader = {
-      marginTop: 0,
+      marginTop: 5,
       padding: 0,
-      paddingLeft: 20,
-    };
-    const icons = {
-      paddingTop: 35,
-      paddingRight: 0
+      marginBottom: -20
     };
 
     const tooltip = {
       fontFamily: 'Roboto'
     };
     return (
-      <div style={{backgroundColor: 'white'}}>
+      <div>
         <div style={center}>
           <div style={{ margin: 30 }}>
             <Card
               style={cardStyle}
             >
+            <div style={center}>
               <CardHeader
                 className='float'
                 style={cardHeader}
                 titleStyle={titleStyles}
                 subtitleStyle={subtitleStyles}
                 title={this.renderNameLink()}
-                subtitle={this.props.post.anon ? 'Cyberspace' : this.props.post.user.job + ' - ' + this.props.post.user.location}
+                subtitle={this.props.post.anon ? 'Affirmation Alliance' : this.props.post.user.job}
                 avatar={this.renderAvatarLink()}
               >
               <Badge
                 badgeContent={this.state.favorites}
                 primary={true}
-                badgeStyle={{top: 35, right: 8}}
+                badgeStyle={{top: 12, right: 12}}
                 >
-                <IconButton style={icons} data-tip="You love this affirmation" onClick={this.favorite.bind(this)}>
+                <IconButton data-tip="You love this affirmation" onClick={this.favorite.bind(this)}>
                   <FavoriteBorder />
                 </IconButton>
               </Badge>
               <Badge
                 badgeContent={this.state.helpful}
                 primary={true}
-                badgeStyle={{top: 35, right: 8}}
+                badgeStyle={{top: 12, right: 12}}
               >
-                <IconButton style={icons} data-tip="This affirmation is helpful" onClick={this.isHelpful.bind(this)}>
+                <IconButton data-tip="This affirmation is helpful" onClick={this.isHelpful.bind(this)}>
                   <SentimentVerySatisfied />
                 </IconButton>
               </Badge>
               <Badge
                 badgeContent={this.state.unhelpful}
                 primary={true}
-                badgeStyle={{top: 35, right: 8}}
+                badgeStyle={{top: 12, right: 12}}
               >
-                <IconButton style={icons} data-tip="This affirmation is unhelpful" onClick={this.isUnhelpful.bind(this)}>
+                <IconButton data-tip="This affirmation is unhelpful" onClick={this.isUnhelpful.bind(this)}>
                   <SentimentVeryDissatisfied />
                 </IconButton>
               </Badge>
               <Badge
                 badgeContent={this.state.flags}
                 primary={true}
-                badgeStyle={{top: 35, right: 8}}
+                badgeStyle={{top: 12, right: 12}}
               >
-                <IconButton style={icons} data-tip="This affirmation contains hate or vulgar content" onClick={this.flag.bind(this)}>
+                <IconButton data-tip="This affirmation contains hate or vulgar content" onClick={this.flag.bind(this)}>
                   <ErrorOutline />
                 </IconButton>
               </Badge>
               {this.renderUserControls()}
-              </CardHeader><br />
+              </CardHeader>
+            </div>
               <Divider />
               {this.renderEditor()}
               <Snackbar
@@ -556,8 +553,8 @@ class PostView extends React.Component {
           {this.state.deleting ? 'Your affirmation is now deleted! Thank you for your contributions!' : 'Your affirmation is now updated! Thank you for your contributions!'}
         </Dialog>
         <div style={center}>
-          <div style={{ margin: 20, marginTop: 0 }}>
-            <div style={{ width: 750, margin: 20, marginTop: 0 }}>
+          <div style={{ margin: 20, marginTop: 0, backgroundColor: 'white' }}>
+            <div style={{ width: 710, margin: 20, marginTop: 0 }}>
               <DisqusComments
                 postUrl={`https://localhost:3000/${this.props.post.phase}/${this.props.post.id}`}
                 post={`${this.props.post.phase}/${this.props.post.id}`}

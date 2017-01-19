@@ -96,7 +96,7 @@ class PostPreview extends React.Component {
       );
     } else {
       return (
-        <Link style={{textDecoration: 'none', color: 'black'}} to={`/profile/${this.props.post.user.email}`}>{this.props.post.user.name}</Link>
+        <Link style={{textDecoration: 'none', color: 'black'}} to={`/profile/${window.btoa(this.props.post.user.email)}`}>{this.props.post.user.name}</Link>
       );
     }
   }
@@ -108,7 +108,7 @@ class PostPreview extends React.Component {
       );
     } else {
       return (
-        <Link to={`/profile/${this.props.post.user.email}`}>
+        <Link to={`/profile/${window.btoa(this.props.post.user.email)}`}>
           <Avatar size={60} src={this.props.post.user.avatar} />
         </Link>
       );
@@ -119,18 +119,19 @@ class PostPreview extends React.Component {
     const cardStyle = {
       width: 600,
       margin: 10,
-      overflow: 'auto',
     };
     const center = {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
     };
+    const headCenter = {
+      display: 'flex',
+      alignItems: 'center',
+    };
     const hoverCardStyle = {
       width: 600,
       margin: 10,
-      overflow: 'auto',
-      //backgroundColor: '#17FDFC',
     };
     const title = {
       fontSize: 40,
@@ -145,6 +146,17 @@ class PostPreview extends React.Component {
       lineHeight: 1.1,
       fontFamily: 'Roboto',
       marginRight: 20,
+    };
+    const titleStyles = {
+      marginTop: 12,
+      padding: 0
+    };
+    const subtitleStyles = {
+      padding: 0
+    };
+    const cardHeader = {
+      paddingTop: 10,
+      marginBottom: -15
     };
     const mainStyle = this.state.hover ? hoverCardStyle : cardStyle
     let advice = this.props.post.message.slice(0, 200)
@@ -161,11 +173,18 @@ class PostPreview extends React.Component {
               onMouseEnter={that.onMouseEnterHandler}
               onMouseLeave={that.onMouseLeaveHandler}
             >
+            <div style={headCenter}>
               <CardHeader
+                style={cardHeader}
+                titleStyle={titleStyles}
+                titleColor="#000000"
+                subtitleStyle={subtitleStyles}
+                subtitleColor="#000000"
                 title={this.renderNameLink()}
-                subtitle={this.props.post.anon ? 'Cyberspace' : this.props.post.user.job + ' - ' + this.props.post.user.location}
+                subtitle={this.props.post.anon ? 'Affirmation Alliance' : this.props.post.user.job}
                 avatar={this.renderAvatarLink()}
               />
+            </div>
             <Divider style={{marginTop: -25}}/>
               <Editor
                 style={title}
@@ -178,11 +197,15 @@ class PostPreview extends React.Component {
                 options={{disableEditing: true, toolbar: false }}
               />
             <Divider />
-              <CardActions>
+              <CardActions style={{ paddingBottom: 18 }}>
                 <Link to={currentPath + this.props.post.id}>
-                  <FlatButton label="Read More" style={{ marginTop: 15 }} />
+                  <FlatButton
+                    label="Read More"
+                    style={{ marginTop: 10, marginLeft: 10 }}
+                    hoverColor="#0093FF"
+                  />
                 </Link>
-                <div style={{ float: "right", marginRight: 20, marginTop: 5 }}> {this.isHelpful(this.props.post.helpful)} {this.isUnhelpful(this.props.post.unhelpful)} {this.isFavorite(this.props.post.favorites)} {this.isProblem(this.props.post.flag)}</div>
+                <div style={{ float: "right", marginRight: 20, marginTop: 5 }}> {this.isFavorite(this.props.post.favorites)}{this.isHelpful(this.props.post.helpful)} {this.isUnhelpful(this.props.post.unhelpful)}</div>
               </CardActions>
             </Card>
           </div>
