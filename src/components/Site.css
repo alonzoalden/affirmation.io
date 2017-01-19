@@ -75,4 +75,9 @@ body {
   height: 3px;
   left: 0;
   margin-top: 17px;
+
+#elevator-button {
+  position: fixed;
+  bottom: 10%;
+  left: 10%;
 }
