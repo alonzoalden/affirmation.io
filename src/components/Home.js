@@ -4,7 +4,8 @@ import Auth0Lock from 'auth0-lock';
 import './Home.css';
 import './Animate.css';
 import {isLoggedIn} from '../auth';
-import Paper from 'material-ui/Paper';
+// import Paper from 'material-ui/Paper';
+import $ from 'jquery'; 
 
 class Home extends Component {
   static propTypes = {
@@ -19,16 +20,24 @@ class Home extends Component {
     if (isLoggedIn()) {
       this.context.router.push('/dashboard');
     }
+
   }
   componentDidMount(){
     newLock();
+
+    //bulb
+    $(".livion-evo").addLiviconEvo({ name: "bulb.svg", style: "linesAlt", size: "180px", strokeStyle: "original", strokeWidth: "original", tryToSharpen: true, rotate: "none", flipHorizontal: false, flipVertical: false, strokeColor: "#0093FF", strokeColorAction: "#b3421b", strokeColorAlt: "#867dcc", strokeColorAltAction: "#ab69c6", fillColor: "#91e9ff", fillColorAction: "#ff926b", solidColor: "#6C7A89", solidColorAction: "#4C5A69", solidColorBg: "#ffffff", solidColorBgAction: "#ffffff", colorsOnHover: "none", colorsHoverTime: 0.3, colorsWhenMorph: "none", brightness: 0.1, saturation: 0.07, morphState: "start", morphImage: "none", allowMorphImageTransform: false, strokeWidthFactorOnHover: "none", strokeWidthOnHoverTime: 0.3, keepStrokeWidthOnResize: false, animated: true, eventType: "hover", eventOn: "self", autoPlay: true, delay: 0, duration: "default", repeat: "default", repeatDelay: "default", drawOnViewport: true, viewportShift: "oneThird", drawDelay: 0, drawTime: 1, drawStagger: 0.1, drawStartPoint: "middle", drawColor: "same", drawColorTime: 1, drawReversed: false, drawEase: "Power1.easeOut", eraseDelay: 0, eraseTime: 1, eraseStagger: 0.1, eraseStartPoint: "middle", eraseReversed: true, eraseEase: "Power1.easeOut", touchEvents: false});
+
+    // rocket
+    $(".livicon-evo").addLiviconEvo({ name: "rocket.svg", style: "linesAlt", size: "180px", strokeStyle: "original", strokeWidth: "original", tryToSharpen: true, rotate: "none", flipHorizontal: false, flipVertical: false, strokeColor: "#0093FF", strokeColorAction: "#b3421b", strokeColorAlt: "#867dcc", strokeColorAltAction: "#867dcc", fillColor: "#91e9ff", fillColorAction: "#ff926b", solidColor: "#6C7A89", solidColorAction: "#4C5A69", solidColorBg: "#ffffff", solidColorBgAction: "#ffffff", colorsOnHover: "none", colorsHoverTime: 0.3, colorsWhenMorph: "none", brightness: 0.1, saturation: 0.07, morphState: "start", morphImage: "none", allowMorphImageTransform: false, strokeWidthFactorOnHover: "none", strokeWidthOnHoverTime: 0.3, keepStrokeWidthOnResize: false, animated: true, eventType: "hover", eventOn: "self", autoPlay: true, delay: 0, duration: "default", repeat: "default", repeatDelay: "default", drawOnViewport: true, viewportShift: "oneThird", drawDelay: 0, drawTime: 1, drawStagger: 0.1, drawStartPoint: "middle", drawColor: "same", drawColorTime: 1, drawReversed: false, drawEase: "Power1.easeOut", eraseDelay: 0, eraseTime: 1, eraseStagger: 0.1, eraseStartPoint: "middle", eraseReversed: true, eraseEase: "Power1.easeOut", touchEvents: false});
+
+    // desktop
+    $(".livicon-evo").addLiviconEvo({ name: "desktop.svg", style: "linesAlt", size: "180px", strokeStyle: "original", strokeWidth: "original", tryToSharpen: true, rotate: "none", flipHorizontal: false, flipVertical: false, strokeColor: "#0093ff", strokeColorAction: "#b3421b", strokeColorAlt: "#867dcc", strokeColorAltAction: "#ab69c6", fillColor: "#91e9ff", fillColorAction: "#ff926b", solidColor: "#6C7A89", solidColorAction: "#4C5A69", solidColorBg: "#ffffff", solidColorBgAction: "#ffffff", colorsOnHover: "none", colorsHoverTime: 0.3, colorsWhenMorph: "none", brightness: 0.1, saturation: 0.07, morphState: "start", morphImage: "none", allowMorphImageTransform: false, strokeWidthFactorOnHover: "none", strokeWidthOnHoverTime: 0.3, keepStrokeWidthOnResize: false, animated: true, eventType: "hover", eventOn: "self", autoPlay: true, delay: 0, duration: "default", repeat: "default", repeatDelay: "default", drawOnViewport: true, viewportShift: "oneThird", drawDelay: 0, drawTime: 1, drawStagger: 0.1, drawStartPoint: "middle", drawColor: "same", drawColorTime: 1, drawReversed: false, drawEase: "Power1.easeOut", eraseDelay: 0, eraseTime: 1, eraseStagger: 0.1, eraseStartPoint: "middle", eraseReversed: true, eraseEase: "Power1.easeOut", touchEvents: false});
+
+    // plane
+    $(".livicon-evo").addLiviconEvo({ name: "paper-plane.svg", style: "linesAlt", size: "180px", strokeStyle: "original", strokeWidth: "original", tryToSharpen: true, rotate: "none", flipHorizontal: false, flipVertical: false, strokeColor: "#0093ff", strokeColorAction: "#b3421b", strokeColorAlt: "#867dcc", strokeColorAltAction: "#ab69c6", fillColor: "#91e9ff", fillColorAction: "#ff926b", solidColor: "#6C7A89", solidColorAction: "#4C5A69", solidColorBg: "#ffffff", solidColorBgAction: "#ffffff", colorsOnHover: "none", colorsHoverTime: 0.3, colorsWhenMorph: "none", brightness: 0.1, saturation: 0.07, morphState: "start", morphImage: "none", allowMorphImageTransform: false, strokeWidthFactorOnHover: "none", strokeWidthOnHoverTime: 0.3, keepStrokeWidthOnResize: false, animated: true, eventType: "hover", eventOn: "self", autoPlay: true, delay: 0, duration: "default", repeat: "default", repeatDelay: "default", drawOnViewport: true, viewportShift: "oneThird", drawDelay: 0, drawTime: 1, drawStagger: 0.1, drawStartPoint: "middle", drawColor: "same", drawColorTime: 1, drawReversed: false, drawEase: "Power1.easeOut", eraseDelay: 0, eraseTime: 1, eraseStagger: 0.1, eraseStartPoint: "middle", eraseReversed: true, eraseEase: "Power1.easeOut", touchEvents: false});
   }
-  // <h3>Whether you are exploring, learning, job hunting, or looking to
-  //   expand your seasoned career, you will inevitably face the unknown.
-  //   Obtain advice from profound experienced professionalsin the field
-  //   who have been in your shoes, to help you gain the confidence and
-  //   skills you need to succeed.
-  // </h3>
+
   render() {
     const text = {
       marginTop: 50
@@ -43,9 +52,11 @@ class Home extends Component {
       color: '#fff'
     };
     const icon = {
+      marginLeft: 17,
       height: 100,
       width: 100,
-      marginTop: 110
+      marginTop: 75,
+      marginBottom: 35,
     };
     const iconLast = {
       height: 100,
@@ -63,10 +74,14 @@ class Home extends Component {
     const onTheJob = {
       marginTop: 50,
     };
-    // const paper = {
-    //   height: 300,
-    //   width: 500
-    // };
+    const iconPlane = {
+      marginLeft: 5,
+      height: 100,
+      width: 100,
+      marginTop: 75,
+      marginBottom: 35,
+    };
+
     return (
       <div>
         <div className="row">
@@ -93,16 +108,15 @@ class Home extends Component {
       <div className="row">
         <div className="col-xs-12">
           <div className="alert alert-success" role="alert">
-            <div className="col-xs-4 col-xs-offset-2">
-            
-              <h1 style={text}>Want to learn?</h1>
-              <h3>
-                Are you thinking about learning to write code? Does the field of software engineering excite you? We know that it may be challenging to find out where to begin and what path to take. Let the advice from experienced software engineers guide you on the beginning of your journey!
-              </h3>
-          
-            </div>
-            <div className="col-xs-3 col-xs-offset-2">
-              <img className='tossing' style={icon} src={require('../icons/preview.jpg')}/>
+            <div className="col-xs-4 col-xs-offset-2">   
+            <h1 style={text}>Want to learn?</h1>
+            <h3>
+              Are you thinking about learning to write code? Does the field of software engineering excite you? We know that it may be challenging to find out where to begin and what path to take. Let the advice from experienced software engineers guide you on the beginning of your journey!
+            </h3>
+          </div>
+            <div className="col-xs-3 col-xs-offset-1">
+              <div className="livicon-evo" style={icon} data-options=" name: bulb.svg; style: linesAlt; size: 180px; strokeStyle: original; strokeWidth: original; tryToSharpen: true; rotate: none; flipHorizontal: false; flipVertical: false; strokeColor: #0093FF; strokeColorAction: #b3421b; strokeColorAlt: #867dcc; strokeColorAltAction: #ab69c6; fillColor: #91e9ff; fillColorAction: #ff926b; solidColor: #6C7A89; solidColorAction: #4C5A69; solidColorBgAction: #ffffff; solidColorBg: #ffffff; colorsOnHover: none; colorsHoverTime: 0.3; colorsWhenMorph: none; brightness: 0.1; saturation: 0.07; morphState: start; morphImage: none; allowMorphImageTransform: false; strokeWidthFactorOnHover: none; strokeWidthOnHoverTime: 0.3; keepStrokeWidthOnResize: false; animated: true; eventType: hover; eventOn: self; autoPlay: true; delay: 0; duration: default; repeat: default; repeatDelay: default; drawOnViewport: true; viewportShift: oneThird; drawDelay: 0; drawTime: 1; drawStagger: 0.1; drawStartPoint: middle; drawColor: same; drawColorTime: 1; drawReversed: false; drawEase: Power1.easeOut; eraseDelay: 0; eraseTime: 1; eraseStagger: 0.1; eraseStartPoint: middle; eraseReversed: true; eraseEase: Power1.easeOut; touchEvents: false ">
+              </div>
             </div>
           </div>
         </div>
@@ -111,7 +125,8 @@ class Home extends Component {
         <div className="col-xs-12">
           <div className="alert alert-info" role="alert">
             <div className="col-xs-3 col-xs-offset-3">
-              <img className='tossing' style={icon} src={require('../icons/preview.jpg')}/>
+              <div className="livicon-evo" style={icon} data-options=" name: rocket.svg; style: linesAlt; size: 180px; strokeStyle: original; strokeWidth: original; tryToSharpen: true; rotate: none; flipHorizontal: false; flipVertical: false; strokeColor: #0093FF; strokeColorAction: #b3421b; strokeColorAlt: #867dcc; strokeColorAltAction: #867dcc; fillColor: #91e9ff; fillColorAction: #ff926b; solidColor: #6C7A89; solidColorAction: #4C5A69; solidColorBgAction: #ffffff; solidColorBg: #ffffff; colorsOnHover: none; colorsHoverTime: 0.3; colorsWhenMorph: none; brightness: 0.1; saturation: 0.07; morphState: start; morphImage: none; allowMorphImageTransform: false; strokeWidthFactorOnHover: none; strokeWidthOnHoverTime: 0.3; keepStrokeWidthOnResize: false; animated: true; eventType: hover; eventOn: self; autoPlay: true; delay: 0; duration: default; repeat: default; repeatDelay: default; drawOnViewport: true; viewportShift: oneThird; drawDelay: 0; drawTime: 1; drawStagger: 0.1; drawStartPoint: middle; drawColor: same; drawColorTime: 1; drawReversed: false; drawEase: Power1.easeOut; eraseDelay: 0; eraseTime: 1; eraseStagger: 0.1; eraseStartPoint: middle; eraseReversed: true; eraseEase: Power1.easeOut; touchEvents: false ">
+              </div>
             </div>
             <div className="col-xs-4">
               <h1 style={text}>Learning to code?</h1>
@@ -131,8 +146,9 @@ class Home extends Component {
                   Are you looking for your dream job? Have you prepared for the personal and technical challenges that await you in the job hunting process? Let the advice from experienced software engineers help you crush every interview that will come your way!
                 </h3>
             </div>
-            <div className="col-xs-3 col-xs-offset-2">
-              <img className='tossing' style={icon} src={require('../icons/preview.jpg')}/>
+            <div className="col-xs-3 col-xs-offset-1">
+            <div className="livicon-evo" style={icon} data-options=" name: desktop.svg; style: linesAlt; size: 180px; strokeStyle: original; strokeWidth: original; tryToSharpen: true; rotate: none; flipHorizontal: false; flipVertical: false; strokeColor: #0093ff; strokeColorAction: #b3421b; strokeColorAlt: #867dcc; strokeColorAltAction: #ab69c6; fillColor: #91e9ff; fillColorAction: #ff926b; solidColor: #6C7A89; solidColorAction: #4C5A69; solidColorBgAction: #ffffff; solidColorBg: #ffffff; colorsOnHover: none; colorsHoverTime: 0.3; colorsWhenMorph: none; brightness: 0.1; saturation: 0.07; morphState: start; morphImage: none; allowMorphImageTransform: false; strokeWidthFactorOnHover: none; strokeWidthOnHoverTime: 0.3; keepStrokeWidthOnResize: false; animated: true; eventType: hover; eventOn: self; autoPlay: true; delay: 0; duration: default; repeat: default; repeatDelay: default; drawOnViewport: true; viewportShift: oneThird; drawDelay: 0; drawTime: 1; drawStagger: 0.1; drawStartPoint: middle; drawColor: same; drawColorTime: 1; drawReversed: false; drawEase: Power1.easeOut; eraseDelay: 0; eraseTime: 1; eraseStagger: 0.1; eraseStartPoint: middle; eraseReversed: true; eraseEase: Power1.easeOut; touchEvents: false ">
+            </div>
             </div>
           </div>
         </div>
@@ -141,7 +157,8 @@ class Home extends Component {
         <div className="col-xs-12">
           <div className="alert alert-info last" role="alert">
             <div className="col-xs-3 col-xs-offset-3">
-              <img className='tossing' style={iconLast} src={require('../icons/preview.jpg')}/>
+              <div className="livicon-evo" style={iconPlane} data-options=" name: paper-plane.svg; style: linesAlt; size: 180px; strokeStyle: original; strokeWidth: original; tryToSharpen: true; rotate: none; flipHorizontal: false; flipVertical: false; strokeColor: #0093ff; strokeColorAction: #b3421b; strokeColorAlt: #867dcc; strokeColorAltAction: #ab69c6; fillColor: #91e9ff; fillColorAction: #ff926b; solidColor: #6C7A89; solidColorAction: #4C5A69; solidColorBgAction: #ffffff; solidColorBg: #ffffff; colorsOnHover: none; colorsHoverTime: 0.3; colorsWhenMorph: none; brightness: 0.1; saturation: 0.07; morphState: start; morphImage: none; allowMorphImageTransform: false; strokeWidthFactorOnHover: none; strokeWidthOnHoverTime: 0.3; keepStrokeWidthOnResize: false; animated: true; eventType: hover; eventOn: self; autoPlay: true; delay: 0; duration: default; repeat: default; repeatDelay: default; drawOnViewport: true; viewportShift: oneThird; drawDelay: 0; drawTime: 1; drawStagger: 0.1; drawStartPoint: middle; drawColor: same; drawColorTime: 1; drawReversed: false; drawEase: Power1.easeOut; eraseDelay: 0; eraseTime: 1; eraseStagger: 0.1; eraseStartPoint: middle; eraseReversed: true; eraseEase: Power1.easeOut; touchEvents: false ">
+              </div>
             </div>
             <div className="col-xs-4">
               <h1 style={onTheJob}>On the job?</h1>
