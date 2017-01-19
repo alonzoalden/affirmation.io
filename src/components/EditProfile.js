@@ -20,9 +20,10 @@ import InlineEdit from 'react-edit-inline';
 import FlatButton from 'material-ui/FlatButton';
 import Refresh from 'material-ui/svg-icons/navigation/refresh';
 import Editor from 'react-medium-editor';
-require('medium-editor/dist/css/medium-editor.css');
-require('medium-editor/dist/css/themes/default.css');
+import 'medium-editor/dist/css/medium-editor.css';
+import 'medium-editor/dist/css/themes/default.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import LinearProgress from 'material-ui/LinearProgress';
 injectTapEventPlugin();
 
 class EditProfile extends Component {
@@ -131,34 +132,35 @@ class EditProfile extends Component {
     //   opacity: 0,
     // };
     const buttonStyle = {
-      backgroundColor: '#FFDB77'
+      backgroundColor: '#0093FF',
+      fontFamily: 'Nunito'
     };
     return (
       <Card style={cardStyle} zDepth={1}>
         <CardHeader style={{backgroundColor: 'white'}}
           title={<InlineEdit style={{width: '100%'}} text={profile.name}
           paramName="name" change={this.handleProfileEdit.bind(this, 'name')} />}
-          titleStyle={{fontFamily: 'Nunito', color: '#867DCC', fontSize: 26}}/>
+          titleStyle={{fontFamily: 'Nunito', color: '#0093FF', fontSize: 26}}/>
         />
         <div style={{height: 275, width: 275}}>
           <Avatar src={profile.avatar} size={275} style={{borderRadius: 3}}/>
         </div>
         <CardText style={{fontFamily: 'Nunito'}}>
-          <span style={{fontSize: 22}}>
-            <strong style={{color: '#867DCC'}}>Job: </strong>
+          <span>
+            <strong style={{color: '#0093FF'}}>Job: </strong>
             <InlineEdit text={profile.job} paramName="job"
               change={this.handleProfileEdit.bind(this, 'job')}
             />
           </span>
           <br />
           <span>
-            <strong style={{color: '#867DCC'}}>Location: </strong>
+            <strong style={{color: '#0093FF'}}>Location: </strong>
             <InlineEdit text={profile.location} paramName="location"
               change={this.handleProfileEdit.bind(this, 'location')}
             />
           </span>
-          <h3 style={{color: '#867DCC'}}><strong>About Me</strong></h3>
-          <Divider style={{backgroundColor: '#867DCC'}}/>
+          <h3 style={{color: '#0093FF'}}><strong>About Me</strong></h3>
+          <Divider style={{backgroundColor: '#0093FF'}}/>
           <br />
           <Editor text={profile.about} onChange={this.handleMediumEdit.bind(this, 'about')}
             options={{disableEditing: false, toolbar: false}} />
@@ -166,9 +168,10 @@ class EditProfile extends Component {
         </CardText>
         <BottomNavigation style={buttonStyle}>
           <BottomNavigationItem
-            label="Update Profile"
+            label={<span style={{ color: 'white', fontFamily: 'Nunito' }}>UPDATE PROFILE</span>}
             labelPosition="before"
-            icon={<Refresh />}
+            icon={<Refresh color="white" />}
+            style={{ color: 'white' }}
             onClick={this.handleSubmit.bind(this)}
             />
         </BottomNavigation>
@@ -206,7 +209,7 @@ class EditProfile extends Component {
     const profile = this.state.userProfile;
     if (profile) {
       return (
-        <div>
+        <div style={{ marginTop: -8 }}>
           <List>
           {profile.posts.map((post) => {
             if (!post.anon) {
@@ -228,9 +231,9 @@ class EditProfile extends Component {
                       secondaryText={<Editor text={post.message}
                         options={{disableEditing: true, toolbar: false }} />}
                       secondaryTextLines={2}
-                      />
+                    />
                   </Link>
-                  <Divider inset={true} />
+                  <Divider />
                 </div>
               )
             }
@@ -242,10 +245,9 @@ class EditProfile extends Component {
   }
 
   renderFavoriteList() {
-    const profile = this.state.userProfile
     if (this.state.allFaves) {
       return (
-        <div>
+        <div style={{ marginTop: -8 }}>
           <List>
           {this.state.allPosts.map((post) => {
             if(this.state.allFaves[post.id]) {
@@ -269,7 +271,7 @@ class EditProfile extends Component {
                       secondaryTextLines={2}
                     />
                   </Link>
-                  <Divider inset={true} />
+                  <Divider />
                 </div>
               )
             }
@@ -288,9 +290,8 @@ class EditProfile extends Component {
 
   render() {
     const flexbox = {
-      display: '-webkit-flex',
-      display: '-ms-flexbox',
       display: 'flex',
+      justifyContent: 'center',
       overflow: 'hidden',
     };
     const centerPaper = {
@@ -304,30 +305,24 @@ class EditProfile extends Component {
       overflow: 'auto',
     };
     const barStyle = {
-      backgroundColor: '#867DCC',
+      backgroundColor: '#0093FF',
       fontFamily: 'Nunito',
-    };
-    const innerPaperStyle = {
-      fontFamily: 'Nunito',
-      overflow: 'auto'
     };
 
     if (!this.state.userProfile) {
       return (
-        <div>
-          Loading Profile...
-        </div>
+        <div><LinearProgress mode="indeterminate" /></div>
       );
     }
     return (
-      <div className={flexbox}>
-        <div className="col-md-2 col-md-offset-2" style={{paddingTop: 42}}>
+      <div style={flexbox}>
+        <div className="col-md-2" style={{paddingTop: 42}}>
           {this.renderProfileCard()}
         </div>
         <div className="col-md-6 col-md-offset-1">
           <div style={centerPaper}>
             <Paper style={paperStyle} zDepth={1}>
-              <Tabs inkBarStyle={{backgroundColor: '#FFDB77'}}>
+              <Tabs inkBarStyle={{backgroundColor: '#B3D4FC'}}>
                 <Tab style={barStyle} label="Affirmations" icon={<Face />}>
                   {this.renderPostList()}
                 </Tab>
