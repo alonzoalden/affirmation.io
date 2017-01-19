@@ -55,7 +55,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
   static contextTypes = {
     router: PropTypes.object,
   };
-  
+
   handleRequestClose = () => {
     this.setState({
       open: false,
@@ -67,7 +67,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     .then((user) => {
       let name = user.data.user.name.split(' ');
       console.log('User: ', name);
-      this.setState({ 
+      this.setState({
         firstName: name[0][0],
         lastName: name[1][0]
        })
@@ -89,7 +89,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     const that = this;
     let isValid = true;
     let newErrors = {};
-    
+
     if (validator.isEmpty(that.state.title) || validator.equals(that.state.title, '<p><br></p>')){
       Object.assign(newErrors, {title: "You must add a title."});
       isValid = false;
@@ -98,7 +98,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       Object.assign(newErrors, {message: "You must add a message."});
       isValid = false;
     }
-    if (validator.isEmpty(that.state.checkPhase)) {
+    if (validator.isEmpty(that.state.checkPhase) || this.state.phase === "Phase") {
       Object.assign(newErrors, {message: "You must add a phase."});
       isValid = false;
     }
@@ -110,7 +110,6 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       });
       return;
     } else {
-      console.log(process.env.API_URL);
       that.setState({errors: {}});
       axios({
         method: 'post',
@@ -195,16 +194,19 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     const dropDown = {
       margin: 0,
       padding: 0,
-      marginRight: 0
+      marginRight: 0,
     };
+    const darkBlue = {
+      color: '#0093FF',
+    }
     return (
       <div>
-        <DropDownMenu value={this.state.value} onChange={this.phaseChangeHandler.bind(this)} style={dropDown} iconStyle={{fill: 'black'}}>
+        <DropDownMenu value={this.state.value} onChange={this.phaseChangeHandler.bind(this)} style={dropDown} iconStyle={{fill: 'white'}}>
           <MenuItem value='Phase' primaryText="Select Phase" />
-          <MenuItem value='wanttolearn' primaryText="Want to Learn" />
-          <MenuItem value='learningtocode' primaryText="Learning to Code" />
-          <MenuItem value='jobhunt' primaryText="Looking for a Job" />
-          <MenuItem value='onthejob' primaryText="Working as a Software Engineer" />
+          <MenuItem value='wanttolearn' style={darkBlue} primaryText="Want to Learn" />
+          <MenuItem value='learningtocode' style={darkBlue} primaryText="Learning to Code" />
+          <MenuItem value='jobhunt' style={darkBlue} primaryText="Looking for a Job" />
+          <MenuItem value='onthejob' style={darkBlue} primaryText="Working as a Software Engineer" />
         </DropDownMenu>
       </div>
     );
@@ -220,6 +222,10 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       <Toggle
         style={toggle}
         onToggle={this.toggleChangeHandler.bind(this)}
+        trackStyle={{backgroundColor: '#B3D4FC'}}
+        thumbStyle={{backgroundColor: '#B3D4FC'}}
+        trackSwitchedStyle={{backgroundColor: '#0093FF'}}
+        thumbSwitchedStyle={{backgroundColor: '#0093FF'}}
       />
     );
   }
@@ -268,7 +274,7 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
           >
           {(validator.isEmpty(that.state.title) || validator.equals(that.state.title, '<p><br></p>')) ? <div style={pop}>Your affirmation needs a title!</div> : null}
           {(validator.isEmpty(that.state.message) || validator.equals(that.state.message, '<p><br><p>')) ? <div style={pop}>Your affirmation needs some content, too!</div> : null}
-          {(this.state.phase === null || this.state.phase === "Phase") ? <div style={pop}>Don't forget to choose a phase!</div> : null}
+          {(this.state.phase === "Phase" || this.state.phase === null) ? <div style={pop}>Don't forget to choose a phase!</div> : null}
         </Popover>
       </div>
     )
@@ -303,13 +309,14 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       fontWeight: 'bold'
     };
     const button = {
-      backgroundColor: '#867dcc',
+      backgroundColor: '#0093FF',
       color: 'white',
       marginLeft: 0,
       marginRight: 0
     };
     const toolbar = {
-      marginTop: 20
+      marginTop: 20,
+      backgroundColor: '#0093FF'
     };
     const chip = {
       paddingLeft: 15,
@@ -322,12 +329,12 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
         <Toolbar style={toolbar}>
           <ToolbarGroup >
         <Chip
-          backgroundColor={'#867dcc'}
+          backgroundColor={'#0093FF'}
           labelColor={'#fff'}
           labelStyle={chip}
         >
-          <Avatar size={32} color={'#A298F7'} backgroundColor={'#413D63'}>
-            {this.state.firstName + this.state.lastName} 
+          <Avatar size={32} color={'#0093FF'} backgroundColor={'#B3D4FC'}>
+            {this.state.firstName + this.state.lastName}
           </Avatar>
           MY AFFIRMATION
         </Chip>
@@ -359,7 +366,6 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     const tooltip = {
       fontFamily: 'Roboto'
     };
-    console.log(this.props);
     return (
       <div>
         <div style={center}>
