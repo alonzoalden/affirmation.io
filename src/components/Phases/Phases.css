@@ -132,3 +132,86 @@
   background-color: #cce6fa;
 
 }
+
+/*.col-xs-5ths,
+.col-sm-5ths,
+.col-md-5ths,
+.col-lg-5ths {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.col-xs-5ths {
+  width: 20%;
+  float: left;
+}
+@media (min-width: 768px) {
+  .col-sm-5ths {
+    width: 20%;
+    float: left;
+  }
+}
+@media (min-width: 992px) {
+  .col-md-5ths {
+    width: 20%;
+    float: left;
+  }
+}
+@media (min-width: 1200px) {
+  .col-lg-5ths {
+    width: 20%;
+    float: left;
+  }
+}*/
+/************ Icon box 01 ************/
+/*.icon-box-01 {
+  position: relative;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+.icon-box-01 {
+  -webkit-transition: background-color .2s linear;
+  -ms-transition: background-color .2s linear;
+  transition: background-color .2s linear;
+}*/
+.icon-box-01 {
+  height: 317px;
+  width: 640px;
+}
+.icon-box-01.bg1 {
+  background-color: #0093FF;
+}
+.icon-box-01.bg2 {
+  background-color: #0087EB;
+}
+.icon-box-01.bg3 {
+  background-color: #0077CF;
+}
+.icon-box-01:hover {
+  background-color: #867dcc!important;
+}
+.icon-box-01 .livicon-evo {
+  margin: 0 auto 20px;
+}
+.icon-box-01 .icon-wrapper {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.icon-box-01 h5 {
+  font-weight: 400;
+}
+.icon-box-01 .white {
+  color: #fff;
+}
+.icon-box-01 a:hover, a:focus {
+  text-decoration: none;
+}
+
+.col-xs-6 {
+  padding: 0px;
+}
