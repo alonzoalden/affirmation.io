@@ -65,3 +65,14 @@ h2 {
 body {
   overflow-x: hidden;
 }
+
+.glostick {
+  background: linear-gradient(to right, #B3D4FC, #0093FF);
+  content: '';
+  width: 100%;
+  position: absolute;
+  top: 50px;
+  height: 3px;
+  left: 0;
+  margin-top: 17px;
+}

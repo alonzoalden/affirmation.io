@@ -6,7 +6,8 @@
 
 import React from 'react';
 import { Link } from 'react-router';
-import './Phases.css'
+import './Phases.css';
+import '../Animate.css';
 
 class Phases extends React.Component {
   render() {
@@ -29,46 +30,71 @@ class Phases extends React.Component {
       width: 120,
       marginTop: 75
     };
+    const learn = {
+      marginTop: 90,
+      fontSize: 34,
+      fontWeight: 'bold'
+    };
+    const lego = {
+      height: 50,
+      width: 50,
+      marginTop: 40
+    };
+    const text = {
+      color: '#3D454D',
+      marginTop: 60
+    };
+    const textLast = {
+      color: '#fff',
+      marginTop: 60
+    };
     return (
       <div>
         <div className={flexbox}>
           <Link to="/WantToLearn">
-            <div className="col-xs-12 col-md-6 Shamrock" style={{ 'height': '50vh' }}>
-              <div style={center}>
-                <img className='tossing' style={icon} src={require('../../icons/rocket.png')}/>
-              </div>
-              <div style={center}>
-                <h2 className="WhiteFont">I want to learn to code</h2>
+            <div className="row">
+              <div className="col-xs-12">
+                <div className="alert light" role="alert">
+
+                  <div className="col-xs-6 col-xs-offset-3"> 
+                    <h1 style={text}>I WANT TO LEARN TO CODE</h1>
+                  </div>
+                </div>
               </div>
             </div>
           </Link>
           <Link to="/LearningToCode">
-            <div className="col-xs-12 col-md-6 Purple" style={{ 'height': '50vh' }}>
-              <div style={center}>
-                <img className='tossing' style={icon} src={require('../../icons/pencil.png')}/>
-              </div>
-              <div style={center}>
-                <h2 className="WhiteFont">I am learning to code</h2>
+            <div className="row">
+              <div className="col-xs-12">
+                <div className="alert grey" role="alert">
+
+                  <div className="col-xs-6 col-xs-offset-3"> 
+                    <h1 style={text}>I AM LEARNING TO CODE</h1>
+                  </div>
+                </div>
               </div>
             </div>
           </Link>
           <Link to="/JobHunt">
-            <div className="col-xs-12 col-md-6 Blue" style={{ 'height': '50vh' }}>
-              <div style={center}>
-                <img className='tossing' style={icon} src={require('../../icons/briefcase.png')}/>
-              </div>
-              <div style={center}>
-                <h2 className="WhiteFont">I am on the job hunt</h2>
+            <div className="row">
+              <div className="col-xs-12">
+                <div className="alert blue" role="alert">
+
+                  <div className="col-xs-6 col-xs-offset-3"> 
+                    <h1 style={textLast}>I AM ON THE JOB HUNT</h1>
+                  </div>
+                </div>
               </div>
             </div>
           </Link>
           <Link to="/OnTheJob">
-            <div className="col-xs-12 col-md-6 Orange" style={{ 'height': '50vh' }}>
-              <div style={center}>
-                <img className='tossing' style={icon} src={require('../../icons/molecule.png')}/>
-              </div>
-              <div style={center}>
-                <h2 className="WhiteFont">I am on the job</h2>
+            <div className="row">
+              <div className="col-xs-12">
+                <div className="alert darkgrey" role="alert">
+                  <div className="col-xs-6 col-xs-offset-3"> 
+                    <h1 style={textLast}>I AM ON THE JOB</h1>
+                  </div>
+                </div>
               </div>
             </div>
           </Link>

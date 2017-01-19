@@ -39,7 +39,7 @@ class Home extends Component {
       fontWeight: 'bold'
     };
     const main = {
-      marginTop: 200,
+      marginTop: 120,
       color: '#fff'
     };
     const icon = {
@@ -53,7 +53,7 @@ class Home extends Component {
       marginTop: 125
     };
     const auth = {
-      paddingTop: 150,
+      paddingTop: 80,
       paddingLeft: 15
     };
     const github = {

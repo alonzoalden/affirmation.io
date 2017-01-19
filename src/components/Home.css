@@ -58,7 +58,8 @@ h3 {
 }
 
 .footer {
-  background-color: #5E6975;
+  /*background-color: #5E6975;*/
+  background-color: #3D454D;
   color: #fff;
   height: 35vh;
   /*margin-top: 50px;*/
@@ -69,7 +70,7 @@ h5 {
 }
 
 .main {
-  height: 647px;
+  height: 599px;
   background-color: #0093FF;
 }
 

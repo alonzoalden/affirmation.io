@@ -84,13 +84,13 @@ class Site extends Component {
       return (
         <div style={paddedRight}>
           <Link to="/createpost">
-            <IconButton data-tip='Create Post' iconStyle={{color: '#fff'}} touch>
+            <IconButton data-tip='Create Post' iconStyle={{color: '#0093FF'}} touch>
               <ContentCreate />
             </IconButton>
 
           </Link>
           <Link to="/dashboard">
-            <IconButton data-tip='Dashboard' iconStyle={{color: '#fff'}} touch>
+            <IconButton data-tip='Dashboard' iconStyle={{color: '#0093FF'}} touch>
               <ActionDashboard />
             </IconButton>
           </Link>
@@ -107,7 +107,7 @@ class Site extends Component {
     if (this.state.userProfile) {
       let profile = this.state.userProfile.user;
       const titleStyle = {
-        color: '#fff',
+        color: '#0093FF',
         fontFamily: 'Roboto',
         fontSize: 14
       };
@@ -127,12 +127,15 @@ class Site extends Component {
   renderMenu() {
     let profile = this.state.userProfile.user;
     const titleStyle = {
-      color: '#FFDB77',
-      fontFamily: 'Nunito',
-      textDecoration: 'none'
+      color: '#fff',
+      fontFamily: 'Roboto',
+      fontSize: 14,
+      textDecoration: 'none',
+      padding: 0,
     };
     const menuStyle = {
-      backgroundColor: '#867DCC'
+      backgroundColor: '#333',
+      padding: 0,
     };
     const paddedRight = {
       paddingRight: 10
@@ -161,13 +164,26 @@ class Site extends Component {
 
   render() {
     const barStyle = {
-      backgroundColor: grey900
+      backgroundColor: '#fff',
+      height: 70
+    };
+    const splashBarStyle = {
+      backgroundColor: '#0093FF',
+      height: 120,
+      paddingBottom: 0
     };
     const paddedTitleStyle = {
       fontFamily: 'Roboto',
       fontSize: 17,
+      color: '#0093FF',
+      paddingLeft: 30,
+      paddingBottom: 8
+    };
+    const splashPaddedTitleStyle = {
+      fontFamily: 'Roboto',
+      fontSize: 17,
       color: 'white',
-      paddingLeft: 10,
+      paddingLeft: 60,
       paddingBottom: 8
     };
     if (this.props.profile) {
@@ -175,27 +191,30 @@ class Site extends Component {
         {this.getUser()}
       }
       return (
-        <div className="Site">
-          <Toolbar style={barStyle}>
-            <ToolbarGroup onClick={this.handleLogoClick.bind(this)} firstChild={true}>
-              <h2 data-tip='Go To Dashboard' style={paddedTitleStyle}>AFFIRMATION</h2>
-            </ToolbarGroup>
-            <ToolbarGroup>
-              {this.renderLinks()}
-              {this.renderUserControls()}
-            </ToolbarGroup>
-          </Toolbar>
-          <div className="Site-page">
-            {this.props.children}
+        <div>
+          <div className="Site">
+            <Toolbar style={barStyle}>
+              <ToolbarGroup onClick={this.handleLogoClick.bind(this)} firstChild={true}>
+                <h2 data-tip='Go To Dashboard' style={paddedTitleStyle}>AFFIRMATION</h2>
+              </ToolbarGroup>
+              <ToolbarGroup>
+                {this.renderLinks()}
+                {this.renderUserControls()}
+              </ToolbarGroup>
+            </Toolbar>
+          <div className='glostick'></div>
+            <div className="Site-page">
+              {this.props.children}
+            </div>
           </div>
         </div>
       );
     }
     return (
       <div className="Site">
-        <Toolbar style={barStyle}>
+        <Toolbar style={splashBarStyle}>
           <ToolbarGroup firstChild={true}>
-            <h2 style={paddedTitleStyle}>Affirmation.io</h2>
+            <h2 style={splashPaddedTitleStyle}>AFFIRMATION.io</h2>
           </ToolbarGroup>
         </Toolbar>
         <div className="Site-page">
