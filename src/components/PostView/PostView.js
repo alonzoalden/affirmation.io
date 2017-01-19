@@ -414,7 +414,7 @@ class PostView extends React.Component {
       );
     } else {
       return (
-        <Link style={{textDecoration: 'none', color: 'black'}} to={`/profile/${this.props.post.user.email}`}>{this.props.post.user.name}</Link>
+        <Link style={{textDecoration: 'none', color: 'black'}} to={`/profile/${window.btoa(this.props.post.user.email)}`}>{this.props.post.user.name}</Link>
       );
     }
   }
@@ -426,7 +426,7 @@ class PostView extends React.Component {
       );
     } else {
       return (
-        <Link to={`/profile/${this.props.post.user.email}`}>
+        <Link to={`/profile/${window.btoa(this.props.post.user.email)}`}>
           <Avatar size={60} src={this.props.post.user.avatar} />
         </Link>
       );
@@ -466,7 +466,7 @@ class PostView extends React.Component {
       fontFamily: 'Roboto'
     };
     return (
-      <div style={{backgroundColor: 'white'}}>
+      <div>
         <div style={center}>
           <div style={{ margin: 30 }}>
             <Card
@@ -556,8 +556,8 @@ class PostView extends React.Component {
           {this.state.deleting ? 'Your affirmation is now deleted! Thank you for your contributions!' : 'Your affirmation is now updated! Thank you for your contributions!'}
         </Dialog>
         <div style={center}>
-          <div style={{ margin: 20, marginTop: 0 }}>
-            <div style={{ width: 750, margin: 20, marginTop: 0 }}>
+          <div style={{ margin: 20, marginTop: 0, backgroundColor: 'white' }}>
+            <div style={{ width: 710, margin: 20, marginTop: 0 }}>
               <DisqusComments
                 postUrl={`https://localhost:3000/${this.props.post.phase}/${this.props.post.id}`}
                 post={`${this.props.post.phase}/${this.props.post.id}`}

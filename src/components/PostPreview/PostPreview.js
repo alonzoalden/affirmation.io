@@ -96,7 +96,7 @@ class PostPreview extends React.Component {
       );
     } else {
       return (
-        <Link style={{textDecoration: 'none', color: 'black'}} to={`/profile/${this.props.post.user.email}`}>{this.props.post.user.name}</Link>
+        <Link style={{textDecoration: 'none', color: 'black'}} to={`/profile/${window.btoa(this.props.post.user.email)}`}>{this.props.post.user.name}</Link>
       );
     }
   }
@@ -108,7 +108,7 @@ class PostPreview extends React.Component {
       );
     } else {
       return (
-        <Link to={`/profile/${this.props.post.user.email}`}>
+        <Link to={`/profile/${window.btoa(this.props.post.user.email)}`}>
           <Avatar size={60} src={this.props.post.user.avatar} />
         </Link>
       );

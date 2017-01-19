@@ -46,7 +46,7 @@ class EditProfile extends Component {
 
 
   getUser() {
-    let userPath = window.location.pathname.split("/").slice(-1)[0];
+    let userPath = window.atob(window.location.pathname.split("/").slice(-1)[0]);
     axios.get('/api/users/' + userPath)
     .then((user) => {
       user.data.posts.sort((a,b) => {
