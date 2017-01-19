@@ -7,6 +7,7 @@ import './Site.css';
 import axios from 'axios';
 import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 import FlatButton from 'material-ui/FlatButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Avatar from 'material-ui/Avatar';
 import { grey900, blue100, green100 } from 'material-ui/styles/colors';
 import { Step, Stepper, StepButton } from 'material-ui/Stepper';
@@ -25,6 +26,7 @@ import Divider from 'material-ui/Divider';
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import ReactTooltip from 'react-tooltip';
+import Elevator from 'elevator.js';
 
 class Site extends Component {
   constructor(props) {
@@ -58,6 +60,23 @@ class Site extends Component {
     if (this.props.profile) {
       this.getUser();
     }
+  }
+
+  componentDidMount() {
+    this.generateElevatorButton();
+  }
+
+  generateElevatorButton() {
+    new Elevator({
+       element: document.querySelector('#elevator-button'),
+       duration: 5000,
+       startCallback: function() {
+         console.log('elevator started');
+       },
+       endCallback: function() {
+         console.log('elevator ended');
+       }
+   });
   }
 
   handleLogoClick() {
@@ -206,6 +225,9 @@ class Site extends Component {
             <div className="Site-page">
               {this.props.children}
             </div>
+          </div>
+          <div id="elevator-button" className="scrollButton">
+            <FloatingActionButton />
           </div>
         </div>
       );
