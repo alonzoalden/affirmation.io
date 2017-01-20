@@ -49,7 +49,7 @@ class PostPreview extends React.Component {
     return (
       <Badge
         badgeContent={num}
-        primary={true}
+        badgeStyle={{backgroundColor: '#867dcc', color: '#fff'}}
       >
         <SentimentVerySatisfied />
       </Badge>
@@ -60,7 +60,7 @@ class PostPreview extends React.Component {
     return (
       <Badge
         badgeContent={num}
-        primary={true}
+        badgeStyle={{backgroundColor: '#867dcc', color: '#fff'}}
       >
         <SentimentVeryDissatisfied />
       </Badge>
@@ -71,7 +71,7 @@ class PostPreview extends React.Component {
     return (
       <Badge
         badgeContent={num}
-        primary={true}
+        badgeStyle={{backgroundColor: '#867dcc', color: '#fff'}}
       >
         <Favorite />
       </Badge>
@@ -82,7 +82,7 @@ class PostPreview extends React.Component {
     return (
       <Badge
         badgeContent={num}
-        primary={true}
+        badgeStyle={{backgroundColor: '#867dcc', color: '#fff'}}
       >
         <ReportProblem />
       </Badge>
@@ -104,7 +104,7 @@ class PostPreview extends React.Component {
   renderAvatarLink() {
     if (this.props.post.anon) {
       return (
-        <Avatar size={60} src="https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg" />
+        <Avatar size={60} src="../../icons/white_lotus.png" />
       );
     } else {
       return (
@@ -202,7 +202,7 @@ class PostPreview extends React.Component {
                   <FlatButton
                     label="Read More"
                     style={{ marginTop: 10, marginLeft: 10 }}
-                    hoverColor="#0093FF"
+                    hoverColor="#867dcc"
                   />
                 </Link>
                 <div style={{ float: "right", marginRight: 20, marginTop: 5 }}> {this.isFavorite(this.props.post.favorites)}{this.isHelpful(this.props.post.helpful)} {this.isUnhelpful(this.props.post.unhelpful)}</div>

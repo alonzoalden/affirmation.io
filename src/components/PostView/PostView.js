@@ -480,7 +480,7 @@ class PostView extends React.Component {
               <Badge
                 badgeContent={this.state.favorites}
                 primary={true}
-                badgeStyle={{top: 12, right: 12}}
+                badgeStyle={{top: 12, right: 12, backgroundColor: '#867dcc', color: '#fff'}}
                 >
                 <IconButton data-tip="You love this affirmation" onClick={this.favorite.bind(this)}>
                   <FavoriteBorder />
@@ -489,7 +489,7 @@ class PostView extends React.Component {
               <Badge
                 badgeContent={this.state.helpful}
                 primary={true}
-                badgeStyle={{top: 12, right: 12}}
+                badgeStyle={{top: 12, right: 12, backgroundColor: '#867dcc', color: '#fff'}}
               >
                 <IconButton data-tip="This affirmation is helpful" onClick={this.isHelpful.bind(this)}>
                   <SentimentVerySatisfied />
@@ -498,7 +498,7 @@ class PostView extends React.Component {
               <Badge
                 badgeContent={this.state.unhelpful}
                 primary={true}
-                badgeStyle={{top: 12, right: 12}}
+                badgeStyle={{top: 12, right: 12, backgroundColor: '#867dcc', color: '#fff'}}
               >
                 <IconButton data-tip="This affirmation is unhelpful" onClick={this.isUnhelpful.bind(this)}>
                   <SentimentVeryDissatisfied />
@@ -507,7 +507,7 @@ class PostView extends React.Component {
               <Badge
                 badgeContent={this.state.flags}
                 primary={true}
-                badgeStyle={{top: 12, right: 12}}
+                badgeStyle={{top: 12, right: 12, backgroundColor: '#867dcc', color: '#fff'}}
               >
                 <IconButton data-tip="This affirmation contains hate or vulgar content" onClick={this.flag.bind(this)}>
                   <ErrorOutline />

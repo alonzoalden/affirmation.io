@@ -128,7 +128,7 @@ class EditProfile extends Component {
                       <Badge
                       badgeContent={post.favorites}
                       primary={true}
-                      badgeStyle={{top: 5, right: 5}}
+                      badgeStyle={{top: 5, right: 5, backgroundColor: '#867dcc', color: '#fff'}}
                       >
                         <FavoriteBorder />
                       </Badge>
@@ -166,7 +166,7 @@ class EditProfile extends Component {
                         <Badge
                         badgeContent={post.favorites}
                         primary={true}
-                        badgeStyle={{top: 5, right: 5}}
+                        badgeStyle={{top: 5, right: 5, backgroundColor: '#867dcc', color: '#fff'}}
                         >
                           <FavoriteBorder />
                         </Badge>
@@ -216,13 +216,13 @@ class EditProfile extends Component {
     };
     if (this.state.userProfile && this.state.userProfile.user === undefined) {
       return (
-        <div><LinearProgress mode="indeterminate" /></div>
+        <div><LinearProgress mode="indeterminate" color="#0093FF" /></div>
       );
     }
 
     if (!this.state.userProfile) {
       return (
-        <div><LinearProgress mode="indeterminate" /></div>
+        <div><LinearProgress mode="indeterminate" color="#0093FF" /></div>
       );
     }
     return (

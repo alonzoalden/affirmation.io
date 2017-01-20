@@ -68,7 +68,7 @@ class PhaseView extends React.Component {
 
   render() {
 
-    const loader = <div><LinearProgress mode="indeterminate" /></div>
+    const loader = <div><LinearProgress mode="indeterminate" color="#0093FF" /></div>
     let itemViews = []
     if (this.state.currentPosts.length > 0) {
       this.state.currentPosts.map((post) => {
