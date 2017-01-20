@@ -45,7 +45,7 @@ export class SinglePost extends React.Component {
     };
     console.log('state in SinglePost render:', this.state);
     if(this.state.post === undefined || this.state.post.sentiment === undefined) {
-      return (<div><LinearProgress mode="indeterminate" /></div>)
+      return (<div><LinearProgress mode="indeterminate" color="#0093FF" /></div>)
     }
 
     return (
