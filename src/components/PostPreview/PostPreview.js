@@ -19,6 +19,7 @@ import Editor from 'react-medium-editor';
 import 'medium-editor/dist/css/medium-editor.css';
 import 'medium-editor/dist/css/themes/flat.css';
 import Avatar from 'material-ui/Avatar';
+import WhiteLotus from '../../icons/white_lotus.png';
 
 class PostPreview extends React.Component {
   constructor(props) {
@@ -104,7 +105,7 @@ class PostPreview extends React.Component {
   renderAvatarLink() {
     if (this.props.post.anon) {
       return (
-        <Avatar size={60} src="../../icons/white_lotus.png" />
+        <Avatar size={60} src={WhiteLotus} />
       );
     } else {
       return (

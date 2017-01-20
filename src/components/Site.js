@@ -66,7 +66,7 @@ class Site extends Component {
   generateElevatorButton() {
     new Elevator({
        element: document.querySelector('#elevator-button'),
-       duration: 3000,
+       duration: 1500,
        startCallback: function() {
          console.log('elevator started');
        },
@@ -250,10 +250,10 @@ class Site extends Component {
             </div>
           </div>
           <div id="elevator-button">
-          {this.context.router.getCurrentLocation().pathname === '/dashboard' ? null :           
+          {this.context.router.getCurrentLocation().pathname === '/dashboard' ? null :
             <div className="scrollButton">
               <FloatingActionButton backgroundColor="#867dcc">
-                <ArrowUpward color="#000000"/>
+                <ArrowUpward color="#ffffff"/>
               </FloatingActionButton>
             </div>}
           </div>

@@ -36,13 +36,13 @@ class Phases extends React.Component {
                       <div className="icon-box-01 bg1 col-sm-5ths col-xs-6">
                         <div className="icon-wrapper">
                           <div className="livicon-evo" data-options="
-                              name: bulb.svg; 
-                              style: lines; 
-                              strokeColor: #ffffff; 
-                              strokeColorAction: #fff; 
-                              colorsOnHover: custom; 
-                              eventOn: self; 
-                              drawOnViewport: false 
+                              name: bulb.svg;
+                              style: lines;
+                              strokeColor: #ffffff;
+                              strokeColorAction: #fff;
+                              colorsOnHover: custom;
+                              eventOn: self;
+                              drawOnViewport: false
                           "></div>
                           <h5 className="text-center text-uppercase white">I WANT TO LEARN TO CODE</h5>
                           </div>
@@ -58,18 +58,18 @@ class Phases extends React.Component {
                       <div className="icon-box-01 bg2 col-sm-5ths col-xs-6">
                           <div className="icon-wrapper">
                             <div className="livicon-evo" data-options="
-                                name: rocket.svg; 
-                                style: lines; 
-                                strokeColor: #ffffff; 
-                                strokeColorAction: #fff; 
-                                colorsOnHover: custom; 
-                                eventOn: self; 
-                                drawOnViewport: true 
+                                name: rocket.svg;
+                                style: lines;
+                                strokeColor: #ffffff;
+                                strokeColorAction: #fff;
+                                colorsOnHover: custom;
+                                eventOn: self;
+                                drawOnViewport: true
                             "></div>
                             <h5 className="text-center text-uppercase white">I AM LEARNING TO CODE</h5>
                         </div>
                       </div>
-                    </a>              
+                    </a>
                 </div>
             </div>
           </Link>
@@ -80,13 +80,13 @@ class Phases extends React.Component {
                       <div className="icon-box-01 bg3 col-sm-5ths col-xs-6" style={{ 'height': '45vh' }}>
                         <div className="icon-wrapper">
                           <div className="livicon-evo" data-options="
-                              name: desktop.svg; 
-                              style: lines; 
-                              strokeColor: #ffffff; 
-                              strokeColorAction: #fff; 
-                              colorsOnHover: custom; 
-                              eventOn: self; 
-                              drawOnViewport: true 
+                              name: dashboard.svg;
+                              style: lines;
+                              strokeColor: #ffffff;
+                              strokeColorAction: #fff;
+                              colorsOnHover: custom;
+                              eventOn: self;
+                              drawOnViewport: true
                           "></div>
                           <h5 className="text-center text-uppercase white">I AM ON THE JOB HUNT</h5>
                         </div>
@@ -102,13 +102,13 @@ class Phases extends React.Component {
                     <div className="icon-box-01 bg1 col-sm-5ths col-xs-6" style={{ 'height': '45vh' }}>
                       <div className="icon-wrapper">
                         <div className="livicon-evo" data-options="
-                            name: paper-plane.svg; 
-                            style: lines; 
-                            strokeColor: #ffffff; 
-                            strokeColorAction: #fff; 
-                            colorsOnHover: custom; 
-                            eventOn: self; 
-                            drawOnViewport: true 
+                            name: paper-plane.svg;
+                            style: lines;
+                            strokeColor: #ffffff;
+                            strokeColorAction: #fff;
+                            colorsOnHover: custom;
+                            eventOn: self;
+                            drawOnViewport: true
                         "></div>
                         <h5 className="text-center text-uppercase white">I AM ON THE JOB</h5>
                       </div>

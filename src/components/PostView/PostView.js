@@ -27,6 +27,7 @@ import 'medium-editor/dist/css/medium-editor.css';
 import 'medium-editor/dist/css/themes/flat.css';
 import {connectProfile} from '../../auth';
 import Avatar from 'material-ui/Avatar';
+import WhiteLotus from '../../icons/white_lotus.png';
 
 class PostView extends React.Component {
   constructor(props) {
@@ -421,7 +422,7 @@ class PostView extends React.Component {
   renderAvatarLink() {
     if (this.props.post.anon) {
       return (
-        <Avatar size={60} src="https://s-media-cache-ak0.pinimg.com/564x/4d/b7/b7/4db7b7ecb39c4eebc5b8f5358773e4a2.jpg" />
+        <Avatar size={60} src={WhiteLotus} />
       );
     } else {
       return (
