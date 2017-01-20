@@ -2,36 +2,33 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connectProfile, logout, isLoggedIn } from '../auth';
 import './Site.css';
-// import logo from '../logo.svg';
-// <Avatar src={logo} className="Site-logo" alt="logo" style={logoStyle}/> ----> Spinning React Logo - switch to Lotus??
 import axios from 'axios';
 import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 import FlatButton from 'material-ui/FlatButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Avatar from 'material-ui/Avatar';
-import { grey900, blue100, green100 } from 'material-ui/styles/colors';
-import { Step, Stepper, StepButton } from 'material-ui/Stepper';
-import ActionCompareArrows from 'material-ui/svg-icons/action/compare-arrows';
 import ActionDashboard from 'material-ui/svg-icons/action/dashboard';
 import ContentCreate from 'material-ui/svg-icons/content/create';
-import ImageColorLens from 'material-ui/svg-icons/image/color-lens';
-import ImageBrush from 'material-ui/svg-icons/image/brush';
-import ImageLooks from 'material-ui/svg-icons/image/looks';
-import ImageBlurCircular from 'material-ui/svg-icons/image/blur-circular';
 //Menu
-import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import Divider from 'material-ui/Divider';
-import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
+import ArrowUpward from 'material-ui/svg-icons/navigation/arrow-upward';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import ReactTooltip from 'react-tooltip';
 import Elevator from 'elevator.js';
+import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
+import RaisedButton from 'material-ui/RaisedButton';
+
+
 
 class Site extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      open: false,
+    };
   }
 
   static propTypes = {
@@ -69,7 +66,7 @@ class Site extends Component {
   generateElevatorButton() {
     new Elevator({
        element: document.querySelector('#elevator-button'),
-       duration: 5000,
+       duration: 3000,
        startCallback: function() {
          console.log('elevator started');
        },
@@ -103,7 +100,7 @@ class Site extends Component {
       return (
         <div style={paddedRight}>
           <Link to="/createpost">
-            <IconButton data-tip='Create Post' iconStyle={{color: '#0093FF'}} touch>
+            <IconButton data-tip='Create Affirmation' iconStyle={{ color: '#0093FF' }} iconHoverColor="#867dcc" touch>
               <ContentCreate />
             </IconButton>
 
@@ -122,63 +119,88 @@ class Site extends Component {
     }
   }
 
-  renderUserControls() {
+  // renderUserControls() {
+  //   if (this.state.userProfile) {
+  //     let profile = this.state.userProfile.user;
+  //     const titleStyle = {
+  //       color: '#0093FF',
+  //       fontFamily: 'Roboto',
+  //       fontSize: 14
+  //     };
+  //     const nunito = {
+  //       fontFamily: 'Nunito',
+  //       color: '#867DCC'
+  //     };
+  //     return (
+  //       <ToolbarGroup lastChild={true}>
+  //         <ToolbarTitle text={profile.name.toUpperCase()} style={titleStyle} />
+  //         {this.renderMenu()}
+  //       </ToolbarGroup>
+  //     );
+  //   }
+  // }
+
+  renderMenu() {
     if (this.state.userProfile) {
       let profile = this.state.userProfile.user;
       const titleStyle = {
         color: '#0093FF',
         fontFamily: 'Roboto',
-        fontSize: 14
+        fontSize: 14,
+        cursor: 'pointer'
       };
-      const nunito = {
-        fontFamily: 'Nunito',
-        color: '#867DCC'
+      const itemStyle = {
+        color: '#0093FF',
+        fontFamily: 'Roboto',
+        fontSize: 16,
+        textAlign: 'center',
+        cursor: 'pointer',
+        width: 150,
+        marginLeft: 8
+      };
+      const avatar = {
+        marginTop: 32,
+        marginRight: 10
+      };
+      const handleTouchTap = (event) => {
+        // This prevents ghost click.
+        event.preventDefault();
+
+        this.setState({
+          open: true,
+          anchorEl: event.currentTarget,
+        });
+      };
+      const handleRequestClose = () => {
+        this.setState({
+          open: false,
+        });
       };
       return (
-        <ToolbarGroup lastChild={true}>
-          <ToolbarTitle text={profile.name.toUpperCase()} style={titleStyle} />
-          {this.renderMenu()}
-        </ToolbarGroup>
+        <div>
+         <ToolbarGroup lastChild={true}>
+           <Avatar style={avatar} src={profile.avatar}/>
+           <ToolbarTitle text={profile.name.toUpperCase()} style={titleStyle} onTouchTap={handleTouchTap} />
+           <Popover
+             open={this.state.open}
+             anchorEl={this.state.anchorEl}
+             anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+             targetOrigin={{horizontal: 'left', vertical: 'top'}}
+             onRequestClose={handleRequestClose}
+             animation={PopoverAnimationVertical}
+           >
+             <Menu style={{ width: 150 }}>
+               <Link to="/profile" style={{textDecoration: 'none'}}>
+                  <MenuItem primaryText="Profile" style={itemStyle}/>
+                </Link>
+                <Divider />
+                <MenuItem primaryText="Logout" style={itemStyle} onClick={logout} />
+             </Menu>
+           </Popover>
+         </ToolbarGroup>
+       </div>
       );
     }
-  }
-
-  renderMenu() {
-    let profile = this.state.userProfile.user;
-    const titleStyle = {
-      color: '#fff',
-      fontFamily: 'Roboto',
-      fontSize: 14,
-      textDecoration: 'none',
-      padding: 0,
-    };
-    const menuStyle = {
-      backgroundColor: '#333',
-      padding: 0,
-    };
-    const paddedRight = {
-      paddingRight: 10
-    };
-    const avatar = {
-      marginTop: 32
-    };
-    return (
-      <IconMenu
-        iconButtonElement={<Avatar style={avatar} src={profile.avatar}/>}
-        anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-        targetOrigin={{horizontal: 'right', vertical: 'top'}}
-        listStyle={menuStyle}
-        style={paddedRight}
-      >
-        <Link to="/profile" style={{textDecoration: 'none'}}>
-          <MenuItem primaryText="Profile" style={titleStyle}/>
-        </Link>
-
-        <Divider />
-        <MenuItem primaryText="Logout" style={titleStyle} onClick={logout} />
-
-      </IconMenu>
-    );
   }
 
   render() {
@@ -193,10 +215,11 @@ class Site extends Component {
     };
     const paddedTitleStyle = {
       fontFamily: 'Roboto',
-      fontSize: 17,
+      fontSize: 16,
       color: '#0093FF',
       paddingLeft: 30,
-      paddingBottom: 8
+      paddingBottom: 8,
+      cursor: 'pointer'
     };
     const splashPaddedTitleStyle = {
       fontFamily: 'Roboto',
@@ -207,18 +230,18 @@ class Site extends Component {
     };
     if (this.props.profile) {
       if (!this.state.userProfile) {
-        {this.getUser()}
+        this.getUser();
       }
       return (
         <div>
           <div className="Site">
             <Toolbar style={barStyle}>
               <ToolbarGroup onClick={this.handleLogoClick.bind(this)} firstChild={true}>
-                <h2 data-tip='Go To Dashboard' style={paddedTitleStyle}>AFFIRMATION</h2>
+                <h2 style={paddedTitleStyle} className="paddedTitleStyle:hover" >AFFIRMATION</h2>
               </ToolbarGroup>
               <ToolbarGroup>
                 {this.renderLinks()}
-                {this.renderUserControls()}
+                {this.renderMenu()}
               </ToolbarGroup>
             </Toolbar>
           <div className='glostick'></div>
@@ -227,7 +250,9 @@ class Site extends Component {
             </div>
           </div>
           <div id="elevator-button" className="scrollButton">
-            <FloatingActionButton />
+            <FloatingActionButton backgroundColor="white">
+              <ArrowUpward color="#000000"/>
+            </FloatingActionButton>
           </div>
         </div>
       );
