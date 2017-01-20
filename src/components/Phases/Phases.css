@@ -177,8 +177,8 @@
   transition: background-color .2s linear;
 }*/
 .icon-box-01 {
-  height: 317px;
-  width: 640px;
+  height: 50vh;
+  width: 50vw;
 }
 .icon-box-01.bg1 {
   background-color: #0093FF;
@@ -212,6 +212,6 @@
   text-decoration: none;
 }
 
-.col-xs-6 {
+/*.col-xs-6 {
   padding: 0px;
-}
+}*/
