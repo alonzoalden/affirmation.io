@@ -17,7 +17,7 @@ import Avatar from 'material-ui/Avatar';
 import Face from 'material-ui/svg-icons/action/face';
 import Editor from 'react-medium-editor';
 import 'medium-editor/dist/css/medium-editor.css';
-import 'medium-editor/dist/css/themes/default.css';
+import 'medium-editor/dist/css/themes/flat.css';
 import LinearProgress from 'material-ui/LinearProgress';
 
 class EditProfile extends Component {
@@ -233,7 +233,7 @@ class EditProfile extends Component {
         <div className="col-md-6 col-md-offset-1">
           <div style={centerPaper}>
             <Paper style={paperStyle} zDepth={1}>
-              <Tabs inkBarStyle={{backgroundColor: '#B3D4FC'}}>
+              <Tabs inkBarStyle={{backgroundColor: '#867dcc'}}>
                 <Tab style={barStyle} label="Affirmations" icon={<Face />}>
                   {this.renderPostList()}
                 </Tab>

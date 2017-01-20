@@ -21,7 +21,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Refresh from 'material-ui/svg-icons/navigation/refresh';
 import Editor from 'react-medium-editor';
 import 'medium-editor/dist/css/medium-editor.css';
-import 'medium-editor/dist/css/themes/default.css';
+import 'medium-editor/dist/css/themes/flat.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import LinearProgress from 'material-ui/LinearProgress';
 injectTapEventPlugin();
@@ -322,7 +322,7 @@ class EditProfile extends Component {
         <div className="col-md-6 col-md-offset-1">
           <div style={centerPaper}>
             <Paper style={paperStyle} zDepth={1}>
-              <Tabs inkBarStyle={{backgroundColor: '#B3D4FC'}}>
+              <Tabs inkBarStyle={{backgroundColor: '#867dcc'}}>
                 <Tab style={barStyle} label="Affirmations" icon={<Face />}>
                   {this.renderPostList()}
                 </Tab>
