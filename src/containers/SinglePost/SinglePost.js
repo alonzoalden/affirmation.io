@@ -8,7 +8,7 @@ import React from 'react';
 import PostView from '../../components/PostView/PostView';
 import axios from 'axios';
 import {connectProfile} from '../../auth';
-
+import LinearProgress from 'material-ui/LinearProgress';
 
 export class SinglePost extends React.Component {
   constructor(props) {
@@ -38,9 +38,14 @@ export class SinglePost extends React.Component {
   }
 
   render() {
+    const center = {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    };
     console.log('state in SinglePost render:', this.state);
     if(this.state.post === undefined || this.state.post.sentiment === undefined) {
-      return (<div>Loading Affirmation!...</div>)
+      return (<div><LinearProgress mode="indeterminate" /></div>)
     }
 
     return (
