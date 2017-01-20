@@ -24,7 +24,7 @@ import './PostView.css';
 import DisqusComments from '../Comments.js';
 import Dialog from 'material-ui/Dialog';
 import 'medium-editor/dist/css/medium-editor.css';
-import 'medium-editor/dist/css/themes/default.css';
+import 'medium-editor/dist/css/themes/flat.css';
 import {connectProfile} from '../../auth';
 import Avatar from 'material-ui/Avatar';
 

@@ -17,7 +17,7 @@ import ReportProblem from 'material-ui/svg-icons/action/report-problem';
 import Divider from 'material-ui/Divider';
 import Editor from 'react-medium-editor';
 import 'medium-editor/dist/css/medium-editor.css';
-import 'medium-editor/dist/css/themes/default.css';
+import 'medium-editor/dist/css/themes/flat.css';
 import Avatar from 'material-ui/Avatar';
 
 class PostPreview extends React.Component {

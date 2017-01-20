@@ -10,7 +10,6 @@ import Toggle from 'material-ui/Toggle';
 // import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import AddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import Dialog from 'material-ui/Dialog';
 // import { Link } from 'react-router';
 import validator from 'validator';
@@ -18,8 +17,8 @@ import axios from 'axios';
 import {connectProfile} from '../../auth';
 import Editor from 'react-medium-editor';
 import './CreatePost.css';
-require('medium-editor/dist/css/medium-editor.css');
-require('medium-editor/dist/css/themes/default.css');
+import 'medium-editor/dist/css/medium-editor.css';
+import 'medium-editor/dist/css/themes/flat.css';
 import Popover from 'material-ui/Popover';
 import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
@@ -180,12 +179,12 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     };
     return (
         <Editor
-          data-placeholder='Write advice here...'
+          data-placeholder='Spread your knowledge...'
           className='glowing-border'
           style={messageText}
           text={this.state.message}
           onChange={this.messageChangeHandler.bind(this)}
-          options={{toolbar: {buttons: ['bold', 'italic', 'underline', 'h2', 'h3', 'quote']}, placeholder: { hideOnClick: false}}}
+          options={{toolbar: {buttons: ['bold', 'italic', 'underline', 'anchor']}, placeholder: { hideOnClick: false}}}
         />
     );
   }
@@ -199,14 +198,17 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
     const darkBlue = {
       color: '#0093FF',
     }
+    const purp = {
+      color: '#867dcc',
+    }
     return (
       <div>
-        <DropDownMenu value={this.state.value} onChange={this.phaseChangeHandler.bind(this)} style={dropDown} iconStyle={{fill: 'white'}}>
-          <MenuItem value='Phase' primaryText="Select Phase" />
+        <DropDownMenu value={this.state.value} onChange={this.phaseChangeHandler.bind(this)} style={dropDown} iconStyle={{fill: 'white'}} labelStyle={{ color: 'white' }} selectedMenuItemStyle={{ color: '#867dcc'}} >
+          <MenuItem value='Phase' style={purp} primaryText="Select Phase" />
           <MenuItem value='wanttolearn' style={darkBlue} primaryText="Want to Learn" />
           <MenuItem value='learningtocode' style={darkBlue} primaryText="Learning to Code" />
-          <MenuItem value='jobhunt' style={darkBlue} primaryText="Looking for a Job" />
-          <MenuItem value='onthejob' style={darkBlue} primaryText="Working as a Software Engineer" />
+          <MenuItem value='jobhunt' style={darkBlue} primaryText="On the Job Hunt" />
+          <MenuItem value='onthejob' style={darkBlue} primaryText="On the Job" />
         </DropDownMenu>
       </div>
     );
@@ -222,8 +224,8 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
       <Toggle
         style={toggle}
         onToggle={this.toggleChangeHandler.bind(this)}
-        trackStyle={{backgroundColor: '#B3D4FC'}}
-        thumbStyle={{backgroundColor: '#B3D4FC'}}
+        trackStyle={{backgroundColor: '#867dcc'}}
+        thumbStyle={{backgroundColor: '#867dcc'}}
         trackSwitchedStyle={{backgroundColor: '#0093FF'}}
         thumbSwitchedStyle={{backgroundColor: '#0093FF'}}
       />
@@ -258,12 +260,12 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
   renderPopOver(){
     const that = this;
     const pop = {
-      height: 130,
+      height: 75,
       width: 150,
       padding: 15,
-      color: 'white',
-      backgroundColor: '#393939',
+      backgroundColor: '#FFFFFF',
       fontFamily: 'Roboto',
+      color: '#0093FF'
     };
     return (
       <div>
@@ -273,8 +275,8 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
             onRequestClose={this.handleRequestClose}
           >
           {(validator.isEmpty(that.state.title) || validator.equals(that.state.title, '<p><br></p>')) ? <div style={pop}>Your affirmation needs a title!</div> : null}
-          {(validator.isEmpty(that.state.message) || validator.equals(that.state.message, '<p><br><p>')) ? <div style={pop}>Your affirmation needs some content, too!</div> : null}
-          {(this.state.phase === "Phase" || this.state.phase === null) ? <div style={pop}>Don't forget to choose a phase!</div> : null}
+          {(validator.isEmpty(that.state.message) || validator.equals(that.state.message, '<p><br></p>')) ? <div style={pop}>Your affirmation needs some content!</div> : null}
+          {(this.state.phase === "Phase" || this.state.phase === null) ? <div style={pop}>Your affirmation needs a phase!</div> : null}
         </Popover>
       </div>
     )
@@ -296,7 +298,6 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
             targetOrigin={{horizontal: 'left', vertical: 'top'}}
             onRequestClose={this.handleRequestClose}
           >
-          <div style={pop}>Select Phase.</div>
         </Popover>
       </div>
     )
@@ -333,15 +334,15 @@ class CreatePost extends React.Component { // eslint-disable-line react/prefer-s
           labelColor={'#fff'}
           labelStyle={chip}
         >
-          <Avatar size={32} color={'#0093FF'} backgroundColor={'#B3D4FC'}>
+          <Avatar size={32} color={'#FFFFFF'} backgroundColor={'#867dcc'}>
             {this.state.firstName + this.state.lastName}
           </Avatar>
-          MY AFFIRMATION
+          CREATE AN AFFIRMATION
         </Chip>
           </ToolbarGroup>
           <ToolbarGroup>
             <ToolbarSeparator />
-            <i className="material-icons" data-tip="Submit annonymously">visibility_off</i>
+            <i className="material-icons" style={{ color: 'white' }}data-tip="Submit Anonymously">visibility_off</i>
             {this.renderAnonToggle()}
             {this.renderPhaseSelector()}
             <FlatButton onClick={this.validateAndSubmit.bind(this)} style={button} label="Submit" />
