@@ -17,7 +17,7 @@ import Avatar from 'material-ui/Avatar';
 import Face from 'material-ui/svg-icons/action/face';
 import Editor from 'react-medium-editor';
 import 'medium-editor/dist/css/medium-editor.css';
-import 'medium-editor/dist/css/themes/flat.css';
+import './FlatEditor.css';
 import LinearProgress from 'material-ui/LinearProgress';
 
 class EditProfile extends Component {

@@ -18,7 +18,7 @@ import {connectProfile} from '../../auth';
 import Editor from 'react-medium-editor';
 import './CreatePost.css';
 import 'medium-editor/dist/css/medium-editor.css';
-import 'medium-editor/dist/css/themes/flat.css';
+import '../FlatEditor.css';
 import Popover from 'material-ui/Popover';
 import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';

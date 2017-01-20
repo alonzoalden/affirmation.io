@@ -17,7 +17,7 @@ import ReportProblem from 'material-ui/svg-icons/action/report-problem';
 import Divider from 'material-ui/Divider';
 import Editor from 'react-medium-editor';
 import 'medium-editor/dist/css/medium-editor.css';
-import 'medium-editor/dist/css/themes/flat.css';
+import '../FlatEditor.css';
 import Avatar from 'material-ui/Avatar';
 import WhiteLotus from '../../icons/white_lotus.png';
 

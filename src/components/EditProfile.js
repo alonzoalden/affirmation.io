@@ -21,7 +21,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Refresh from 'material-ui/svg-icons/navigation/refresh';
 import Editor from 'react-medium-editor';
 import 'medium-editor/dist/css/medium-editor.css';
-import 'medium-editor/dist/css/themes/flat.css';
+import './FlatEditor.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import LinearProgress from 'material-ui/LinearProgress';
 injectTapEventPlugin();
