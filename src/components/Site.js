@@ -249,10 +249,13 @@ class Site extends Component {
               {this.props.children}
             </div>
           </div>
-          <div id="elevator-button" className="scrollButton">
-            <FloatingActionButton backgroundColor="white">
-              <ArrowUpward color="#000000"/>
-            </FloatingActionButton>
+          <div id="elevator-button">
+          {this.context.router.getCurrentLocation().pathname === '/dashboard' ? null :           
+            <div className="scrollButton">
+              <FloatingActionButton backgroundColor="#867dcc">
+                <ArrowUpward color="#000000"/>
+              </FloatingActionButton>
+            </div>}
           </div>
         </div>
       );
