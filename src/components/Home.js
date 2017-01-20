@@ -5,7 +5,7 @@ import './Home.css';
 import './Animate.css';
 import {isLoggedIn} from '../auth';
 // import Paper from 'material-ui/Paper';
-import $ from 'jquery'; 
+import $ from 'jquery';
 
 class Home extends Component {
   static propTypes = {
@@ -108,7 +108,7 @@ class Home extends Component {
       <div className="row">
         <div className="col-xs-12">
           <div className="alert alert-success" role="alert">
-            <div className="col-xs-4 col-xs-offset-2">   
+            <div className="col-xs-4 col-xs-offset-2">
             <h1 style={text}>Want to learn?</h1>
             <h3>
               Are you thinking about learning to write code? Does the field of software engineering excite you? We know that it may be challenging to find out where to begin and what path to take. Let the advice from experienced software engineers guide you on the beginning of your journey!
@@ -147,7 +147,7 @@ class Home extends Component {
                 </h3>
             </div>
             <div className="col-xs-3 col-xs-offset-1">
-            <div className="livicon-evo" style={icon} data-options=" name: desktop.svg; style: linesAlt; size: 180px; strokeStyle: original; strokeWidth: original; tryToSharpen: true; rotate: none; flipHorizontal: false; flipVertical: false; strokeColor: #0093ff; strokeColorAction: #b3421b; strokeColorAlt: #867dcc; strokeColorAltAction: #ab69c6; fillColor: #91e9ff; fillColorAction: #ff926b; solidColor: #6C7A89; solidColorAction: #4C5A69; solidColorBgAction: #ffffff; solidColorBg: #ffffff; colorsOnHover: none; colorsHoverTime: 0.3; colorsWhenMorph: none; brightness: 0.1; saturation: 0.07; morphState: start; morphImage: none; allowMorphImageTransform: false; strokeWidthFactorOnHover: none; strokeWidthOnHoverTime: 0.3; keepStrokeWidthOnResize: false; animated: true; eventType: hover; eventOn: self; autoPlay: true; delay: 0; duration: default; repeat: default; repeatDelay: default; drawOnViewport: true; viewportShift: oneThird; drawDelay: 0; drawTime: 1; drawStagger: 0.1; drawStartPoint: middle; drawColor: same; drawColorTime: 1; drawReversed: false; drawEase: Power1.easeOut; eraseDelay: 0; eraseTime: 1; eraseStagger: 0.1; eraseStartPoint: middle; eraseReversed: true; eraseEase: Power1.easeOut; touchEvents: false ">
+            <div className="livicon-evo" style={icon} data-options=" name: dashboard.svg; style: linesAlt; size: 180px; strokeStyle: original; strokeWidth: original; tryToSharpen: true; rotate: none; flipHorizontal: false; flipVertical: false; strokeColor: #0093ff; strokeColorAction: #b3421b; strokeColorAlt: #867dcc; strokeColorAltAction: #ab69c6; fillColor: #91e9ff; fillColorAction: #ff926b; solidColor: #6C7A89; solidColorAction: #4C5A69; solidColorBgAction: #ffffff; solidColorBg: #ffffff; colorsOnHover: none; colorsHoverTime: 0.3; colorsWhenMorph: none; brightness: 0.1; saturation: 0.07; morphState: start; morphImage: none; allowMorphImageTransform: false; strokeWidthFactorOnHover: none; strokeWidthOnHoverTime: 0.3; keepStrokeWidthOnResize: false; animated: true; eventType: hover; eventOn: self; autoPlay: true; delay: 0; duration: default; repeat: default; repeatDelay: default; drawOnViewport: true; viewportShift: oneThird; drawDelay: 0; drawTime: 1; drawStagger: 0.1; drawStartPoint: middle; drawColor: same; drawColorTime: 1; drawReversed: false; drawEase: Power1.easeOut; eraseDelay: 0; eraseTime: 1; eraseStagger: 0.1; eraseStartPoint: middle; eraseReversed: true; eraseEase: Power1.easeOut; touchEvents: false ">
             </div>
             </div>
           </div>
@@ -165,24 +165,6 @@ class Home extends Component {
                 <h3>
                   You've made it! But the journey has just begun. Are you curious as to how to effectively navigate the workspace? Would you like to know how to get the most out of this opportunity? Let the advice from experienced software engineers guide you in not only making your employer happy, but also to make sure that your learning never stops!
                 </h3>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-xs-12">
-          <div className="alert grey" role="alert">
-            <div className="col-xs-6 col-xs-offset-3">
-              <h1 style={learn}></h1>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-xs-12">
-          <div className="alert blue" role="alert">
-            <div className="col-xs-6 col-xs-offset-3">
-              <h1 style={learn}></h1>
             </div>
           </div>
         </div>
