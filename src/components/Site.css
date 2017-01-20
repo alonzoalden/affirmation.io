@@ -71,7 +71,7 @@ body {
 }
 
 .glostick {
-  background: linear-gradient(to right, #B3D4FC, #0093FF);
+  background: linear-gradient(to right, #867dcc, #0093FF);
   content: '';
   width: 100%;
   position: absolute;
@@ -84,5 +84,13 @@ body {
 #elevator-button {
   position: fixed;
   bottom: 10%;
-  left: 10%;
+  left: 5%;
 }
+
+.paddedTitleStyle:hover {
+  font-family: 'Roboto';
+  font-size: 17;
+  color: '#867dcc';
+  paddingLeft: 60;
+  paddingBottom: 8;
+};
