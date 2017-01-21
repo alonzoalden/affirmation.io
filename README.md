@@ -30,11 +30,18 @@ Use npm start to load the application for development
 
 ## Requirements
 
-- Node ^4.4.x
-- Express ^4.14.x
-- PG ^6.1
-  - Important: Use Postgres.app www.postgres.app
+You’ll need to have Node >= 4 on your machine.
 
+We strongly recommend to use Node >= 6 and npm >= 3 for faster installation speed and better disk usage. You can use [nvm](https://github.com/creationix/nvm#usage) to easily switch Node versions between different projects.
+
+- React ^15.4.1
+- React Router ^3.0.x
+- Node ^4.x.x
+- Express ^4.14.x
+- PostgreSQL ^6.1
+  - Important: If using a Mac, download Postgres.app (www.postgres.app) to run local database.
+- Sequelize ^3.28.x
+- Auth0-lock ^10.8.1
 
 ## Development
 
