@@ -1,6 +1,8 @@
-# Project Name
+# Affirmation
 
-Whether you want to learn to code, you are learning to code, you are on the job hunt, or you are a seasoned career veteran, you will face many and specific issues pertaining to the current phase you are in, and it can sometimes be challenging and hard. Our app allows experts in the software engineering field to give open and candid advice from their personal experiences from when they were in your shoes. By receiving this advice, it can help you gain the confidence and skills you need to move forward and thrive.
+## What is Affirmation?
+
+Whether you want to learn to code, you are learning to code, you are on the job hunt, or you are a seasoned career veteran, you will face many bumps and specific hurdles pertaining to the current phase of your career that you are in as a Software Engineer. We know that it can sometimes be challenging, lonely, and isolating. Affirmation allows experts in the Software Engineering field to give open and candid advice from their personal experiences. By sharing with the community, you are giving back to ensure postive growth and success for the future of the Software Engineering ecosystem. By utilizing Affirmation's knowledgebase, you will recieve support and help gain the confidence and skills you need to grow and thrive.
 
 ## Team
 
@@ -22,15 +24,16 @@ Whether you want to learn to code, you are learning to code, you are on the job 
 
 Instructions:
 
-To run the app locally for production, make sure you have all the necessary software requirements and dependencies installed.
+To run the app locally for development, make sure you have all the necessary software requirements and dependencies installed.
 
-Use npm start to load the application for the production
+Use npm start to load the application for development
+
 ## Requirements
 
 - Node ^4.4.x
-- Redis ^4.14.x
-- PostgreSQL ^4.0.x
-  -Important: Use Postgres.app www.postgres.app
+- Express ^4.14.x
+- PG ^6.1
+  - Important: Use Postgres.app www.postgres.app
 
 
 ## Development
