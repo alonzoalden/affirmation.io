@@ -6,8 +6,8 @@ Whether you want to learn to code, you are learning to code, you are on the job 
 
 ## Team
 
-  - __Product Owner__: Luke Golden
-  - __Scrum Master__: Diogenis Panagiotis
+  - __Product Owner__: Diogenis Panagiotis
+  - __Scrum Master__: Luke Golden
   - __Development Team Members__: Raj Desai, David Flowers, Alonzo Alden
 
 ## Table of Contents
