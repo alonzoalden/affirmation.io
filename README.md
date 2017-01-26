@@ -67,4 +67,12 @@ View the project roadmap [here](https://github.com/HRR20-Lotus/affirmation.io/is
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+Please review the Code of Conduct and Git Workflow before contributing. We don't tolerate negative human beings and bad git practices. Ignorance is not cool!
+
+[Code of Conduct](https://github.com/HRR20-Lotus/affirmation.io/wiki/Code-Of-Conduct)
+
+[Git Workflow](https://github.com/HRR20-Lotus/affirmation.io/wiki/Git-Workflow)
+
+[API Reference](https://github.com/HRR20-Lotus/affirmation.io/wiki/API-Reference)
+
+[Database Schemas](https://github.com/HRR20-Lotus/affirmation.io/wiki/Database-Schemas)
